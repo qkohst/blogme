@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../admin-assets/img/logo.png">
     <link rel="icon" type="image/png" href="../admin-assets/img/logo.png">
     <title>
-        Qkoh St |
+        Qkoh St | {{$title}}
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -42,6 +42,7 @@
     </main>
 
     <!-- Sweet Alert -->
+    @include('sweetalert::alert')
 
     <!--   Core JS Files   -->
     <script src="/admin-assets/js/core/jquery.3.2.1.min.js"></script>

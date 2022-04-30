@@ -20,12 +20,6 @@
                          Home
                      </a>
                  </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">
-                         <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                         Login
-                     </a>
-                 </li>
              </ul>
          </div>
      </div>

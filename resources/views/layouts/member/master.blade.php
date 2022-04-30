@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Qkoh St- Home</title>
+    <title>Qkoh St | {{$title}}</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -24,7 +24,9 @@
     <link href="member-assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
+    <link href="member-assets/css/adminlte.min.css" rel="stylesheet">
     <link href="member-assets/css/style.css" rel="stylesheet">
+
 
 </head>
 
@@ -35,6 +37,7 @@
     <!-- End Header -->
 
     <!-- Main Content -->
+    <div id="top"></div>
     @yield('content')
     <!-- End Main Content -->
 
@@ -42,7 +45,10 @@
     @include('layouts.member.footer')
     <!-- End Footer -->
 
-    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+    <a href="#top" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+    <!-- Sweet Alert -->
+    @include('sweetalert::alert')
 
     <!-- Vendor JS Files -->
     <script src="member-assets/vendor/jquery/jquery.min.js"></script>

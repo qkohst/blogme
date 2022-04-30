@@ -123,7 +123,7 @@
           <div class="card card-carousel overflow-hidden h-100 p-0">
             <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
               <div class="carousel-inner border-radius-lg h-100">
-                <div class="carousel-item h-100 active" style="background-image: url('../assets/img/carousel-1.jpg');
+                <div class="carousel-item h-100 active" style="background-image: url('../admin-assets/img/carousel-1.jpg');
       background-size: cover;">
                   <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -133,7 +133,7 @@
                     <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
                   </div>
                 </div>
-                <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-2.jpg');
+                <div class="carousel-item h-100" style="background-image: url('../admin-assets/img/carousel-2.jpg');
       background-size: cover;">
                   <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -143,7 +143,7 @@
                     <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
                   </div>
                 </div>
-                <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-3.jpg');
+                <div class="carousel-item h-100" style="background-image: url('../admin-assets/img/carousel-3.jpg');
       background-size: cover;">
                   <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -181,7 +181,7 @@
                     <td class="w-30">
                       <div class="d-flex px-2 py-1 align-items-center">
                         <div>
-                          <img src="../assets/img/icons/flags/US.png" alt="Country flag">
+                          <img src="../admin-assets/img/icons/flags/US.png" alt="Country flag">
                         </div>
                         <div class="ms-4">
                           <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -212,7 +212,7 @@
                     <td class="w-30">
                       <div class="d-flex px-2 py-1 align-items-center">
                         <div>
-                          <img src="../assets/img/icons/flags/DE.png" alt="Country flag">
+                          <img src="../admin-assets/img/icons/flags/DE.png" alt="Country flag">
                         </div>
                         <div class="ms-4">
                           <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -243,7 +243,7 @@
                     <td class="w-30">
                       <div class="d-flex px-2 py-1 align-items-center">
                         <div>
-                          <img src="../assets/img/icons/flags/GB.png" alt="Country flag">
+                          <img src="../admin-assets/img/icons/flags/GB.png" alt="Country flag">
                         </div>
                         <div class="ms-4">
                           <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -274,7 +274,7 @@
                     <td class="w-30">
                       <div class="d-flex px-2 py-1 align-items-center">
                         <div>
-                          <img src="../assets/img/icons/flags/BR.png" alt="Country flag">
+                          <img src="../admin-assets/img/icons/flags/BR.png" alt="Country flag">
                         </div>
                         <div class="ms-4">
                           <p class="text-xs font-weight-bold mb-0">Country:</p>
