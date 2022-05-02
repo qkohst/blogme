@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Faq;
 use App\Team;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,11 @@ class HomeController extends Controller
     {
         $title = 'Home';
         $teams = Team::all();
+        $faqs = Faq::all();
         return view('home', compact(
             'title',
-            'teams'
+            'teams',
+            'faqs'
         ));
     }
 

@@ -34,7 +34,7 @@
                 </div>
                 <span class="nav-link-text ms-1">Tim Kami</span>
             </a>
-            <a class="nav-link" href="/guestbooks">
+            <a class="nav-link {{ Route::is('faq.index') ? 'active' : '' }}" href="{{ route('faq.index') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
                     <i class="icofont-question text-primary text-lg opacity-10"></i>
                 </div>

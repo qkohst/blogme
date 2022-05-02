@@ -43,6 +43,10 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'team',
                 'except' => ['show']
             ]);
+            Route::resource('faq', 'Admin\FaqController',  [
+                'names' => 'faq',
+                'except' => ['show']
+            ]);
         });
     });
 
