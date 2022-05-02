@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Team;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -10,8 +11,10 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'Home';
+        $teams = Team::all();
         return view('home', compact(
             'title',
+            'teams'
         ));
     }
 

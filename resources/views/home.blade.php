@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
         <h1>Jadilah Bagian dari Komunitas IT Terbesar di Indonesia</h1>
-        <h2>Ikutan diskusi forum tanya jawab, tulis blog dan Membangun portofolio semua di Kotakode</h2>
+        <h2>Ikutan diskusi forum tanya jawab, tulis blog dan Membangun portofolio semua di Qkoh St</h2>
         <div class="d-flex">
           <a href="#about" class="btn-get-started scrollto">Daftar Akun</a>
           <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Mulai Belajar <i class="icofont-readernaut"></i></a>
@@ -63,8 +63,8 @@
           <img src="member-assets/img/about.png" class="img-fluid" alt="">
         </div>
         <div class="col-lg-6 pt-4 pt-lg-0 content">
-          <h3>Tentang Qkoh St</h3>
-          <p class="font-italic">
+          <h3>Tentang Kami</h3>
+          <p>
             Kotakode merupakan platform komunitas bagi para pegiat IT di Indonesia dimana programmer dapat belajar dan berbagi wawasan seputar dunia IT terkini untuk mendukung memberikan pertumbuhan perekonomian di Indonesia.
           </p>
           <ul>
@@ -100,63 +100,30 @@
     <div class="container">
 
       <div class="section-title">
-        <span>Team</span>
-        <h2>Team</h2>
-        <p>Sit sint consectetur velit quisquam cupiditate impedit suscipit alias</p>
+        <span>Tim Kami</span>
+        <h2>Tim Kami</h2>
+        <p>Didukung oleh tim yang profesional di bidangnya.</p>
       </div>
 
       <div class="row">
+        @foreach($teams as $team)
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
           <div class="member">
-            <img src="member-assets/img/team/team-1.jpg" alt="">
-            <h4>Walter White</h4>
-            <span>Chief Executive Officer</span>
+            <img src="/admin-assets/img/teams/{{$team->foto_profil}}" alt="team image">
+            <h4>{{$team->nama_lengkap}}</h4>
+            <span>{{$team->posisi}}</span>
             <p>
-              Magni qui quod omnis unde et eos fuga et exercitationem. Odio veritatis perspiciatis quaerat qui aut aut aut
+              {{$team->deskripsi}}
             </p>
             <div class="social">
-              <a href=""><i class="icofont-twitter"></i></a>
-              <a href=""><i class="icofont-facebook"></i></a>
-              <a href=""><i class="icofont-instagram"></i></a>
-              <a href=""><i class="icofont-linkedin"></i></a>
+              <a href="{{$team->twitter}}" target="_black"><i class="icofont-twitter"></i></a>
+              <a href="{{$team->facebook}}" target="_black"><i class="icofont-facebook"></i></a>
+              <a href="{{$team->instagram}}" target="_black"><i class="icofont-instagram"></i></a>
+              <a href="{{$team->linkedin}}" target="_black"><i class="icofont-linkedin"></i></a>
             </div>
           </div>
         </div>
-
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-          <div class="member">
-            <img src="member-assets/img/team/team-2.jpg" alt="">
-            <h4>Sarah Jhinson</h4>
-            <span>Product Manager</span>
-            <p>
-              Repellat fugiat adipisci nemo illum nesciunt voluptas repellendus. In architecto rerum rerum temporibus
-            </p>
-            <div class="social">
-              <a href=""><i class="icofont-twitter"></i></a>
-              <a href=""><i class="icofont-facebook"></i></a>
-              <a href=""><i class="icofont-instagram"></i></a>
-              <a href=""><i class="icofont-linkedin"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-          <div class="member">
-            <img src="member-assets/img/team/team-3.jpg" alt="">
-            <h4>William Anderson</h4>
-            <span>CTO</span>
-            <p>
-              Voluptas necessitatibus occaecati quia. Earum totam consequuntur qui porro et laborum toro des clara
-            </p>
-            <div class="social">
-              <a href=""><i class="icofont-twitter"></i></a>
-              <a href=""><i class="icofont-facebook"></i></a>
-              <a href=""><i class="icofont-instagram"></i></a>
-              <a href=""><i class="icofont-linkedin"></i></a>
-            </div>
-          </div>
-        </div>
-
+        @endforeach
       </div>
 
     </div>

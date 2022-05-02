@@ -39,7 +39,10 @@ Route::group(['middleware' => ['auth']], function () {
     // Route Admin
     Route::group(['middleware' => 'checkRole:1'], function () {
         Route::group(['prefix' => 'admin'], function () {
-            // 
+            Route::resource('team', 'Admin\TeamController',  [
+                'names' => 'team',
+                'except' => ['show']
+            ]);
         });
     });
 

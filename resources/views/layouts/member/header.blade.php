@@ -8,7 +8,7 @@
 
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li><a href="/#hero">Home</a></li>
+                <li class="{{ Route::is('home') ? 'active' : '' }}"><a href="/#hero">Home</a></li>
                 <li class="drop-down"><a href="">Tentang</a>
                     <ul>
                         <li><a href="/#about">Tentang Kami</a></li>
@@ -19,14 +19,14 @@
                 </li>
                 <li class="drop-down"><a href="">Program</a>
                     <ul>
-                        <li><a href="{{ route('academy') }}">Academy</a></li>
-                        <li><a href="{{ route('forum-qa') }}">Forum Q&A</a></li>
-                        <li><a href="{{ route('blog') }}">Blog</a></li>
-                        <li><a href="{{ route('job') }}">Job</a></li>
+                        <li class="{{ Route::is('academy') ? 'active' : '' }}"><a href="{{ route('academy') }}">Academy</a></li>
+                        <li class="{{ Route::is('forum-qa') ? 'active' : '' }}"><a href="{{ route('forum-qa') }}">Forum Q&A</a></li>
+                        <li class="{{ Route::is('blog') ? 'active' : '' }}"><a href="{{ route('blog') }}">Blog</a></li>
+                        <li class="{{ Route::is('job') ? 'active' : '' }}"><a href="{{ route('job') }}">Job</a></li>
                     </ul>
                 </li>
-                <li><a href="{{ route('event') }}">Event</a></li>
-                <li><a href="{{ route('partnership') }}">Partnership</a></li>
+                <li class="{{ Route::is('event') ? 'active' : '' }}"><a href="{{ route('event') }}">Event</a></li>
+                <li class="{{ Route::is('partnership') ? 'active' : '' }}"><a href="{{ route('partnership') }}">Partnership</a></li>
 
                 <li><a href="{{ route('login') }}">Masuk</a></li>
 

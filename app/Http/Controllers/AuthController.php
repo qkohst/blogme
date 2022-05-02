@@ -26,7 +26,7 @@ class AuthController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         } else {
             if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                return back()->with('toast_error', 'Password incorrect.');
+                return back()->with('toast_error', 'Password salah.');
             } else {
                 return redirect('dashboard')->with('toast_success', 'Login success.');
             }

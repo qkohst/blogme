@@ -1,6 +1,6 @@
 <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-    <a class="navbar-brand m-0" href="/dashboard">
+    <a class="navbar-brand m-0" href="{{ route('dashboard') }}">
         <img src="/admin-assets/img/logo.png" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold">Qkoh St</span>
     </a>
@@ -9,29 +9,109 @@
 <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="/dashboard">
+            <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
                 </div>
                 <span class="nav-link-text ms-1">Dashboard</span>
             </a>
         </li>
+
+        <!-- Home Menu Navbar -->
+        <li class="nav-item mt-3">
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Home Menu</h6>
+        </li>
         <li class="nav-item">
-            <a class="nav-link" href="/guestbooks">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-single-copy-04 text-info text-sm opacity-10"></i>
+            <a class="nav-link" href="#">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-dashboard-web text-info text-lg opacity-10"></i>
                 </div>
-                <span class="nav-link-text ms-1">Guest Books</span>
+                <span class="nav-link-text ms-1">Tentang Kami</span>
+            </a>
+            <a class="nav-link {{ Route::is('team.index') ? 'active' : '' }}" href="{{ route('team.index') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-team-alt text-success text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Tim Kami</span>
+            </a>
+            <a class="nav-link" href="/guestbooks">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-question text-primary text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">FAQ</span>
+            </a>
+            <a class="nav-link" href="/guestbooks">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-contact-add text-dark text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Contact</span>
             </a>
         </li>
+        <!-- End Home Menu Navbar -->
+
+        <!-- Program Menu Navbar -->
+        <li class="nav-item mt-3">
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Program</h6>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/guestbooks">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-learn text-info text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Academy</span>
+            </a>
+            <a class="nav-link" href="/guestbooks">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-workers-group text-success text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Forum Q&A</span>
+            </a>
+            <a class="nav-link" href="/guestbooks">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-world text-primary text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Blog</span>
+            </a>
+            <a class="nav-link" href="/guestbooks">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-search-job text-dark text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Job</span>
+            </a>
+            <a class="nav-link" href="/guestbooks">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-license text-info text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Event</span>
+            </a>
+            <a class="nav-link" href="/guestbooks">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-badge text-reset text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Partnership</span>
+            </a>
+        </li>
+        <!-- End Program Menu Navbar -->
 
         <li class="nav-item mt-3">
             <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account</h6>
         </li>
         <li class="nav-item">
             <a class="nav-link " href="{{ route('logout') }}">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ni ni-collection text-warning text-sm opacity-10"></i>
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-user-alt-4  text-info text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Profile</span>
+            </a>
+            <a class="nav-link " href="{{ route('logout') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-key  text-warning text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Change Password</span>
+            </a>
+            <a class="nav-link " href="{{ route('logout') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-logout text-danger text-sm opacity-10"></i>
                 </div>
                 <span class="nav-link-text ms-1">Logout</span>
             </a>
