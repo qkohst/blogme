@@ -47,6 +47,10 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'faq',
                 'except' => ['show']
             ]);
+            Route::resource('contact', 'Admin\ContactController',  [
+                'names' => 'contact',
+                'uses' => ['index', 'update']
+            ]);
         });
     });
 

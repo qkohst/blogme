@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\Faq;
 use App\Team;
 use Illuminate\Http\Request;
@@ -12,10 +13,22 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'Home';
+        $contact = Contact::first();
         $teams = Team::all();
         $faqs = Faq::all();
+
+        // Seet session 
+        session([
+            'link_telegram' => $contact->link_telegram,
+            'link_twitter' => $contact->link_twitter,
+            'link_facebook' => $contact->link_facebook,
+            'link_instagram' => $contact->link_instagram,
+            'link_youtube' => $contact->link_youtube,
+        ]);
+
         return view('home', compact(
             'title',
+            'contact',
             'teams',
             'faqs'
         ));

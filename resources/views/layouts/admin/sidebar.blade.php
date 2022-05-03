@@ -40,7 +40,7 @@
                 </div>
                 <span class="nav-link-text ms-1">FAQ</span>
             </a>
-            <a class="nav-link" href="/guestbooks">
+            <a class="nav-link {{ Route::is('contact.index') ? 'active' : '' }}" href="{{ route('contact.index') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
                     <i class="icofont-contact-add text-dark text-lg opacity-10"></i>
                 </div>
@@ -80,7 +80,7 @@
             </a>
             <a class="nav-link" href="/guestbooks">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
-                    <i class="icofont-license text-info text-lg opacity-10"></i>
+                    <i class="icofont-license text-warning text-lg opacity-10"></i>
                 </div>
                 <span class="nav-link-text ms-1">Event</span>
             </a>
