@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use App\Faq;
+use App\Kategory;
 use App\Team;
 use Illuminate\Http\Request;
 
@@ -38,8 +39,10 @@ class HomeController extends Controller
     public function academy()
     {
         $title = 'Academy';
+        $kategories = Kategory::where('status', 'on')->get();
         return view('academy.index', compact(
             'title',
+            'kategories'
         ));
     }
 

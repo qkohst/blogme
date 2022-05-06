@@ -51,6 +51,25 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'contact',
                 'uses' => ['index', 'update']
             ]);
+            Route::resource('academy', 'Admin\AcademyController',  [
+                'names' => 'academy',
+            ]);
+            Route::resource('academy/kategory', 'Admin\KategoryAcademyController',  [
+                'names' => 'kategory.academy',
+                'except' => ['index', 'show']
+            ]);
+            Route::resource('academy/fasilitas', 'Admin\FasilitasAcademyController',  [
+                'names' => 'fasilitas.academy',
+                'except' => ['index', 'show']
+            ]);
+            Route::resource('academy/tools', 'Admin\ToolsAcademyController',  [
+                'names' => 'tools.academy',
+                'uses' => ['create', 'store', 'destroy']
+            ]);
+            Route::resource('academy/technology', 'Admin\TechnologyAcademyController',  [
+                'names' => 'technology.academy',
+                'uses' => ['create', 'store', 'destroy']
+            ]);
         });
     });
 

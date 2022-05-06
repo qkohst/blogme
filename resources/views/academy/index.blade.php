@@ -33,40 +33,17 @@
             </div>
 
             <div class="row">
-
+                @foreach($kategories as $kategory)
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                     <a href="">
                         <div class="icon-box py-5">
-                            <div class="icon"><img src="member-assets/img/about.png" class="img-fluid" alt="academy-img"></div>
-                            <h4>Lorem Ipsum</h4>
-                            <p class="text-secondary">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                            <div class="icon"><img src="admin-assets/img/kategory/{{$kategory->gambar}}" class="img-fluid" alt="academy-img"></div>
+                            <h4>{{$kategory->nama_kategori}}</h4>
+                            <p class="text-secondary">{{$kategory->deskripsi}}</p>
                         </div>
                     </a>
                 </div>
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                    <a href="">
-                        <div class="icon-box py-5">
-                            <div class="icon"><img src="member-assets/img/about.png" class="img-fluid" alt="academy-img"></div>
-                            <h4>Lorem Ipsum</h4>
-                            <p class="text-secondary">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                    <a href="">
-                        <div class="icon-box py-5">
-                            <div class="icon"><img src="member-assets/img/about.png" class="img-fluid" alt="academy-img"></div>
-                            <h4>Lorem Ipsum</h4>
-                            <p class="text-secondary">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-                        </div>
-                    </a>
-                </div>
-
-
-
-
+                @endforeach
             </div>
 
         </div>

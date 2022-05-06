@@ -15,6 +15,10 @@
                 </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
+                @if($teams->count() == 0)
+                <hr class="horizontal dark">
+                <div class="text-center mb-2">Data team belum tersedia</div>
+                @else
                 <div class="table-responsive p-0">
                     <table class="table align-items-center mb-0">
                         <thead>
@@ -47,7 +51,7 @@
                                 </td>
                                 <td class="align-middle ms-auto text-center">
                                     <a class="btn btn-link text-dark px-2 mb-0" href="{{ route('team.edit', $team->id) }}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-                                    
+
                                     <a href="#" class="btn btn-link text-danger text-gradient px-2 mb-0 btn-delete" data-id="{{$team->id}}">
                                         <form action="{{ route('team.destroy', $team->id) }}" method="post" id="delete{{$team->id}}">
                                             @csrf
@@ -62,6 +66,7 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
             </div>
         </div>
     </div>

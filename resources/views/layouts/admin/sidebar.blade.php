@@ -28,19 +28,19 @@
                 </div>
                 <span class="nav-link-text ms-1">Tentang Kami</span>
             </a>
-            <a class="nav-link {{ Route::is('team.index') ? 'active' : '' }}" href="{{ route('team.index') }}">
+            <a class="nav-link {{ Route::is('team.*') ? 'active' : '' }}" href="{{ route('team.index') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
                     <i class="icofont-team-alt text-success text-lg opacity-10"></i>
                 </div>
                 <span class="nav-link-text ms-1">Tim Kami</span>
             </a>
-            <a class="nav-link {{ Route::is('faq.index') ? 'active' : '' }}" href="{{ route('faq.index') }}">
+            <a class="nav-link {{ Route::is('faq.*') ? 'active' : '' }}" href="{{ route('faq.index') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
                     <i class="icofont-question text-primary text-lg opacity-10"></i>
                 </div>
                 <span class="nav-link-text ms-1">FAQ</span>
             </a>
-            <a class="nav-link {{ Route::is('contact.index') ? 'active' : '' }}" href="{{ route('contact.index') }}">
+            <a class="nav-link {{ Route::is('contact.*') ? 'active' : '' }}" href="{{ route('contact.index') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
                     <i class="icofont-contact-add text-dark text-lg opacity-10"></i>
                 </div>
@@ -51,15 +51,21 @@
 
         <!-- Program Menu Navbar -->
         <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Program</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Program Academy</h6>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/guestbooks">
+            <a class="nav-link {{ Route::is('academy.*') ? 'active' : '' }}" href="{{ route('academy.index') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
                     <i class="icofont-learn text-info text-lg opacity-10"></i>
                 </div>
                 <span class="nav-link-text ms-1">Academy</span>
             </a>
+        </li>
+        
+        <li class="nav-item mt-3">
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Program Lainnya</h6>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/guestbooks">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
                     <i class="icofont-workers-group text-success text-lg opacity-10"></i>
@@ -118,7 +124,7 @@
         </li>
     </ul>
 </div>
-<div class="sidenav-footer mx-3 ">
+<div class="sidenav-footer mx-3">
     <div class="card card-plain shadow-none" id="sidenavCard">
         <img class="w-50 mx-auto" src="/admin-assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
         <div class="card-body text-center p-3 w-100 pt-0">

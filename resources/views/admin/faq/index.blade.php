@@ -14,7 +14,11 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body pt-4 p-3">
+            <div class="card-body pt-0 p-3">
+                <hr class="horizontal dark">
+                @if($faqs->count() == 0)
+                <div class="text-center mb-2">Data faq belum tersedia</div>
+                @else
                 <ul class="list-group">
                     @foreach($faqs as $faq)
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
@@ -37,6 +41,7 @@
                     </li>
                     @endforeach
                 </ul>
+                @endif
             </div>
         </div>
     </div>

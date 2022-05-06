@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="/admin-assets/img/logo.png">
     <link rel="icon" type="image/png" href="/admin-assets/img/logo.png">
@@ -18,9 +19,11 @@
     <link href="/member-assets/vendor/icofont/icofont.min.css" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="/admin-assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
+    <link href="/admin-assets/css/nucleo-svg.css" rel="stylesheet" />
     <link id="pagestyle" href="/admin-assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
+    <!-- Page Style -->
+    @yield('style')
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
