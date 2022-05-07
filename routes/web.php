@@ -70,6 +70,10 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'technology.academy',
                 'uses' => ['create', 'store', 'destroy']
             ]);
+            Route::resource('academy/{id}/silabus', 'Admin\SilabusAcademyController',  [
+                'names' => 'academy.silabus',
+                'except' => ['index', 'show']
+            ]);
         });
     });
 

@@ -27,8 +27,10 @@ class KategoryAcademyController extends Controller
     public function create()
     {
         $title = 'Tambah Kategori';
+        $title2 = 'Academy';
         return view('admin.academy.kategory.create', compact(
             'title',
+            'title2'
         ));
     }
 
@@ -90,9 +92,11 @@ class KategoryAcademyController extends Controller
     public function edit($id)
     {
         $title = 'Edit Kategori';
+        $title2 = 'Academy';
         $kategory = Kategory::findorfail($id);
         return view('admin.academy.kategory.edit', compact(
             'title',
+            'title2',
             'kategory'
         ));
     }

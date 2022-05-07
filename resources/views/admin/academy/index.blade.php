@@ -1,4 +1,13 @@
 @extends('layouts.admin.master')
+@section('breadcrumb')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="{{ route('dashboard') }}">Dashboard</a></li>
+        <li class=" breadcrumb-item text-sm text-white active" aria-current="page">{{$title}}</li>
+    </ol>
+</nav>
+@endsection
+
 @section('content')
 
 <div class="row">
@@ -110,7 +119,7 @@
                                             <td>
                                                 <p class="text-xs text-secondary mb-0">150 belum</p>
                                             </td>
-                                           
+
                                             <td class="align-middle">
                                                 <span class="badge badge-sm bg-gradient-warning">Not Set</span>
                                             </td>
@@ -122,15 +131,13 @@
                                                 @endif
                                             </td>
                                             <td class="align-middle ms-auto text-center">
-                                                <a class="btn btn-link text-primary px-1 mb-0" href="{{ route('academy.show', $academy->id) }}"><i class="fas fa-eye text-primary me-1" aria-hidden="true"></i></a>
-                                                <a class="btn btn-link text-dark px-1 mb-0" href="{{ route('academy.edit', $academy->id) }}"><i class="fas fa-pencil-alt text-dark me-1" aria-hidden="true"></i></a>
-
-                                                <a href="#" class="btn btn-link text-danger text-gradient px-1 mb-0 btn-delete" data-id="{{$academy->id}}">
+                                                <a class="btn btn-link text-primary px-2 mb-0" href="{{ route('academy.show', $academy->id) }}" title="Detail"><i class="fas fa-eye text-primary me-1" aria-hidden="true"></i>Detail</a>
+                                                <a href="#" class="btn btn-link text-danger text-gradient px-2 mb-0 btn-delete" title="Hapus" data-id="{{$academy->id}}">
                                                     <form action="{{ route('academy.destroy', $academy->id) }}" method="post" id="delete{{$academy->id}}">
                                                         @csrf
                                                         @method('delete')
                                                     </form>
-                                                    <i class="far fa-trash-alt me-1"></i>
+                                                    <i class="far fa-trash-alt me-1"></i> Hapus
                                                 </a>
                                             </td>
                                         </tr>

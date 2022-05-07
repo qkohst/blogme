@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Academy;
 use App\Http\Controllers\Controller;
-use App\Tools;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class ToolsAcademyController extends Controller
+class SilabusAcademyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,13 +23,17 @@ class ToolsAcademyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $title = 'Tambah Tools';
-        $title2 = 'Academy';
-        return view('admin.academy.tools.create', compact(
+        $title = 'Tambah Silabus';
+        $title2 = 'Detail';
+        $title3 = 'Academy';
+        $academy = Academy::findorfail($id);
+        return view('admin.academy.silabus.create', compact(
             'title',
-            'title2'
+            'title2',
+            'title3',
+            'academy',
         ));
     }
 
@@ -40,23 +43,9 @@ class ToolsAcademyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'nama_tool' => 'required|min:3|max:255',
-            'icon' => 'required|min:5|max:100',
-        ]);
-
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        } else {
-            $tool = new Tools([
-                'nama_tool' => $request->nama_tool,
-                'icon' => $request->icon,
-            ]);
-            $tool->save();
-            return redirect('admin/academy')->with('toast_success', 'Berhasil disimpan.');
-        }
+        //
     }
 
     /**
@@ -101,12 +90,6 @@ class ToolsAcademyController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $tool = Tools::findorfail($id);
-            $tool->delete();
-            return back()->with('toast_success', 'Berhasil dihapus.');
-        } catch (\Exception $e) {
-            return back()->with('toast_error', 'Data tidak dapat dihapus.');
-        }
+        //
     }
 }

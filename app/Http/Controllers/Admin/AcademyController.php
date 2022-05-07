@@ -48,12 +48,14 @@ class AcademyController extends Controller
     public function create()
     {
         $title = 'Tambah Kelas';
+        $title2 = 'Academy';
         $kategories = Kategory::where('status', 'on')->get();
         $data_fasilitas = Fasilitas::all();
         $tools = Tools::all();
         $technologies = Technology::all();
         return view('admin.academy.create', compact(
             'title',
+            'title2',
             'kategories',
             'data_fasilitas',
             'tools',
@@ -155,7 +157,23 @@ class AcademyController extends Controller
      */
     public function show($id)
     {
-        //
+        $title = 'Detail Kelas';
+        $title2 = 'Academy';
+        $academy = Academy::findorfail($id);
+        $fasilitas_academies = FasilitasAcademy::where('academies_id', $academy->id)->get();
+        $tools_academies = ToolsAcademy::where('academies_id', $academy->id)->get();
+        $technologies_academies = TechnologyAcademy::where('academies_id', $academy->id)->get();
+
+        $kategories = Kategory::where('status', 'on')->get();
+        return view('admin.academy.show', compact(
+            'title',
+            'title2',
+            'academy',
+            'fasilitas_academies',
+            'kategories',
+            'tools_academies',
+            'technologies_academies'
+        ));
     }
 
     /**
@@ -167,6 +185,8 @@ class AcademyController extends Controller
     public function edit($id)
     {
         $title = 'Edit Kelas';
+        $title2 = 'Detail';
+        $title3 = 'Academy';
         $academy = Academy::findorfail($id);
         $fasilitas_academies = FasilitasAcademy::where('academies_id', $academy->id)->get();
         $tools_academies = ToolsAcademy::where('academies_id', $academy->id)->get();
@@ -175,6 +195,8 @@ class AcademyController extends Controller
         $kategories = Kategory::where('status', 'on')->get();
         return view('admin.academy.edit', compact(
             'title',
+            'title2',
+            'title3',
             'academy',
             'fasilitas_academies',
             'kategories',
@@ -224,7 +246,7 @@ class AcademyController extends Controller
                 'status' => $check_status,
             ];
             $academy->update($data);
-            return redirect('admin/academy')->with('toast_success', 'Berhasil diedit.');
+            return redirect('admin/academy/' . $academy->id)->with('toast_success', 'Berhasil diedit.');
         }
     }
 

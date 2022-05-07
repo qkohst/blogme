@@ -32,8 +32,10 @@ class TeamController extends Controller
     public function create()
     {
         $title = 'Tambah Tim';
+        $title2 = 'Tim Kami';
         return view('admin.team.create', compact(
             'title',
+            'title2'
         ));
     }
 
@@ -102,9 +104,11 @@ class TeamController extends Controller
     public function edit($id)
     {
         $title = 'Edit Identitas Tim';
+        $title2 = 'Tim Kami';
         $team = Team::findorfail($id);
         return view('admin.team.edit', compact(
             'title',
+            'title2',
             'team'
         ));
     }
