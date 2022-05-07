@@ -7,6 +7,7 @@ use App\Fasilitas;
 use App\FasilitasAcademy;
 use App\Http\Controllers\Controller;
 use App\Kategory;
+use App\SilabusAcademy;
 use App\Technology;
 use App\TechnologyAcademy;
 use App\Tools;
@@ -26,6 +27,10 @@ class AcademyController extends Controller
     {
         $title = 'Academy';
         $academies = Academy::all();
+        foreach ($academies as $academy) {
+            $academy->count_silabus = SilabusAcademy::where('academies_id', $academy->id)->count();
+        }
+        
         $kategories = Kategory::all();
         $data_fasilitas = Fasilitas::all();
         $tools = Tools::all();
@@ -74,10 +79,9 @@ class AcademyController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_kelas' => 'required|min:3|max:100|unique:academies,nama_kelas',
             'gambar' => 'required',
+            'kategori' => 'required',
             'level' => 'required|in:Dasar,Pemula,Menengah,Mahir,Profesional',
             'fasilitas_kelas'    => 'required|array|min:3',
-            'kategori' => 'required',
-            'durasi_belajar' => 'required|numeric|min:1',
             'deskripsi' => 'required|min:50',
             'minimum_ram' => 'required|min:3|max:100',
             'minimum_layar' => 'required|min:3|max:100',
@@ -99,7 +103,6 @@ class AcademyController extends Controller
                 'nama_kelas' => $request->nama_kelas,
                 'gambar' => $nama_file,
                 'level' => $request->level,
-                'durasi_belajar' => $request->durasi_belajar,
                 'deskripsi' => $request->deskripsi,
                 'minimum_ram' => $request->minimum_ram,
                 'minimum_layar' => $request->minimum_layar,
@@ -164,15 +167,17 @@ class AcademyController extends Controller
         $tools_academies = ToolsAcademy::where('academies_id', $academy->id)->get();
         $technologies_academies = TechnologyAcademy::where('academies_id', $academy->id)->get();
 
-        $kategories = Kategory::where('status', 'on')->get();
+        $silabus_academies = SilabusAcademy::where('academies_id', $academy->id)->orderBy('nomor_urut', 'asc')->get();
+        $durasi_belajar = SilabusAcademy::where('academies_id', $academy->id)->sum('waktu_belajar');
         return view('admin.academy.show', compact(
             'title',
             'title2',
             'academy',
             'fasilitas_academies',
-            'kategories',
             'tools_academies',
-            'technologies_academies'
+            'technologies_academies',
+            'silabus_academies',
+            'durasi_belajar'
         ));
     }
 
@@ -216,9 +221,8 @@ class AcademyController extends Controller
     {
         $academy = Academy::findorfail($id);
         $validator = Validator::make($request->all(), [
-            'level' => 'required|in:Dasar,Pemula,Menengah,Mahir,Profesional',
             'kategori' => 'required',
-            'durasi_belajar' => 'required|numeric|min:1',
+            'level' => 'required|in:Dasar,Pemula,Menengah,Mahir,Profesional',
             'deskripsi' => 'required|min:50',
             'minimum_ram' => 'required|min:3|max:100',
             'minimum_layar' => 'required|min:3|max:100',
@@ -237,7 +241,6 @@ class AcademyController extends Controller
             $data = [
                 'level' => $request->level,
                 'kategori' => $request->kategori,
-                'durasi_belajar' => $request->durasi_belajar,
                 'deskripsi' => $request->deskripsi,
                 'minimum_ram' => $request->minimum_ram,
                 'minimum_layar' => $request->minimum_layar,

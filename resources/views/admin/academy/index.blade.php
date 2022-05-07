@@ -121,8 +121,16 @@
                                             </td>
 
                                             <td class="align-middle">
-                                                <span class="badge badge-sm bg-gradient-warning">Not Set</span>
+
+                                                @if($academy->count_silabus == 0)
+                                                <span class="badge badge-sm bg-gradient-danger">{{$academy->count_silabus}} silabus</span>
+                                                @elseif($academy->count_silabus <= 3) <span class="badge badge-sm bg-gradient-warning">{{$academy->count_silabus}} silabus</span>
+                                                    @else
+                                                    <span class="badge badge-sm bg-gradient-success">{{$academy->count_silabus}} silabus</span>
+                                                    @endif
+
                                             </td>
+                                            
                                             <td class="align-middle">
                                                 @if($academy->status == 'on')
                                                 <span class="badge badge-sm bg-gradient-success">Aktif</span>

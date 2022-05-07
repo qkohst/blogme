@@ -19,7 +19,6 @@ class CreateAcademiesTable extends Migration
             $table->string('nama_kelas', 100);
             $table->string('gambar');
             $table->enum('level', ['Dasar', 'Pemula', 'Menengah', 'Mahir', 'Profesional']);
-            $table->bigInteger('durasi_belajar');
             $table->longText('deskripsi');
             $table->string('minimum_ram', 100);
             $table->string('minimum_layar', 100);

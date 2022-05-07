@@ -42,7 +42,7 @@
                                 @endif
 
                                 {{$academy->kategories->nama_kategori}}
-                                | <i class="icofont-ui-clock"></i> {{$academy->durasi_belajar}} jam belajar
+                                | <i class="icofont-ui-clock"></i> {{round($durasi_belajar/60)}} jam belajar
                             </p>
                         </div>
                     </div>
@@ -180,7 +180,11 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-                            <div class="table-responsive p-0">
+
+                            <hr class="horizontal dark">
+                            <div class="text-center mb-2">Belum terdapat siswa pada kelas ini</div>
+
+                            <!-- <div class="table-responsive p-0">
                                 <table class="table align-items-center justify-content-center mb-0">
                                     <thead>
                                         <tr>
@@ -222,7 +226,8 @@
 
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> -->
+
                         </div>
                     </div>
                 </div>
@@ -242,25 +247,29 @@
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
+                                @if($silabus_academies->count() == 0)
+                                <hr class="horizontal dark">
+                                <div class="text-center mb-2">Data silabus belum tersedia</div>
+                                @else
                                 <table class="table align-items-center justify-content-center mb-0">
                                     <thead>
                                         <tr>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Silabus</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Judul Silabus</th>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Waktu Belajar</th>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Materi</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        @foreach($silabus_academies as $silabus)
                                         <tr>
                                             <td>
-                                                <p class="text-sm px-3 font-weight-bold">Persiapan Belajar</p>
+                                                <p class="text-sm px-3 font-weight-bold">{{$silabus->judul_silabus}}</p>
                                             </td>
 
                                             <td>
                                                 <p class="text-xs">
-                                                    <i class="icofont-clock-time"></i> 269 menit
+                                                    <i class="icofont-clock-time"></i> {{$silabus->waktu_belajar}} menit
                                                 </p>
                                             </td>
                                             <td>
@@ -280,19 +289,28 @@
                                                         <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
                                                             <i class="icofont-plus mx-2"></i> Tambah Materi
                                                         </a>
-                                                        <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
+                                                        <a class="dropdown-item border-radius-md" href="{{$academy->id}}/silabus/{{$silabus->id}}/edit ">
                                                             <i class="icofont-ui-edit mx-2"></i> Edit Silabus
                                                         </a>
-                                                        <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
+                                                        <!-- <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
+                                                            <i class="icofont-ui-delete mx-2"></i> Hapus Silabus
+                                                        </a> -->
+
+                                                        <a href="#" class="dropdown-item border-radius-md btn-delete" data-id="silabus{{$silabus->id}}">
+                                                            <form action="/admin/academy/{{$academy->id}}/silabus/{{$silabus->id}}" method="post" id="deletesilabus{{$silabus->id}}">
+                                                                @csrf
+                                                                @method('delete')
+                                                            </form>
                                                             <i class="icofont-ui-delete mx-2"></i> Hapus Silabus
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
-
+                                        @endforeach
                                     </tbody>
                                 </table>
+                                @endif
                             </div>
                         </div>
                     </div>

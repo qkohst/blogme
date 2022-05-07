@@ -11,7 +11,6 @@ class Academy extends Model
         'nama_kelas',
         'gambar',
         'level',
-        'durasi_belajar',
         'deskripsi',
         'minimum_ram',
         'minimum_layar',
@@ -38,5 +37,10 @@ class Academy extends Model
     public function technology_academies()
     {
         return $this->hasMany('App\TechnologyAcademy');
+    }
+
+    public function silabus_academies()
+    {
+        return $this->hasMany('App\SilabusAcademy');
     }
 }

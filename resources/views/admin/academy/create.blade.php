@@ -29,7 +29,7 @@
                 <div class="card-body pt-2">
                     <p class="text-uppercase text-sm">Data Kelas</p>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Nama Kelas</label>
                                 <input class="form-control" type="text" name="nama_kelas" value="{{old('nama_kelas')}}">
@@ -39,6 +39,17 @@
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Gambar</label>
                                 <input class="form-control" type="file" name="gambar" accept="image/png, image/jpeg" value="{{old('gambar')}}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Kategori</label>
+                                <select class="form-select" aria-label="Default select example" name="kategori">
+                                    <option selected>-- Pilih Kategori --</option>
+                                    @foreach($kategories as $kategory)
+                                    <option value="{{$kategory->id}}" {{ old('kategori') == $kategory->id ? "selected" : "" }}>{{$kategory->nama_kategori}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -76,23 +87,6 @@
                                 </div>
                                 @endforeach
 
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Kategori</label>
-                                <select class="form-select" aria-label="Default select example" name="kategori">
-                                    <option selected>-- Pilih Kategori --</option>
-                                    @foreach($kategories as $kategory)
-                                    <option value="{{$kategory->id}}" {{ old('kategori') == $kategory->id ? "selected" : "" }}>{{$kategory->nama_kategori}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Durasi Belajar <span>(* jam)</span></label>
-                                <input class="form-control" type="number" name="durasi_belajar" value="{{old('durasi_belajar')}}">
                             </div>
                         </div>
                         <div class="col-md-12">
