@@ -177,7 +177,12 @@ class SilabusAcademyController extends Controller
                     'silabus',
                 ));
             } elseif ($request->jenis_materi == 'Vidio Interaktif') {
-                // 
+                return view('admin.academy.materi.create_vidio', compact(
+                    'title',
+                    'title2',
+                    'title3',
+                    'silabus',
+                ));
             } elseif ($request->jenis_materi == 'Kuis') {
                 // 
             } elseif ($request->jenis_materi == 'Submission') {

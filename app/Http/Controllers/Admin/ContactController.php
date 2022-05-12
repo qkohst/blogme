@@ -81,7 +81,7 @@ class ContactController extends Controller
             'alamat' => 'required|min:10|max:255',
             'email' => 'required|email|min:5|max:100',
             'nomor_telpon' => 'required|numeric|digits_between:11,15',
-            'embed_google_maps' => 'required|min:10',
+            'embed_google_maps' => 'required|min:20',
             'link_telegram' => 'required|min:5|max:255',
             'link_twitter' => 'required|min:5|max:255',
             'link_facebook' => 'required|min:5|max:255',

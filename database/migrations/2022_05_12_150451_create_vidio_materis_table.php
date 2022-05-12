@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArtikelMaterisTable extends Migration
+class CreateVidioMaterisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateArtikelMaterisTable extends Migration
      */
     public function up()
     {
-        Schema::create('artikel_materis', function (Blueprint $table) {
+        Schema::create('vidio_materis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('materi_silabuses_id')->unsigned();
-            $table->longText('isi_materi');
+            $table->string('deskripsi_vidio');
+            $table->longText('embed_vidio');
             $table->timestamps();
 
             $table->foreign('materi_silabuses_id')->references('id')->on('materi_silabuses')->onDelete('cascade');
@@ -30,6 +31,6 @@ class CreateArtikelMaterisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artikel_materis');
+        Schema::dropIfExists('vidio_materis');
     }
 }

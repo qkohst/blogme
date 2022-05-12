@@ -274,7 +274,16 @@
                                             </td>
                                             <td>
                                                 <span class="text-capitalize badge badge-sm bg-gradient-info">
-                                                    <i class="icofont-ui-file"></i> {{$silabus->count_artikel}} Artikel | <i class="icofont-file-avi-mp4"></i> 1 Vidio Interaktif | <i class="icofont-checked"></i> 1 Kuis | <i class="icofont-upload-alt"></i> 1 Submission
+                                                    @if($silabus->count_artikel != 0)
+                                                    <i class="icofont-ui-file"></i> <b>{{$silabus->count_artikel}}</b> <small>Artikel</small>
+                                                    @endif
+
+                                                    @if($silabus->count_vidio != 0)
+                                                    <i class="icofont-file-avi-mp4"></i> <b>{{$silabus->count_vidio}}</b> <small>Vidio Interaktif</small>
+                                                    @endif
+
+                                                    <i class="icofont-checked"></i> <b>1</b> <small>Kuis</small>
+                                                    <i class="icofont-upload-alt"></i> <b>1</b> <small>Submission</small>
                                                 </span>
                                             </td>
                                             <td class="align-middle">
@@ -312,7 +321,6 @@
                                                         <h5 class="modal-title" id="exampleModalLabel">Tambah Materi</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <!-- Belum -->
                                                     <form action="{{$academy->id}}/{{$silabus->id}}/materi">
                                                         @csrf
                                                         <div class="modal-body">

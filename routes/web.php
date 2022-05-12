@@ -82,6 +82,10 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'artikel.materi',
                 'uses' => ['store', 'show', 'edit', 'update']
             ]);
+            Route::resource('silabus/{id}/vidio', 'Admin\VidioMateriController',  [
+                'names' => 'vidio.materi',
+                'uses' => ['store', 'show', 'edit', 'update']
+            ]);
         });
     });
 
