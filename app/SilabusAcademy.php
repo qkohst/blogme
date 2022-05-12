@@ -18,4 +18,9 @@ class SilabusAcademy extends Model
     {
         return $this->belongsTo('App\Academy');
     }
+
+    public function materi_silabuses()
+    {
+        return $this->hasMany('App\MateriSilabus');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Academy;
 use App\Http\Controllers\Controller;
+use App\MateriSilabus;
 use App\SilabusAcademy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -75,9 +76,20 @@ class SilabusAcademyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $silabu)
     {
-        //
+        $title = 'Materi';
+        $title2 = 'Detail Kelas';
+        $title3 = 'Academy';
+        $silabus = SilabusAcademy::findorfail($silabu);
+        $materi_silabuses = MateriSilabus::where('silabus_academies_id', $silabus->id)->get();
+        return view('admin.academy.silabus.show', compact(
+            'title',
+            'title2',
+            'title3',
+            'silabus',
+            'materi_silabuses'
+        ));
     }
 
     /**
@@ -92,7 +104,7 @@ class SilabusAcademyController extends Controller
         $title2 = 'Detail';
         $title3 = 'Academy';
         $silabus = SilabusAcademy::findorfail($silabu);
-        return view('admin.academy.silabus..edit', compact(
+        return view('admin.academy.silabus.edit', compact(
             'title',
             'title2',
             'title3',
@@ -134,11 +146,51 @@ class SilabusAcademyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $silabu)
+    public function destroy($silabu)
     {
         try {
             $silabus = SilabusAcademy::findorfail($silabu);
             $silabus->delete();
+            return back()->with('toast_success', 'Berhasil dihapus.');
+        } catch (\Exception $e) {
+            return back()->with('toast_error', 'Data tidak dapat dihapus.');
+        }
+    }
+
+    public function select_materi(Request $request, $id, $silabu)
+    {
+        $validator = Validator::make($request->all(), [
+            'jenis_materi' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        } else {
+            $title = 'Tambah Materi';
+            $title2 = 'Detail';
+            $title3 = 'Academy';
+            $silabus = SilabusAcademy::findorfail($silabu);
+            if ($request->jenis_materi == 'Artikel') {
+                return view('admin.academy.materi.create_artikel', compact(
+                    'title',
+                    'title2',
+                    'title3',
+                    'silabus',
+                ));
+            } elseif ($request->jenis_materi == 'Vidio Interaktif') {
+                // 
+            } elseif ($request->jenis_materi == 'Kuis') {
+                // 
+            } elseif ($request->jenis_materi == 'Submission') {
+                // 
+            }
+        }
+    }
+
+    public function delete_materi($id)
+    {
+        try {
+            $materi = MateriSilabus::findorfail($id);
+            $materi->delete();
             return back()->with('toast_success', 'Berhasil dihapus.');
         } catch (\Exception $e) {
             return back()->with('toast_error', 'Data tidak dapat dihapus.');

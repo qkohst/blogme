@@ -7,6 +7,7 @@ use App\Fasilitas;
 use App\FasilitasAcademy;
 use App\Http\Controllers\Controller;
 use App\Kategory;
+use App\MateriSilabus;
 use App\SilabusAcademy;
 use App\Technology;
 use App\TechnologyAcademy;
@@ -30,7 +31,7 @@ class AcademyController extends Controller
         foreach ($academies as $academy) {
             $academy->count_silabus = SilabusAcademy::where('academies_id', $academy->id)->count();
         }
-        
+
         $kategories = Kategory::all();
         $data_fasilitas = Fasilitas::all();
         $tools = Tools::all();
@@ -168,6 +169,10 @@ class AcademyController extends Controller
         $technologies_academies = TechnologyAcademy::where('academies_id', $academy->id)->get();
 
         $silabus_academies = SilabusAcademy::where('academies_id', $academy->id)->orderBy('nomor_urut', 'asc')->get();
+        foreach ($silabus_academies as $silabus) {
+            $silabus->count_artikel = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 1)->count();
+        }
+
         $durasi_belajar = SilabusAcademy::where('academies_id', $academy->id)->sum('waktu_belajar');
         return view('admin.academy.show', compact(
             'title',

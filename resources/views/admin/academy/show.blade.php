@@ -88,7 +88,7 @@
                                     <h6 class="mb-0">Detail Kelas</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('academy.edit', $academy->id) }}"><i class="fas fa-pencil-alt me-2"></i>Edit</a>
+                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('academy.edit', $academy->id) }}"><i class="icofont-pencil-alt-2 me-2"></i>Edit</a>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +241,7 @@
                                     <p class="text-sm mb-1">Data silabus pembelajaran</p>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('academy.silabus.create', $academy->id) }}"><i class="fas fa-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('academy.silabus.create', $academy->id) }}"><i class="icofont-plus me-2"></i>Tambah</a>
                                 </div>
                             </div>
                         </div>
@@ -264,38 +264,34 @@
                                         @foreach($silabus_academies as $silabus)
                                         <tr>
                                             <td>
-                                                <p class="text-sm px-3 font-weight-bold">{{$silabus->judul_silabus}}</p>
+                                                <p class="text-sm px-3 font-weight-bold mb-0">{{$silabus->judul_silabus}}</p>
                                             </td>
 
                                             <td>
-                                                <p class="text-xs">
+                                                <p class="text-xs mb-0">
                                                     <i class="icofont-clock-time"></i> {{$silabus->waktu_belajar}} menit
                                                 </p>
                                             </td>
                                             <td>
                                                 <span class="text-capitalize badge badge-sm bg-gradient-info">
-                                                    <i class="icofont-ui-file"></i> 6 Artikel | <i class="icofont-checked"></i> 1 Ujian | <i class="icofont-file-avi-mp4"></i> 1 Vidio Interaktif
+                                                    <i class="icofont-ui-file"></i> {{$silabus->count_artikel}} Artikel | <i class="icofont-file-avi-mp4"></i> 1 Vidio Interaktif | <i class="icofont-checked"></i> 1 Kuis | <i class="icofont-upload-alt"></i> 1 Submission
                                                 </span>
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="btn btn-link text-secondary mb-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-ellipsis-v text-xs"></i>
+                                                    <i class="icofont-options"></i>
                                                 </a>
                                                 <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                                                     <li>
-                                                        <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
+                                                        <a class="dropdown-item border-radius-md" href="{{$academy->id}}/silabus/{{$silabus->id}}">
                                                             <i class="icofont-eye-alt mx-2"></i> Lihat Materi
                                                         </a>
-                                                        <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
+                                                        <button type="button" class="dropdown-item border-radius-md" data-bs-toggle="modal" data-bs-target="#modalTambah{{$silabus->id}}">
                                                             <i class="icofont-plus mx-2"></i> Tambah Materi
-                                                        </a>
+                                                        </button>
                                                         <a class="dropdown-item border-radius-md" href="{{$academy->id}}/silabus/{{$silabus->id}}/edit ">
                                                             <i class="icofont-ui-edit mx-2"></i> Edit Silabus
                                                         </a>
-                                                        <!-- <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
-                                                            <i class="icofont-ui-delete mx-2"></i> Hapus Silabus
-                                                        </a> -->
-
                                                         <a href="#" class="dropdown-item border-radius-md btn-delete" data-id="silabus{{$silabus->id}}">
                                                             <form action="/admin/academy/{{$academy->id}}/silabus/{{$silabus->id}}" method="post" id="deletesilabus{{$silabus->id}}">
                                                                 @csrf
@@ -307,6 +303,47 @@
                                                 </ul>
                                             </td>
                                         </tr>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalTambah{{$silabus->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Materi</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <!-- Belum -->
+                                                    <form action="{{$academy->id}}/{{$silabus->id}}/materi">
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="example-text-input" class="form-control-label">Pilih Jenis Materi</label> <br>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="jenis_materi" id="inlineRadio1" value="Artikel" {{ old('jenis_materi') == "Artikel" ? "checked" : "" }}>
+                                                                    <label class="form-check-label" for="inlineRadio1">Artikel</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="jenis_materi" id="inlineRadio2" value="Vidio Interaktif" {{ old('jenis_materi') == "Vidio Interaktif" ? "checked" : "" }}>
+                                                                    <label class="form-check-label" for="inlineRadio2">Vidio Interaktif</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="jenis_materi" id="inlineRadio3" value="Kuis" {{ old('jenis_materi') == "Kuis" ? "checked" : "" }}>
+                                                                    <label class="form-check-label" for="inlineRadio3">Kuis</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="jenis_materi" id="inlineRadio4" value="Submission" {{ old('jenis_materi') == "Submission" ? "checked" : "" }}>
+                                                                    <label class="form-check-label" for="inlineRadio4">Submission</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-primary">Lanjutkan</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @endforeach
                                     </tbody>
                                 </table>

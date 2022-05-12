@@ -4,7 +4,7 @@
          <!-- breadcrumb -->
          @yield('breadcrumb')
          <!-- end breadcrumb -->
-         
+
          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
              <div class="ms-md-auto pe-md-3 d-flex align-items-center">
 
@@ -22,7 +22,7 @@
 
                  <li class="nav-item dropdown pe-3 d-flex align-items-center">
                      <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                         <i class="fa fa-bell cursor-pointer"></i>
+                         <i class="icofont-alarm cursor-pointer"></i>
                      </a>
                      <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                          <li class="mb-2">
@@ -96,7 +96,7 @@
 
                  <li class="nav-item dropdown pe-3 d-flex align-items-center">
                      <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                         <i class="fa fa-user me-sm-1"></i>
+                         <i class="icofont-user me-sm-1"></i>
                          <span class="d-sm-inline d-none">{{Auth::user()->name}}</span>
                      </a>
                      <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">

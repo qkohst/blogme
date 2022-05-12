@@ -10,15 +10,11 @@
     <title>
         Qkoh St | {{$title}}
     </title>
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
     <link href="/admin-assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="/admin-assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- icofont Icons -->
     <link href="/member-assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- CSS Files -->
     <link href="/admin-assets/css/nucleo-svg.css" rel="stylesheet" />
     <link id="pagestyle" href="/admin-assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
@@ -72,8 +68,6 @@
     <script src="/admin-assets/js/core/bootstrap.min.js"></script>
     <script src="/admin-assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="/admin-assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/admin-assets/js/argon-dashboard.min.js?v=2.0.2"></script>
 

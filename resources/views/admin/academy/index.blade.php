@@ -78,7 +78,7 @@
                                     <h6 class="text-uppercase mb-0">Kelas Kursus</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('academy.create') }}"><i class="fas fa-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('academy.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                                                     @endif
 
                                             </td>
-                                            
+
                                             <td class="align-middle">
                                                 @if($academy->status == 'on')
                                                 <span class="badge badge-sm bg-gradient-success">Aktif</span>
@@ -139,13 +139,13 @@
                                                 @endif
                                             </td>
                                             <td class="align-middle ms-auto text-center">
-                                                <a class="btn btn-link text-primary px-2 mb-0" href="{{ route('academy.show', $academy->id) }}" title="Detail"><i class="fas fa-eye text-primary me-1" aria-hidden="true"></i>Detail</a>
+                                                <a class="btn btn-link text-primary px-2 mb-0" href="{{ route('academy.show', $academy->id) }}" title="Detail"><i class="icofont-eye-alt text-primary me-1" aria-hidden="true"></i>Detail</a>
                                                 <a href="#" class="btn btn-link text-danger text-gradient px-2 mb-0 btn-delete" title="Hapus" data-id="{{$academy->id}}">
                                                     <form action="{{ route('academy.destroy', $academy->id) }}" method="post" id="delete{{$academy->id}}">
                                                         @csrf
                                                         @method('delete')
                                                     </form>
-                                                    <i class="far fa-trash-alt me-1"></i> Hapus
+                                                    <i class="icofont-ui-delete me-1"></i> Hapus
                                                 </a>
                                             </td>
                                         </tr>
@@ -166,7 +166,7 @@
                                     <h6 class="text-uppercase mb-0">Data Kategori Kursus</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('kategory.academy.create') }}"><i class="fas fa-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('kategory.academy.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
                                 </div>
                             </div>
                         </div>
@@ -209,14 +209,14 @@
                                                 @endif
                                             </td>
                                             <td class="align-middle ms-auto text-center">
-                                                <a class="btn btn-link text-dark px-2 mb-0" href="{{ route('kategory.academy.edit', $kategory->id) }}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                                <a class="btn btn-link text-dark px-2 mb-0" href="{{ route('kategory.academy.edit', $kategory->id) }}"><i class="icofont-pencil-alt-2 text-dark me-2" aria-hidden="true"></i>Edit</a>
 
                                                 <a href="#" class="btn btn-link text-danger text-gradient px-2 mb-0 btn-delete" data-id="kategori{{$kategory->id}}">
                                                     <form action="{{ route('kategory.academy.destroy', $kategory->id) }}" method="post" id="deletekategori{{$kategory->id}}">
                                                         @csrf
                                                         @method('delete')
                                                     </form>
-                                                    <i class="far fa-trash-alt me-2"></i>Hapus
+                                                    <i class="icofont-ui-delete me-2"></i>Hapus
                                                 </a>
                                             </td>
                                         </tr>
@@ -238,7 +238,7 @@
                                     <h6 class="text-uppercase mb-0">Data Fasilitas Academy</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('fasilitas.academy.create') }}"><i class="fas fa-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('fasilitas.academy.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
                                 </div>
                             </div>
                         </div>
@@ -266,14 +266,14 @@
                                             </td>
 
                                             <td class="align-middle ms-auto text-center">
-                                                <a class="btn btn-link text-dark px-2 mb-0" href="{{ route('fasilitas.academy.edit', $fasilitas->id) }}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                                <a class="btn btn-link text-dark px-2 mb-0" href="{{ route('fasilitas.academy.edit', $fasilitas->id) }}"><i class="icofont-pencil-alt-2 text-dark me-2" aria-hidden="true"></i>Edit</a>
 
                                                 <a href="#" class="btn btn-link text-danger text-gradient px-2 mb-0 btn-delete" data-id="fasilitas{{$fasilitas->id}}">
                                                     <form action="{{ route('fasilitas.academy.destroy', $fasilitas->id) }}" method="post" id="deletefasilitas{{$fasilitas->id}}">
                                                         @csrf
                                                         @method('delete')
                                                     </form>
-                                                    <i class="far fa-trash-alt me-2"></i>Hapus
+                                                    <i class="icofont-ui-delete me-2"></i>Hapus
                                                 </a>
                                             </td>
                                         </tr>
@@ -295,7 +295,7 @@
                                     <h6 class="text-uppercase mb-0">Data Tools Belajar</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('tools.academy.create') }}"><i class="fas fa-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('tools.academy.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +326,7 @@
                                                         @csrf
                                                         @method('delete')
                                                     </form>
-                                                    <i class="far fa-trash-alt me-2"></i>Hapus
+                                                    <i class="icofont-ui-delete me-2"></i>Hapus
                                                 </a>
                                             </td>
                                         </tr>
@@ -348,7 +348,7 @@
                                     <h6 class="text-uppercase mb-0">Data Teknologi Belajar</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('technology.academy.create') }}"><i class="fas fa-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('technology.academy.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
                                 </div>
                             </div>
                         </div>
@@ -379,7 +379,7 @@
                                                         @csrf
                                                         @method('delete')
                                                     </form>
-                                                    <i class="far fa-trash-alt me-2"></i>Hapus
+                                                    <i class="icofont-ui-delete me-2"></i>Hapus
                                                 </a>
                                             </td>
                                         </tr>

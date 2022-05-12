@@ -20,7 +20,7 @@
                         <h6 class="text-uppercase mb-0">{{$title}}</h6>
                     </div>
                     <div class="col-6 text-end">
-                        <a class="btn bg-gradient-primary mb-0" href="{{ route('team.create') }}"><i class="fas fa-plus me-2"></i>Tambah</a>
+                        <a class="btn bg-gradient-primary mb-0" href="{{ route('team.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
                     </div>
                 </div>
             </div>
@@ -60,14 +60,14 @@
                                     <span class="text-secondary text-xs font-weight-bold">{{$team->mulai_bekerja}}</span>
                                 </td>
                                 <td class="align-middle ms-auto text-center">
-                                    <a class="btn btn-link text-dark px-2 mb-0" href="{{ route('team.edit', $team->id) }}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                    <a class="btn btn-link text-dark px-2 mb-0" href="{{ route('team.edit', $team->id) }}"><i class="icofont-pencil-alt-2 text-dark me-2" aria-hidden="true"></i>Edit</a>
 
                                     <a href="#" class="btn btn-link text-danger text-gradient px-2 mb-0 btn-delete" data-id="{{$team->id}}">
                                         <form action="{{ route('team.destroy', $team->id) }}" method="post" id="delete{{$team->id}}">
                                             @csrf
                                             @method('delete')
                                         </form>
-                                        <i class="far fa-trash-alt me-2"></i>Hapus
+                                        <i class="icofont-ui-delete me-2"></i>Hapus
                                     </a>
                                 </td>
                             </tr>

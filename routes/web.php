@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'contact',
                 'uses' => ['index', 'update']
             ]);
+
             Route::resource('academy', 'Admin\AcademyController',  [
                 'names' => 'academy',
             ]);
@@ -72,7 +73,14 @@ Route::group(['middleware' => ['auth']], function () {
             ]);
             Route::resource('academy/{id}/silabus', 'Admin\SilabusAcademyController',  [
                 'names' => 'academy.silabus',
-                'except' => ['index', 'show']
+                'except' => ['index']
+            ]);
+            Route::get('academy/{id}/{silabu}/materi', 'Admin\SilabusAcademyController@select_materi')->name('select.materi');
+            Route::delete('materi/{id}', 'Admin\SilabusAcademyController@delete_materi')->name('delete.materi');
+
+            Route::resource('silabus/{id}/artikel', 'Admin\ArtikelMateriController',  [
+                'names' => 'artikel.materi',
+                'uses' => ['store', 'show', 'edit', 'update']
             ]);
         });
     });
