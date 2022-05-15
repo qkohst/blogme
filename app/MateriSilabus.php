@@ -28,4 +28,9 @@ class MateriSilabus extends Model
     {
         return $this->hasOne('App\VidioMateri');
     }
+
+    public function kuis_materis()
+    {
+        return $this->hasMany('App\KuisMateri');
+    }
 }

@@ -2,7 +2,7 @@
 
 @section('style')
 <!-- summernote -->
-<link rel="stylesheet" href="/admin-assets/plugins/summernote/summernote.css">
+<link rel="stylesheet" href="/admin-assets/plugins/summernote/summernote-bs4.css">
 @endsection
 
 @section('breadcrumb')
@@ -104,10 +104,12 @@
 @endsection
 
 @section('scripts')
-<!-- Summernote -->
-<script src="/admin-assets/plugins/summernote/summernote.js"></script>
 <!-- Sweet Alert -->
 <script src="/admin-assets/js/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/admin-assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Summernote -->
+<script src="/admin-assets/plugins/summernote/summernote-bs4.min.js"></script>
 
 <script>
     $(function() {

@@ -153,7 +153,9 @@
                                                     <i class="icofont-ui-edit mx-2"></i> Edit Materi
                                                 </a>
                                                 @elseif($materi->tipe_materi == 3)
-                                                <!-- Kuis -->
+                                                <a class="dropdown-item border-radius-md" href="/admin/silabus/{{$silabus->id}}/kuis/{{$materi->id}}">
+                                                    <i class="icofont-eye-alt mx-2"></i> Detail Materi
+                                                </a>
                                                 @else
                                                 <!-- Submission -->
                                                 @endif

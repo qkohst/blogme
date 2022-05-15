@@ -4,7 +4,7 @@
 <!-- Select2 -->
 <link rel="stylesheet" href="/admin-assets/plugins/select2/css/select2.css">
 <!-- summernote -->
-<link rel="stylesheet" href="/admin-assets/plugins/summernote/summernote.css">
+<link rel="stylesheet" href="/admin-assets/plugins/summernote/summernote-bs4.css">
 @endsection
 
 @section('breadcrumb')
@@ -177,7 +177,7 @@
 <!-- Bootstrap 4 -->
 <script src="/admin-assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Summernote -->
-<script src="/admin-assets/plugins/summernote/summernote.js"></script>
+<script src="/admin-assets/plugins/summernote/summernote-bs4.min.js"></script>
 <script>
     $(function() {
         //Initialize Select2 Elements

@@ -86,6 +86,11 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'vidio.materi',
                 'uses' => ['store', 'show', 'edit', 'update']
             ]);
+            Route::resource('silabus/{id}/kuis', 'Admin\KuisMateriController',  [
+                'names' => 'kuis.materi',
+                'uses' => ['store', 'show', 'edit', 'update']
+            ]);
+            Route::post('kuis', 'Admin\KuisMateriController@store_kuis')->name('store.kuis');
         });
     });
 

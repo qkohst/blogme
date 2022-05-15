@@ -282,7 +282,10 @@
                                                     <i class="icofont-file-avi-mp4"></i> <b>{{$silabus->count_vidio}}</b> <small>Vidio Interaktif</small>
                                                     @endif
 
-                                                    <i class="icofont-checked"></i> <b>1</b> <small>Kuis</small>
+                                                    @if($silabus->count_kuis != 0)
+                                                    <i class="icofont-checked"></i> <b>{{$silabus->count_kuis}}</b> <small>Kuis</small>
+                                                    @endif
+
                                                     <i class="icofont-upload-alt"></i> <b>1</b> <small>Submission</small>
                                                 </span>
                                             </td>
