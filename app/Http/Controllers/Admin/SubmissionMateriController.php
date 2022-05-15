@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\MateriSilabus;
-use App\VidioMateri;
+use App\SubmissionMateri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class VidioMateriController extends Controller
+class SubmissionMateriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,8 +41,7 @@ class VidioMateriController extends Controller
         $validator = Validator::make($request->all(), [
             'judul_materi' => 'required|min:5|max:100',
             'tipe_pembaca' => 'required|in:Semua Orang,Member',
-            'deskripsi_vidio' => 'required|min:10|max:255',
-            'embed_vidio' => 'required|min:20'
+            'deskripsi' => 'required|min:50',
         ]);
         if ($validator->fails()) {
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
@@ -57,7 +56,7 @@ class VidioMateriController extends Controller
             // Add data to table materi_silabuses
             $materi = new MateriSilabus([
                 'silabus_academies_id' => $id,
-                'tipe_materi' => 2,
+                'tipe_materi' => 4,
                 'nomor_urut' => $nomor_urut,
                 'tipe_pembaca' => $request->tipe_pembaca,
                 'judul_materi' => $request->judul_materi,
@@ -65,12 +64,11 @@ class VidioMateriController extends Controller
             $materi->save();
 
             // Add data to table artikel_materies
-            $vidio = new VidioMateri([
+            $submission = new SubmissionMateri([
                 'materi_silabuses_id' => $materi->id,
-                'deskripsi_vidio' => $request->deskripsi_vidio,
-                'embed_vidio' => $request->embed_vidio,
+                'isi_materi' => $request->deskripsi,
             ]);
-            $vidio->save();
+            $submission->save();
             return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
         }
     }
@@ -81,21 +79,21 @@ class VidioMateriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $vidio)
+    public function show($id, $submission)
     {
-        $title = 'Detail Vidio';
+        $title = 'Detail Submission';
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
-        $materi = MateriSilabus::findorfail($vidio);
-        $vidio = VidioMateri::where('materi_silabuses_id', $materi->id)->first();
-        return view('admin.academy.materi.show_vidio', compact(
+        $materi = MateriSilabus::findorfail($submission);
+        $submission = SubmissionMateri::where('materi_silabuses_id', $materi->id)->first();
+        return view('admin.academy.materi.show_submission', compact(
             'title',
             'title2',
             'title3',
             'title4',
             'materi',
-            'vidio',
+            'submission',
         ));
     }
 
@@ -105,21 +103,21 @@ class VidioMateriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, $vidio)
+    public function edit($id, $submission)
     {
-        $title = 'Edit Vidio';
+        $title = 'Edit Submission';
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
-        $materi = MateriSilabus::findorfail($vidio);
-        $vidio = VidioMateri::where('materi_silabuses_id', $materi->id)->first();
-        return view('admin.academy.materi.edit_vidio', compact(
+        $materi = MateriSilabus::findorfail($submission);
+        $submission = SubmissionMateri::where('materi_silabuses_id', $materi->id)->first();
+        return view('admin.academy.materi.edit_submission', compact(
             'title',
             'title2',
             'title3',
             'title4',
             'materi',
-            'vidio',
+            'submission',
         ));
     }
 
@@ -130,30 +128,28 @@ class VidioMateriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, $vidio)
+    public function update(Request $request, $id, $submission)
     {
         $validator = Validator::make($request->all(), [
             'tipe_pembaca' => 'required|in:Semua Orang,Member',
-            'deskripsi_vidio' => 'required|min:10|max:255',
-            'embed_vidio' => 'required|min:20'
+            'deskripsi' => 'required|min:50',
         ]);
         if ($validator->fails()) {
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         } else {
-            $materi = MateriSilabus::findorfail($vidio);
-            $vidio = VidioMateri::where('materi_silabuses_id', $materi->id)->first();
+            $materi = MateriSilabus::findorfail($submission);
+            $submission = SubmissionMateri::where('materi_silabuses_id', $materi->id)->first();
 
             // Update Data Materi
             $data_materi = [
                 'tipe_pembaca' => $request->tipe_pembaca,
             ];
             $materi->update($data_materi);
-            // Update Data Artikel
-            $data_vidio = [
-                'deskripsi_vidio' => $request->deskripsi_vidio,
-                'embed_vidio' => $request->embed_vidio,
+            // Update Data submission
+            $data_submission = [
+                'isi_materi' => $request->deskripsi,
             ];
-            $vidio->update($data_vidio);
+            $submission->update($data_submission);
 
             return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
         }

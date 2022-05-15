@@ -191,7 +191,12 @@ class SilabusAcademyController extends Controller
                     'silabus',
                 ));
             } elseif ($request->jenis_materi == 'Submission') {
-                // 
+                return view('admin.academy.materi.create_submission', compact(
+                    'title',
+                    'title2',
+                    'title3',
+                    'silabus',
+                ));
             }
         }
     }

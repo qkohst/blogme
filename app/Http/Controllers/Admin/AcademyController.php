@@ -173,6 +173,7 @@ class AcademyController extends Controller
             $silabus->count_artikel = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 1)->count();
             $silabus->count_vidio = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 2)->count();
             $silabus->count_kuis = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 3)->count();
+            $silabus->count_submission = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 4)->count();
         }
 
         $durasi_belajar = SilabusAcademy::where('academies_id', $academy->id)->sum('waktu_belajar');

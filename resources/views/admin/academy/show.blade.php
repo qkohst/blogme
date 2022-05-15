@@ -273,6 +273,11 @@
                                                 </p>
                                             </td>
                                             <td>
+                                                @if ($silabus->count_artikel == 0 && $silabus->count_vidio == 0 && $silabus->count_kuis == 0 && $silabus->count_submission == 0)
+                                                <span class="text-capitalize badge badge-sm bg-gradient-secondary">
+                                                    Materi belum ditemukan
+                                                </span>
+                                                @else
                                                 <span class="text-capitalize badge badge-sm bg-gradient-info">
                                                     @if($silabus->count_artikel != 0)
                                                     <i class="icofont-ui-file"></i> <b>{{$silabus->count_artikel}}</b> <small>Artikel</small>
@@ -285,9 +290,11 @@
                                                     @if($silabus->count_kuis != 0)
                                                     <i class="icofont-checked"></i> <b>{{$silabus->count_kuis}}</b> <small>Kuis</small>
                                                     @endif
-
-                                                    <i class="icofont-upload-alt"></i> <b>1</b> <small>Submission</small>
+                                                    @if($silabus->count_submission != 0)
+                                                    <i class="icofont-upload-alt"></i> <b>{{$silabus->count_submission}}</b> <small>Submission</small>
+                                                    @endif
                                                 </span>
+                                                @endif
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="btn btn-link text-secondary mb-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

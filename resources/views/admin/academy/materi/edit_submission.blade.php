@@ -9,8 +9,8 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="{{ route('academy.index') }}">{{$title4}}</a></li>
-        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/admin/academy/{{$artikel->materi_silabuses->silabus_academies->academies->id}}">{{$title3}}</a></li>
-        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/admin/academy/{{$artikel->materi_silabuses->silabus_academies->academies->id}}/silabus/{{$artikel->materi_silabuses->silabus_academies->id}}">{{$title2}}</a></li>
+        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/admin/academy/{{$submission->materi_silabuses->silabus_academies->academies->id}}">{{$title3}}</a></li>
+        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/admin/academy/{{$submission->materi_silabuses->silabus_academies->academies->id}}/silabus/{{$submission->materi_silabuses->silabus_academies->id}}">{{$title2}}</a></li>
         <li class=" breadcrumb-item text-sm text-white active" aria-current="page">{{$title}}</li>
     </ol>
 </nav>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <hr class="horizontal dark">
-                <form class="form-edit" action="/admin/silabus/{{$materi->silabus_academies->id}}/artikel/{{$materi->id}}" method="post" enctype="multipart/form-data">
+                <form class="form-edit" action="/admin/silabus/{{$materi->silabus_academies->id}}/submission/{{$materi->id}}" method="post">
                     {{ method_field('PATCH') }}
                     @csrf
                     <div class="card-body pt-2">
@@ -82,8 +82,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Isi Materi</label>
-                                    <textarea class="form-control summernote" name="isi_materi">{{$artikel->isi_materi}}</textarea>
+                                    <label for="example-text-input" class="form-control-label">Deskripsi Submission</label>
+                                    <textarea class="form-control summernote" name="deskripsi">{{$submission->isi_materi}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
 
                     <div class="card-footer pt-0 pb-2">
                         <a href="#" class="btn bg-gradient-primary btn-sm ms-auto btn-save">Simpan</a>
-                        <a href="/admin/academy/{{$artikel->materi_silabuses->silabus_academies->academies->id}}/silabus/{{$artikel->materi_silabuses->silabus_academies->id}}" class="btn btn-outline-primary btn-sm ms-auto">Batal</a>
+                        <a href="/admin/academy/{{$submission->materi_silabuses->silabus_academies->academies->id}}/silabus/{{$submission->materi_silabuses->silabus_academies->id}}" class="btn btn-outline-primary btn-sm ms-auto">Batal</a>
                     </div>
                 </form>
             </div>

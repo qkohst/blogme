@@ -81,7 +81,7 @@ class ArtikelMateriController extends Controller
      */
     public function show($id, $artikel)
     {
-        $title = 'Detail Materi';
+        $title = 'Detail Artikel';
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
@@ -105,7 +105,7 @@ class ArtikelMateriController extends Controller
      */
     public function edit($id, $artikel)
     {
-        $title = 'Edit Materi';
+        $title = 'Edit Artikel';
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
@@ -150,7 +150,7 @@ class ArtikelMateriController extends Controller
                 'isi_materi' => $request->isi_materi,
             ];
             $artikel->update($data_artikel);
-            
+
             return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
         }
     }

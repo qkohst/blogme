@@ -33,4 +33,9 @@ class MateriSilabus extends Model
     {
         return $this->hasMany('App\KuisMateri');
     }
+
+    public function submission_materis()
+    {
+        return $this->hasOne('App\SubmissionMateri');
+    }
 }

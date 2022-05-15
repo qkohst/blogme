@@ -157,7 +157,12 @@
                                                     <i class="icofont-eye-alt mx-2"></i> Detail Materi
                                                 </a>
                                                 @else
-                                                <!-- Submission -->
+                                                <a class="dropdown-item border-radius-md" href="/admin/silabus/{{$silabus->id}}/submission/{{$materi->id}}">
+                                                    <i class="icofont-eye-alt mx-2"></i> Detail Materi
+                                                </a>
+                                                <a class="dropdown-item border-radius-md" href="/admin/silabus/{{$silabus->id}}/submission/{{$materi->id}}/edit">
+                                                    <i class="icofont-ui-edit mx-2"></i> Edit Materi
+                                                </a>
                                                 @endif
                                                 <a href="#" class="dropdown-item border-radius-md btn-delete" data-id="materi{{$materi->id}}">
                                                     <form action="/admin/materi/{{$materi->id}}" method="post" id="deletemateri{{$materi->id}}">

@@ -91,6 +91,10 @@ Route::group(['middleware' => ['auth']], function () {
                 'uses' => ['store', 'show', 'edit', 'update']
             ]);
             Route::post('kuis', 'Admin\KuisMateriController@store_kuis')->name('store.kuis');
+            Route::resource('silabus/{id}/submission', 'Admin\SubmissionMateriController',  [
+                'names' => 'submission.materi',
+                'uses' => ['store', 'show', 'edit', 'update']
+            ]);
         });
     });
 
