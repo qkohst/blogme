@@ -28,7 +28,14 @@
                             <h5 class="mb-1">
                                 {{$academy->nama_kelas}}
                             </h5>
+
                             <p class="mb-0 font-weight-bold text-sm">
+                                @if($academy->jenis_kelas == 'Gratis')
+                                <span class="badge badge-sm bg-gradient-success">{{$academy->jenis_kelas}}</span>
+                                @else
+                                <span class="badge badge-sm bg-gradient-info">{{$academy->jenis_kelas}}</span>
+                                @endif
+
                                 @if($academy->level == 'Dasar')
                                 <span class="badge badge-sm bg-gradient-light text-dark">{{$academy->level}}</span>
                                 @elseif($academy->level == 'Pemula')

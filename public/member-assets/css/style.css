@@ -772,13 +772,13 @@ section {
 
 .featured-services .icon i {
     color: #16df7e;
-    font-size: 36px;
+    font-size: 30px;
 }
 
 .featured-services .title {
     font-weight: 600;
     margin-bottom: 15px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .featured-services .title a {
@@ -1009,7 +1009,7 @@ section {
 --------------------------------------------------------------*/
 .testimonials .testimonial-item {
     box-sizing: content-box;
-    min-height: 320px;
+    min-height: 200px;
 }
 
 .testimonials .testimonial-item .testimonial-img {
@@ -1054,9 +1054,8 @@ section {
 }
 
 .testimonials .testimonial-item p {
-    font-style: italic;
-    margin: 0 15px 0 15px;
-    padding: 20px 20px 60px 20px;
+    margin: 0 5px 0 5px;
+    padding: 10px 10px 20px 10px;
     background: white;
     position: relative;
     border-radius: 6px;

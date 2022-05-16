@@ -41,7 +41,7 @@
                                 <input class="form-control" type="file" name="gambar" accept="image/png, image/jpeg" value="{{old('gambar')}}">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Kategori</label>
                                 <select class="form-select" aria-label="Default select example" name="kategori">
@@ -49,6 +49,16 @@
                                     @foreach($kategories as $kategory)
                                     <option value="{{$kategory->id}}" {{ old('kategori') == $kategory->id ? "selected" : "" }}>{{$kategory->nama_kategori}}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Jenis Kelas</label> <br>
+                                <select class="form-select" aria-label="Default select example" name="jenis_kelas">
+                                    <option selected>-- Pilih Jenis Kelas --</option>
+                                    <option value="Gratis" {{ old('jenis_kelas') == 'Gratis' ? "selected" : "" }}>Gratis</option>
+                                    <option value="Berbayar" {{ old('jenis_kelas') == 'Berbayar' ? "selected" : "" }}>Berbayar</option>
                                 </select>
                             </div>
                         </div>

@@ -9,7 +9,7 @@
                 <h1>Belajar kursus IT lebih murah di Qkoh St</h1>
                 <h2>Solusimu untuk bisa mahir di bidang IT. Ratusan hingga ribuan kursus pilihan yang menarik dengan berbagai tingkatan berbeda.</h2>
                 <div class="d-flex">
-                    <a href="#about" class="btn-get-started scrollto">Belajar Sekarang</a>
+                    <a href="{{ route('courses.index') }}" class="btn-get-started scrollto">Belajar Sekarang</a>
                 </div>
             </div>
             <div class="col-lg-6 order-1 order-lg-2 hero-img">
@@ -34,8 +34,8 @@
 
             <div class="row">
                 @foreach($kategories as $kategory)
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                    <a href="">
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-3">
+                    <a href="{{ route('courses.kategori', $kategory->id) }}">
                         <div class="icon-box py-5">
                             <div class="icon"><img src="admin-assets/img/kategory/{{$kategory->gambar}}" class="img-fluid" alt="academy-img"></div>
                             <h4>{{$kategory->nama_kategori}}</h4>

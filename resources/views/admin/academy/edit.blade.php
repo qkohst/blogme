@@ -37,7 +37,7 @@
                                 <input class="form-control" type="text" name="nama_kelas" value="{{$academy->nama_kelas}}" disabled>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Kategori</label>
                                 <select class="form-select" aria-label="Default select example" name="kategori">
@@ -45,6 +45,16 @@
                                     @foreach($kategories as $kategory)
                                     <option value="{{$kategory->id}}" {{ $academy->kategories_id == $kategory->id ? "selected" : "" }}>{{$kategory->nama_kategori}}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Jenis Kelas</label>
+                                <select class="form-select" aria-label="Default select example" name="jenis_kelas">
+                                    <option selected>-- Pilih Jenis kelas --</option>
+                                    <option value="Gratis" {{ $academy->jenis_kelas == 'Gratis' ? "selected" : "" }}>Gratis</option>
+                                    <option value="Berbayar" {{ $academy->jenis_kelas == 'Berbayar' ? "selected" : "" }}>Berbayar</option>
                                 </select>
                             </div>
                         </div>

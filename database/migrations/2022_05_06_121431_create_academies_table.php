@@ -25,6 +25,7 @@ class CreateAcademiesTable extends Migration
             $table->string('minimum_sistem_operasi', 100);
             $table->string('minimum_processor', 100);
             $table->enum('status', ['on', 'off']);
+            $table->enum('jenis_kelas', ['Gratis', 'Berbayar']);
             $table->timestamps();
 
             $table->foreign('kategories_id')->references('id')->on('kategories');

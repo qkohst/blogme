@@ -26,6 +26,13 @@ Route::get('job', 'HomeController@job')->name('job');
 Route::get('event', 'HomeController@event')->name('event');
 Route::get('partnership', 'HomeController@partnership')->name('partnership');
 
+// Lanjut Dibawah ini 
+Route::resource('academy/class', 'AcademyController',  [
+    'names' => 'courses',
+    'uses' => ['index', 'show']
+]);
+Route::get('academy/courses/{id_kategori}', 'AcademyController@by_kategori')->name('courses.kategori');
+
 
 Route::get('login', 'AuthController@login_page')->name('login');
 Route::post('login', 'AuthController@login_post')->name('login');

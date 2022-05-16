@@ -17,6 +17,7 @@ class Academy extends Model
         'minimum_sistem_operasi',
         'minimum_processor',
         'status',
+        'jenis_kelas'
     ];
 
     public function kategories()

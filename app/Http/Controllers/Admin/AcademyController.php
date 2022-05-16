@@ -81,6 +81,7 @@ class AcademyController extends Controller
             'nama_kelas' => 'required|min:3|max:100|unique:academies,nama_kelas',
             'gambar' => 'required',
             'kategori' => 'required',
+            'jenis_kelas' => 'required',
             'level' => 'required|in:Dasar,Pemula,Menengah,Mahir,Profesional',
             'fasilitas_kelas'    => 'required|array|min:3',
             'deskripsi' => 'required|min:50',
@@ -110,6 +111,7 @@ class AcademyController extends Controller
                 'minimum_sistem_operasi' => $request->minimum_sistem_operasi,
                 'minimum_processor' => $request->minimum_processor,
                 'status' => 'off',
+                'jenis_kelas' => $request->jenis_kelas,
             ]);
             $academy->save();
 
@@ -230,6 +232,7 @@ class AcademyController extends Controller
         $academy = Academy::findorfail($id);
         $validator = Validator::make($request->all(), [
             'kategori' => 'required',
+            'jenis_kelas' => 'required',
             'level' => 'required|in:Dasar,Pemula,Menengah,Mahir,Profesional',
             'deskripsi' => 'required|min:50',
             'minimum_ram' => 'required|min:3|max:100',
@@ -249,6 +252,7 @@ class AcademyController extends Controller
             $data = [
                 'level' => $request->level,
                 'kategori' => $request->kategori,
+                'jenis_kelas' => $request->jenis_kelas,
                 'deskripsi' => $request->deskripsi,
                 'minimum_ram' => $request->minimum_ram,
                 'minimum_layar' => $request->minimum_layar,
