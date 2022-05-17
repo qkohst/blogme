@@ -21,19 +21,25 @@ class AcademyController extends Controller
      */
     public function index()
     {
-        $title = 'Semua Kelas';
+        $title = 'Kelas';
         $kategories = Kategory::where('status', 'on')->get();
-        $academies = Academy::where('status', 'on')->get();
+
+        $academies = Academy::where('status', 'on')->filter(request(['kategories', 'jenis_kelas', 'level', 'search']))->orderBy('created_at', 'desc')->paginate(6);
         foreach ($academies as $academy) {
             $academy->durasi_belajar = SilabusAcademy::where('academies_id', $academy->id)->sum('waktu_belajar');
         }
 
-        $technologies = Technology::all();
-        return view('academy.all_class', compact(
+        if (request('kategories')) {
+            $kategori = Kategory::findorfail(request('kategories'));
+        } else {
+            $kategori = null;
+        }
+
+        return view('academy.class', compact(
             'title',
             'kategories',
             'academies',
-            'technologies'
+            'kategori'
         ));
     }
 
@@ -127,23 +133,5 @@ class AcademyController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function by_kategori($id_kategori)
-    {
-        $kategori = Kategory::findorfail($id_kategori);
-        $title = $kategori->nama_kategori;
-        $kategories = Kategory::where('status', 'on')->get();
-        $academies = Academy::where('kategories_id', $kategori->id)->where('status', 'on')->get();
-        foreach ($academies as $academy) {
-            $academy->durasi_belajar = SilabusAcademy::where('academies_id', $academy->id)->sum('waktu_belajar');
-        }
-
-        return view('academy.class_by_kategori', compact(
-            'title',
-            'kategori',
-            'kategories',
-            'academies'
-        ));
     }
 }

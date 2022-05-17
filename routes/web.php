@@ -31,7 +31,6 @@ Route::resource('academy/class', 'AcademyController',  [
     'names' => 'courses',
     'uses' => ['index', 'show']
 ]);
-Route::get('academy/courses/{id_kategori}', 'AcademyController@by_kategori')->name('courses.kategori');
 
 
 Route::get('login', 'AuthController@login_page')->name('login');

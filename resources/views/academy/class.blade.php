@@ -19,19 +19,25 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav d-flex mt-0 mt-lg-0 text-sm">
                     @foreach($kategories as $kategory)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('courses.kategori', $kategory->id) }}">{{$kategory->nama_kategori}}</a>
+                    <li class="nav-item {{ $kategory->id == request('kategories') ? "active" : "" }}">
+                        <a class="nav-link" href="{{ route('courses.index') }}?kategories={{$kategory->id}}">{{$kategory->nama_kategori}}</a>
                     </li>
                     @endforeach
-                    <li class="nav-item active">
+                    <li class="nav-item {{ request('kategories') == null ? "active" : "" }}">
                         <a class="nav-link" href="{{ route('courses.index') }}">Semua Kelas</a>
                     </li>
                 </ul>
             </div>
         </nav>
         <div class="search form-control-sm justify-content-center mx-2 mb-3">
-            <form action="" method="post">
-                <input type="text" name="search" placeholder="Cari semua kelas"><input type="submit" value="Telusuri">
+            <form action="{{ route('courses.index') }}">
+                @if(request('kategories'))
+                <input type="hidden" name="kategories" value="{{request('kategories')}}">
+                @endif
+                @if(request('jenis_kelas'))
+                <input type="hidden" name="jenis_kelas" value="{{request('jenis_kelas')}}">
+                @endif
+                <input type="text" name="search" placeholder="Cari kelas" value="{{request('search')}}" onfocus="this.value=''"><input type="submit" value="Telusuri">
             </form>
         </div>
     </div>
@@ -40,53 +46,63 @@
     <section id="team" class="team section-bg">
         <div class="container">
 
+            @if($kategori == null)
             <div class="section-title">
                 <span>Semua Kelas</span>
                 <h2>Semua Kelas</h2>
                 <p>Tersedia dari level dasar hingga profesional sesuai kebutuhan industri terkini.</p>
             </div>
+            @else
+            <div class="section-title">
+                <span>{{$kategori->nama_kategori}}</span>
+                <h2>{{$kategori->nama_kategori}}</h2>
+                <p>{{$kategori->deskripsi}}</p>
+            </div>
+            @endif
 
-            <div class="row">
-                <div class="col-md-4">
-                    <form>
+            <form action="{{ route('courses.index') }}">
+                <div class="row">
+
+                    @if(request('kategories'))
+                    <input type="hidden" name="kategories" value="{{request('kategories')}}">
+                    @endif
+                    @if(request('search'))
+                    <input type="hidden" name="search" value="{{request('search')}}">
+                    @endif
+
+                    <div class="col-md-8">
                         <div class="form-group">
                             <label for="level" class="text-sm">Level Kelas</label>
-                            <select class="form-control select2" name="level[]" multiple="multiple" data-placeholder="Semua Level" style="width: 100%;">
-                                <option value="Dasar" {{ in_array('Dasar', old('level', [])) ? 'selected' : '' }}>Dasar</option>
-                                <option value="Pemula" {{ in_array('Pemula', old('level', [])) ? 'selected' : '' }}>Pemula</option>
-                                <option value="Menengah" {{ in_array('Menengah', old('level', [])) ? 'selected' : '' }}>Menengah</option>
-                                <option value="Mahir" {{ in_array('Mahir', old('level', [])) ? 'selected' : '' }}>Mahir</option>
-                                <option value="Profesional" {{ in_array('Profesional', old('level', [])) ? 'selected' : '' }}>Profesional</option>
+                            <select class="form-control select2" name="level[]" multiple="multiple" data-placeholder="Semua Level" style="width: 100%;" onchange="this.form.submit()">
+                                <option value="Dasar" {{ in_array('Dasar', request('level', [])) ? 'selected' : '' }}>Dasar</option>
+                                <option value="Pemula" {{ in_array('Pemula', request('level', [])) ? 'selected' : '' }}>Pemula</option>
+                                <option value="Menengah" {{ in_array('Menengah', request('level', [])) ? 'selected' : '' }}>Menengah</option>
+                                <option value="Mahir" {{ in_array('Mahir', request('level', [])) ? 'selected' : '' }}>Mahir</option>
+                                <option value="Profesional" {{ in_array('Profesional', request('level', [])) ? 'selected' : '' }}>Profesional</option>
                             </select>
                         </div>
-                    </form>
-                </div>
-                <div class="col-md-4">
-                    <form>
-                        <div class="form-group">
-                            <label for="teknologi" class="text-sm">Teknologi</label>
-                            <select class="form-control select2" name="teknologi[]" multiple="multiple" data-placeholder="Semua Teknologi" style="width: 100%;">
-                                @foreach($technologies as $technology)
-                                <option value="{{$technology->id}}" {{ in_array($technology->id, old('teknologi', [])) ? 'selected' : '' }}>{{$technology->nama_teknologi}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-4">
-                    <form>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="jenis_kelas" class="text-sm">Jenis Kelas</label>
-                            <select class="form-control" name="jenis_kelas" id="jenis_kelas">
-                                <option value="">Semua Kelas</option>
-                                <option value="Gratis">Kelas Gratis</option>
-                                <option value="Berbayar">Kelas Berbayar</option>
+                            <select class="form-control" name="jenis_kelas" id="jenis_kelas" onchange="this.form.submit()">
+                                <option value="Semua Jenis" request('jenis_kelas')=='' ? "selected" : "" }}>Semua Jenis</option>
+                                <option value="Gratis" {{ request('jenis_kelas') =='Gratis' ? "selected" : "" }}>Kelas Gratis</option>
+                                <option value="Berbayar" {{ request('jenis_kelas') =='Berbayar' ? "selected" : "" }}>Kelas Berbayar</option>
                             </select>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
+
             <div class="row">
+                @if($academies->count()==0)
+                <div class="col-12 text-center pt-3">
+                    <p class="font-weight-bold text-secondary">
+                        Kelas tidak ditemukan
+                    </p>
+                </div>
+                @else
                 @foreach($academies as $academy)
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                     <a href="{{ route('courses.show', $academy->id) }}">
@@ -105,9 +121,12 @@
                 </div>
                 @endforeach
 
+                <div class="col-12 d-flex justify-content-center">
+                    {{$academies->links()}}
+                </div>
+
+                @endif
             </div>
-
-
         </div>
     </section>
     <!-- End Academy Section -->

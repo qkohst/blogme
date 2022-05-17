@@ -35,7 +35,7 @@
             <div class="row">
                 @foreach($kategories as $kategory)
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-3">
-                    <a href="{{ route('courses.kategori', $kategory->id) }}">
+                    <a href="{{ route('courses.index') }}?kategories={{$kategory->id}}">
                         <div class="icon-box py-5">
                             <div class="icon"><img src="admin-assets/img/kategory/{{$kategory->gambar}}" class="img-fluid" alt="academy-img"></div>
                             <h4>{{$kategory->nama_kategori}}</h4>

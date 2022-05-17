@@ -14,7 +14,7 @@
                 <ul class="navbar-nav d-flex mt-0 mt-lg-0 text-sm">
                     @foreach($kategories as $kategory)
                     <li class="nav-item {{ $kategory->id == $academy->kategories_id ? "active" : "" }}">
-                        <a class="nav-link" href="{{ route('courses.kategori', $kategory->id) }}">{{$kategory->nama_kategori}}</a>
+                        <a class="nav-link" href="{{ route('courses.index') }}?kategories={{$kategory->id}}">{{$kategory->nama_kategori}}</a>
                     </li>
                     @endforeach
                     <li class="nav-item">

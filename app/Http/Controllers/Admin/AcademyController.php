@@ -27,7 +27,7 @@ class AcademyController extends Controller
     public function index()
     {
         $title = 'Academy';
-        $academies = Academy::all();
+        $academies = Academy::orderBy('created_at', 'desc')->get();
         foreach ($academies as $academy) {
             $academy->count_silabus = SilabusAcademy::where('academies_id', $academy->id)->count();
         }
