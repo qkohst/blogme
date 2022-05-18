@@ -16,7 +16,7 @@
              <ul class="navbar-nav">
                  <li class="nav-item">
                      <a class="nav-link" href="/">
-                         <i class="fas fa-home opacity-6 text-dark me-1"></i>
+                         <i class="icofont-home opacity-6 text-dark me-1"></i>
                          Home
                      </a>
                  </li>

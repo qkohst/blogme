@@ -44,6 +44,12 @@
                     </a>
                 </div>
                 @endforeach
+
+                <!-- Pagination  -->
+                <div class="col-12 d-flex justify-content-center pt-4">
+                    {{$kategories->links()}}
+                </div>
+
             </div>
 
         </div>

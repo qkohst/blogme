@@ -9,12 +9,12 @@
         <h1>Jadilah Bagian dari Komunitas IT Terbesar di Indonesia</h1>
         <h2>Ikutan diskusi forum tanya jawab, tulis blog dan Membangun portofolio semua di Qkoh St</h2>
         <div class="d-flex">
-          <a href="#about" class="btn-get-started scrollto">Daftar Akun</a>
-          <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> Mulai Belajar <i class="icofont-readernaut"></i></a>
+          <a href="{{ route('courses.index') }}" class="btn-get-started scrollto text-md mr-1"> Mulai Belajar <i class="icofont-readernaut"></i></a>
+          <a href="{{ route('login') }}" class="get-started-btn scrollto text-md">Masuk</a>
         </div>
       </div>
       <div class="col-lg-6 order-1 order-lg-2 hero-img">
-        <img src="member-assets/img/hero-img.png" class="img-fluid animated" alt="">
+        <img src="/member-assets/img/hero-img.png" class="img-fluid animated" alt="">
       </div>
     </div>
   </div>

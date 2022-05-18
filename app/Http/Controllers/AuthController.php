@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -18,18 +18,14 @@ class AuthController extends Controller
 
     public function login_post(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|exists:users',
+        $request->validate([
+            'email' => 'required|email:dns|exists:users',
             'password' => 'required|min:6',
         ]);
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return back()->with('toast_error', 'Password salah.');
         } else {
-            if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                return back()->with('toast_error', 'Password salah.');
-            } else {
-                return redirect('dashboard')->with('toast_success', 'Login success.');
-            }
+            return redirect('dashboard')->with('toast_success', 'Login success.');
         }
     }
 
@@ -39,6 +35,26 @@ class AuthController extends Controller
         return view('auth.register', compact(
             'title',
         ));
+    }
+
+    public function register_post(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email:dns|unique:users',
+            'password' => 'required|min:6|max:20',
+            'confirm_password' => 'required|same:password',
+        ]);
+
+        $user = new User([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 2,
+            'avatar' => 'default.png'
+        ]);
+        $user->save();
+        return redirect('login')->with('toast_success', 'Registrasi berhasil, silahkan Login !');
     }
 
     public function logout(Request $request)

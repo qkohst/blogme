@@ -39,7 +39,7 @@ class HomeController extends Controller
     public function academy()
     {
         $title = 'Academy';
-        $kategories = Kategory::where('status', 'on')->get();
+        $kategories = Kategory::where('status', 'on')->paginate(6);
         return view('academy.index', compact(
             'title',
             'kategories'

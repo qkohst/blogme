@@ -7,7 +7,6 @@ use App\FasilitasAcademy;
 use App\Kategory;
 use App\MateriSilabus;
 use App\SilabusAcademy;
-use App\Technology;
 use App\TechnologyAcademy;
 use App\ToolsAcademy;
 use Illuminate\Http\Request;

@@ -29,6 +29,8 @@
                 </ul>
             </div>
         </nav>
+
+        <!-- Search -->
         <div class="search form-control-sm justify-content-center mx-2 mb-3">
             <form action="{{ route('courses.index') }}">
                 @if(request('kategories'))
@@ -40,6 +42,7 @@
                 <input type="text" name="search" placeholder="Cari kelas" value="{{request('search')}}" onfocus="this.value=''"><input type="submit" value="Telusuri">
             </form>
         </div>
+
     </div>
 
     <!-- ======= Academy Section ======= -->
@@ -60,6 +63,7 @@
             </div>
             @endif
 
+            <!-- Filter  -->
             <form action="{{ route('courses.index') }}">
                 <div class="row">
 
@@ -95,6 +99,7 @@
                 </div>
             </form>
 
+            <!-- Class  -->
             <div class="row">
                 @if($academies->count()==0)
                 <div class="col-12 text-center pt-3">
@@ -121,6 +126,7 @@
                 </div>
                 @endforeach
 
+                <!-- Pagination  -->
                 <div class="col-12 d-flex justify-content-center">
                     {{$academies->links()}}
                 </div>
