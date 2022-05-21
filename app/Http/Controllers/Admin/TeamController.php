@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Team;
+use Faker\Core\File;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -119,7 +120,6 @@ class TeamController extends Controller
     public function update(Request $request, $id)
     {
         $team = Team::findorfail($id);
-
         $request->validate([
             'email' => 'required|email|min:5|max:50',
             'posisi' => 'required|min:3|max:50',
@@ -153,6 +153,7 @@ class TeamController extends Controller
     public function destroy($id)
     {
         $team = Team::findorfail($id);
+        unlink(public_path() . '/admin-assets/img/teams/' . $team->foto_profil);
         $team->delete();
         return back()->with('toast_success', 'Berhasil dihapus.');
     }

@@ -20,7 +20,41 @@
                         <h6 class="text-uppercase mb-0">{{$title}}</h6>
                     </div>
                     <div class="col-6 text-end">
-                        <a class="btn bg-gradient-primary mb-0" href="{{ route('faq.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
+                        <a class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modalTambah"><i class="icofont-plus me-2"></i>Tambah</a>
+                    </div>
+                    <!-- Modal Tambah-->
+                    <div class="modal fade" id="modalTambah" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Tambah {{$title}}</h5>
+                                </div>
+                                <form action="{{ route('faq.store') }}" method="post">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <p class="text-uppercase text-sm">Pertanyaan Yang Sering Ditanyakan</p>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="example-text-input" class="form-control-label">Pertanyaan</label>
+                                                    <input class="form-control" type="text" name="pertanyaan" value="{{old('pertanyaan')}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="example-text-input" class="form-control-label">Jawaban</label>
+                                                    <textarea class="form-control" rows="4" name="jawaban">{{old('jawaban')}}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,7 +71,7 @@
                             <p class="text-sm">{{$faq->jawaban}}</p>
 
                             <div class="ms-auto">
-                                <a class="btn btn-link text-dark px-3 mb-0" href="{{ route('faq.edit', $faq->id) }}"><i class="icofont-pencil-alt-2 text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                <a class="btn btn-link text-dark px-3 mb-0" data-bs-toggle="modal" data-bs-target="#modalEdit{{$faq->id}}"><i class="icofont-pencil-alt-2 text-dark me-2" aria-hidden="true"></i>Edit</a>
 
                                 <a href="#" class="btn btn-link text-danger text-gradient px-3 mb-0 btn-delete" data-id="{{$faq->id}}">
                                     <form action="{{ route('faq.destroy', $faq->id) }}" method="post" id="delete{{$faq->id}}">
@@ -49,6 +83,35 @@
                             </div>
                         </div>
                     </li>
+
+                    <!-- Modal Edit -->
+                    <div class="modal fade" id="modalEdit{{$faq->id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit {{$title}}</h5>
+                                </div>
+                                <form id="formEdit{{$faq->id}}" action="{{ route('faq.update', $faq->id) }}" method="post">
+                                    {{ method_field('PATCH') }}
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="example-text-input" class="form-control-label">Pertanyaan</label>
+                                            <input class="form-control" type="text" name="pertanyaan" value="{{$faq->pertanyaan}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="example-text-input" class="form-control-label">Jawaban</label>
+                                            <textarea class="form-control" rows="4" name="jawaban">{{$faq->jawaban}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <a href="#" class="btn btn-primary btn-save" data-id="{{$faq->id}}">Simpan</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                 </ul>
                 @endif
@@ -89,6 +152,32 @@
                 }).then((Delete) => {
                     if (Delete) {
                         $(`#delete${id}`).submit();
+                    } else {
+                        swal.close();
+                    }
+                });
+            });
+
+            $('.btn-save').click(function(e) {
+                id = e.target.dataset.id;
+                swal({
+                    title: 'Apakah anda yakin ?',
+                    text: "Simpan perubahan data !",
+                    type: 'warning',
+                    buttons: {
+                        confirm: {
+                            text: 'Simpan',
+                            className: 'btn bg-gradient-primary'
+                        },
+                        cancel: {
+                            visible: true,
+                            text: 'Batal',
+                            className: 'btn btn-outline-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        $(`#formEdit${id}`).submit();
                     } else {
                         swal.close();
                     }

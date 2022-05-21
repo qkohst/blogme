@@ -31,12 +31,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        $title = 'Tambah FAQ';
-        $title2 = 'FAQ';
-        return view('admin.faq.create', compact(
-            'title',
-            'title2'
-        ));
+        //    
     }
 
     /**
@@ -82,14 +77,7 @@ class FaqController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Edit FAQ';
-        $title2 = 'FAQ';
-        $faq = Faq::findorfail($id);
-        return view('admin.faq.edit', compact(
-            'title',
-            'title2',
-            'faq'
-        ));
+        //   
     }
 
     /**

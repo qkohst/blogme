@@ -28,7 +28,7 @@ Route::get('partnership', 'HomeController@partnership')->name('partnership');
 
 Route::resource('academy/class', 'AcademyController',  [
     'names' => 'courses',
-    'uses' => ['index', 'show']
+    'uses' => ['index', 'show', 'edit']
 ]);
 
 
@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
             ]);
             Route::resource('faq', 'Admin\FaqController',  [
                 'names' => 'faq',
-                'except' => ['show']
+                'except' => ['create', 'show']
             ]);
             Route::resource('contact', 'Admin\ContactController',  [
                 'names' => 'contact',
