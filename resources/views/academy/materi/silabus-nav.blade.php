@@ -27,8 +27,9 @@
             <div class="row">
 
                 <!-- Left Nav  -->
-                <div class="col-lg-3 col-md-12">
-                    <a href="" class="btn btn-outline-dark btn-block"><i class="icofont-comment"></i> Diskusikan Materi</a>
+                <div class="col-lg-3 d-none d-lg-block">
+                    <a href="" class="btn btn-dark btn-block"><i class="icofont-comment"></i> Diskusikan Materi</a>
+                    <a href="" class="btn btn-outline-dark btn-block"><i class="icofont-warning-alt"></i> Laporkan Materi</a>
 
                     <div class="text-lg my-3">
                         Daftar Modul

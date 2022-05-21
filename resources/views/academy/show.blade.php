@@ -30,10 +30,10 @@
     <section id="about" class="about section-bg">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3 d-none d-lg-block">
                     <img src="/admin-assets/img/academies/{{$academy->gambar}}" class="rounded" alt="Images" height="250">
                 </div>
-                <div class="col-lg-9 pt-4 pt-lg-0 content">
+                <div class="col-lg-9 pt-lg-0 content">
                     <h3>{{$academy->nama_kelas}}</h3>
 
                     <p>Teknologi :

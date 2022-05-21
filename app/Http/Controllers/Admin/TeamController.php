@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Team;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class TeamController extends Controller
 {
@@ -47,9 +46,10 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+
+        $request->validate([
             'nama_lengkap' => 'required|min:3|max:50',
-            'email' => 'required|email|min:5|max:50',
+            'email' => 'required|email:dns|min:5|max:50',
             'posisi' => 'required|min:3|max:50',
             'mulai_bekerja' => 'required|date',
             'deskripsi' => 'required|min:20|max:255',
@@ -60,28 +60,24 @@ class TeamController extends Controller
             'linkedin' => 'required|url|min:10|max:255',
         ]);
 
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        } else {
-            $foto_profil = $request->file('foto_profil');
-            $nama_file = time() . '.' . $foto_profil->getClientOriginalExtension();
-            $foto_profil->move('admin-assets/img/teams/', $nama_file);
+        $foto_profil = $request->file('foto_profil');
+        $nama_file = time() . '.' . $foto_profil->getClientOriginalExtension();
+        $foto_profil->move('admin-assets/img/teams/', $nama_file);
 
-            $team = new Team([
-                'nama_lengkap' => $request->nama_lengkap,
-                'email' => $request->email,
-                'posisi' => $request->posisi,
-                'mulai_bekerja' => $request->mulai_bekerja,
-                'deskripsi' => $request->deskripsi,
-                'foto_profil' => $nama_file,
-                'twitter' => $request->twitter,
-                'facebook' => $request->facebook,
-                'instagram' => $request->instagram,
-                'linkedin' => $request->linkedin,
-            ]);
-            $team->save();
-            return redirect('admin/team')->with('toast_success', 'Berhasil disimpan.');
-        }
+        $team = new Team([
+            'nama_lengkap' => $request->nama_lengkap,
+            'email' => $request->email,
+            'posisi' => $request->posisi,
+            'mulai_bekerja' => $request->mulai_bekerja,
+            'deskripsi' => $request->deskripsi,
+            'foto_profil' => $nama_file,
+            'twitter' => $request->twitter,
+            'facebook' => $request->facebook,
+            'instagram' => $request->instagram,
+            'linkedin' => $request->linkedin,
+        ]);
+        $team->save();
+        return redirect('admin/team')->with('toast_success', 'Berhasil disimpan.');
     }
 
     /**
@@ -123,7 +119,8 @@ class TeamController extends Controller
     public function update(Request $request, $id)
     {
         $team = Team::findorfail($id);
-        $validator = Validator::make($request->all(), [
+
+        $request->validate([
             'email' => 'required|email|min:5|max:50',
             'posisi' => 'required|min:3|max:50',
             'mulai_bekerja' => 'required|date',
@@ -133,22 +130,18 @@ class TeamController extends Controller
             'instagram' => 'required|url|min:10|max:255',
             'linkedin' => 'required|url|min:10|max:255',
         ]);
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        } else {
-            $data = [
-                'email' => $request->email,
-                'posisi' => $request->posisi,
-                'mulai_bekerja' => $request->mulai_bekerja,
-                'deskripsi' => $request->deskripsi,
-                'twitter' => $request->twitter,
-                'facebook' => $request->facebook,
-                'instagram' => $request->instagram,
-                'linkedin' => $request->linkedin,
-            ];
-            $team->update($data);
-            return redirect('admin/team')->with('toast_success', 'Berhasil diedit.');
-        }
+        $data = [
+            'email' => $request->email,
+            'posisi' => $request->posisi,
+            'mulai_bekerja' => $request->mulai_bekerja,
+            'deskripsi' => $request->deskripsi,
+            'twitter' => $request->twitter,
+            'facebook' => $request->facebook,
+            'instagram' => $request->instagram,
+            'linkedin' => $request->linkedin,
+        ];
+        $team->update($data);
+        return redirect('admin/team')->with('toast_success', 'Berhasil diedit.');
     }
 
     /**

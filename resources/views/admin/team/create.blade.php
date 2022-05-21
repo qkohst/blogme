@@ -25,37 +25,55 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Nama Lengkap</label>
-                                <input class="form-control" type="text" name="nama_lengkap" value="{{old('nama_lengkap')}}">
+                                <input class="form-control @error('nama_lengkap') is-invalid @enderror" type="text" name="nama_lengkap" value="{{old('nama_lengkap')}}">
+                                @error('nama_lengkap')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Email</label>
-                                <input class="form-control" type="email" name="email" value="{{old('email')}}">
+                                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{old('email')}}">
+                                @error('email')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Posisi</label>
-                                <input class="form-control" type="text" name="posisi" value="{{old('posisi')}}">
+                                <input class="form-control @error('posisi') is-invalid @enderror" type="text" name="posisi" value="{{old('posisi')}}">
+                                @error('posisi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Mulai Bekerja</label>
-                                <input class="form-control" type="date" name="mulai_bekerja" value="{{old('mulai_bekerja')}}">
+                                <input class="form-control @error('mulai_bekerja') is-invalid @enderror" type="date" name="mulai_bekerja" value="{{old('mulai_bekerja')}}">
+                                @error('mulai_bekerja')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Foto Profil</label>
-                                <input class="form-control" type="file" name="foto_profil" accept="image/png, image/jpeg" value="{{old('foto_profil')}}">
+                                <input class="form-control @error('foto_profil') is-invalid @enderror" type="file" name="foto_profil" accept="image/png, image/jpeg" value="{{old('foto_profil')}}">
+                                @error('foto_profil')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Deskripsi Pekerjaan</label>
-                                <textarea class="form-control" name="deskripsi">{{old('deskripsi')}}</textarea>
+                                <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi">{{old('deskripsi')}}</textarea>
+                                @error('deskripsi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -66,25 +84,37 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Twitter</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="twitter" placeholder="https://twitter.com/username" value="{{old('twitter')}}">
+                                <input class="form-control @error('twitter') is-invalid @enderror" type="url" pattern="https://.*" name="twitter" placeholder="https://twitter.com/username" value="{{old('twitter')}}">
+                                @error('twitter')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Facebook</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="facebook" placeholder="https://web.facebook.com/username" value="{{old('facebook')}}">
+                                <input class="form-control @error('facebook') is-invalid @enderror" type="url" pattern="https://.*" name="facebook" placeholder="https://web.facebook.com/username" value="{{old('facebook')}}">
+                                @error('facebook')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Instagram</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="instagram" placeholder="https://www.instagram.com/username" value="{{old('instagram')}}">
+                                <input class="form-control @error('instagram') is-invalid @enderror" type="url" pattern="https://.*" name="instagram" placeholder="https://www.instagram.com/username" value="{{old('instagram')}}">
+                                @error('instagram')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">LinkedIn</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="linkedin" placeholder="https://www.linkedin.com/in/username" value="{{old('linkedin')}}">
+                                <input class="form-control @error('linkedin') is-invalid @enderror" type="url" pattern="https://.*" name="linkedin" placeholder="https://www.linkedin.com/in/username" value="{{old('linkedin')}}">
+                                @error('linkedin')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>

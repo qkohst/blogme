@@ -26,31 +26,46 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Nama Lengkap</label>
-                                <input class="form-control" type="text" name="nama_lengkap" value="{{$team->nama_lengkap}}" disabled>
+                                <input class="form-control @error('nama_lengkap') is-invalid @enderror" type="text" name="nama_lengkap" value="{{$team->nama_lengkap}}" disabled>
+                                @error('nama_lengkap')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Email</label>
-                                <input class="form-control" type="email" name="email" value="{{$team->email}}">
+                                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{$team->email}}">
+                                @error('email')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Posisi</label>
-                                <input class="form-control" type="text" name="posisi" value="{{$team->posisi}}">
+                                <input class="form-control @error('posisi') is-invalid @enderror" type="text" name="posisi" value="{{$team->posisi}}">
+                                @error('posisi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Mulai Bekerja</label>
-                                <input class="form-control" type="date" name="mulai_bekerja" value="{{$team->mulai_bekerja}}">
+                                <input class="form-control @error('mulai_bekerja') is-invalid @enderror" type="date" name="mulai_bekerja" value="{{$team->mulai_bekerja}}">
+                                @error('mulai_bekerja')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Deskripsi Pekerjaan</label>
-                                <textarea class="form-control" name="deskripsi">{{$team->deskripsi}}</textarea>
+                                <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi">{{$team->deskripsi}}</textarea>
+                                @error('deskripsi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -61,25 +76,37 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Twitter</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="twitter" placeholder="https://twitter.com/username" value="{{$team->twitter}}">
+                                <input class="form-control @error('twitter') is-invalid @enderror" type="url" pattern="https://.*" name="twitter" placeholder="https://twitter.com/username" value="{{$team->twitter}}">
+                                @error('twitter')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Facebook</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="facebook" placeholder="https://web.facebook.com/username" value="{{$team->facebook}}">
+                                <input class="form-control @error('facebook') is-invalid @enderror" type="url" pattern="https://.*" name="facebook" placeholder="https://web.facebook.com/username" value="{{$team->facebook}}">
+                                @error('facebook')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Instagram</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="instagram" placeholder="https://www.instagram.com/username" value="{{$team->instagram}}">
+                                <input class="form-control @error('instagram') is-invalid @enderror" type="url" pattern="https://.*" name="instagram" placeholder="https://www.instagram.com/username" value="{{$team->instagram}}">
+                                @error('instagram')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">LinkedIn</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="linkedin" placeholder="https://www.linkedin.com/in/username" value="{{$team->linkedin}}">
+                                <input class="form-control @error('linkedin') is-invalid @enderror" type="url" pattern="https://.*" name="linkedin" placeholder="https://www.linkedin.com/in/username" value="{{$team->linkedin}}">
+                                @error('linkedin')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
