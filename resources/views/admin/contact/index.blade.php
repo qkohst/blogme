@@ -26,55 +26,82 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Alamat</label>
-                                <input class="form-control" type="text" name="alamat" value="{{$contact->alamat}}">
+                                <input class="form-control @error('alamat') is-invalid @enderror" type="text" name="alamat" value="{{$contact->alamat}}">
+                                @error('alamat')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Email</label>
-                                <input class="form-control" type="email" name="email" value="{{$contact->email}}">
+                                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{$contact->email}}">
+                                @error('email')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Nomor Telpon</label>
-                                <input class="form-control" type="number" name="nomor_telpon" value="{{$contact->nomor_telpon}}">
+                                <input class="form-control @error('nomor_telpon') is-invalid @enderror" type="number" name="nomor_telpon" value="{{$contact->nomor_telpon}}">
+                                @error('nomor_telpon')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Embed Google Maps</label>
-                                <input class="form-control" type="text" pattern="<iframe src=.*" name="embed_google_maps" placeholder="<iframe src=''https://www.google.com/maps/embed?.*" value="{{$contact->embed_google_maps}}">
+                                <input class="form-control @error('embed_google_maps') is-invalid @enderror" type="text" pattern="<iframe src=.*" name="embed_google_maps" placeholder="<iframe src=''https://www.google.com/maps/embed?.*" value="{{$contact->embed_google_maps}}">
+                                @error('embed_google_maps')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Telegram</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="link_telegram" placeholder="https://t.me/username" value="{{$contact->link_telegram}}">
+                                <input class="form-control @error('link_telegram') is-invalid @enderror" type="url" pattern="https://.*" name="link_telegram" placeholder="https://t.me/username" value="{{$contact->link_telegram}}">
+                                @error('link_telegram')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Twitter</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="link_twitter" placeholder="https://twitter.com/username" value="{{$contact->link_twitter}}">
+                                <input class="form-control @error('link_twitter') is-invalid @enderror" type="url" pattern="https://.*" name="link_twitter" placeholder="https://twitter.com/username" value="{{$contact->link_twitter}}">
+                                @error('link_twitter')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Facebook</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="link_facebook" placeholder="https://web.facebook.com/username" value="{{$contact->link_facebook}}">
+                                <input class="form-control @error('link_facebook') is-invalid @enderror" type="url" pattern="https://.*" name="link_facebook" placeholder="https://web.facebook.com/username" value="{{$contact->link_facebook}}">
+                                @error('link_facebook')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Instagram</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="link_instagram" placeholder="https://www.instagram.com/username" value="{{$contact->link_instagram}}">
+                                <input class="form-control @error('link_instagram') is-invalid @enderror" type="url" pattern="https://.*" name="link_instagram" placeholder="https://www.instagram.com/username" value="{{$contact->link_instagram}}">
+                                @error('link_instagram')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Youtube</label>
-                                <input class="form-control" type="url" pattern="https://.*" name="link_youtube" placeholder="https://www.youtube.com/channel" value="{{$contact->link_youtube}}">
+                                <input class="form-control @error('link_youtube') is-invalid @enderror" type="url" pattern="https://.*" name="link_youtube" placeholder="https://www.youtube.com/channel" value="{{$contact->link_youtube}}">
+                                @error('link_youtube')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>

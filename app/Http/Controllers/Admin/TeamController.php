@@ -121,7 +121,7 @@ class TeamController extends Controller
     {
         $team = Team::findorfail($id);
         $request->validate([
-            'email' => 'required|email|min:5|max:50',
+            'email' => 'required|email:dns|min:5|max:50',
             'posisi' => 'required|min:3|max:50',
             'mulai_bekerja' => 'required|date',
             'deskripsi' => 'required|min:20|max:255',
