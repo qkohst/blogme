@@ -194,7 +194,14 @@
 
                         <div id="faq{{$silabus->id}}" class="card-footer collapse" data-parent=".faq-list">
                             @foreach($silabus->materi_silabuses as $materi)
-                            <p class="ml-3 my-2"><a href="#" class="text-md"><i class="icofont-simple-right text-md"></i> {{$materi->judul_materi}}</a></p>
+                            <a href="{{ route('modul.index', $academy->id) }}?materi={{$materi->id}}" class="ml-3 my-2">
+                                <span class="align-middle text-md">
+                                    @if($materi->tipe_pembaca != 'Semua Orang')
+                                    <i class="icofont-lock text-md"></i>
+                                    @endif
+                                    {{$materi->judul_materi}}
+                                </span>
+                            </a>
                             @endforeach
                         </div>
 

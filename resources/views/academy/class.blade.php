@@ -90,7 +90,7 @@
                         <div class="form-group">
                             <label for="jenis_kelas" class="text-sm">Jenis Kelas</label>
                             <select class="form-control" name="jenis_kelas" id="jenis_kelas" onchange="this.form.submit()">
-                                <option value="Semua Jenis" request('jenis_kelas')=='' ? "selected" : "" }}>Semua Jenis</option>
+                                <option value="Semua Jenis" {{request('jenis_kelas')=='' ? "selected" : "" }}>Semua Jenis</option>
                                 <option value="Gratis" {{ request('jenis_kelas') =='Gratis' ? "selected" : "" }}>Kelas Gratis</option>
                                 <option value="Berbayar" {{ request('jenis_kelas') =='Berbayar' ? "selected" : "" }}>Kelas Berbayar</option>
                             </select>

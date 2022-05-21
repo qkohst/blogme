@@ -10,7 +10,6 @@ class MateriSilabus extends Model
         'silabus_academies_id',
         'tipe_materi',
         'tipe_pembaca',
-        'nomor_urut',
         'judul_materi'
     ];
 

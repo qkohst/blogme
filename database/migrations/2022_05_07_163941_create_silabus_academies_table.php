@@ -17,7 +17,6 @@ class CreateSilabusAcademiesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('academies_id')->unsigned();
             $table->string('judul_silabus', 100);
-            $table->bigInteger('nomor_urut');
             $table->bigInteger('waktu_belajar');
             $table->string('deskripsi');
             $table->timestamps();

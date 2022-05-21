@@ -26,6 +26,8 @@
     <!-- Template Main CSS File -->
     <link href="/member-assets/css/adminlte.min.css" rel="stylesheet">
     <link href="/member-assets/css/style.css" rel="stylesheet">
+    <!-- My CSS  -->
+    <link href="/css/my-style.css" rel="stylesheet">
     <!-- Page Style -->
     @yield('style')
 

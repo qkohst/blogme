@@ -155,8 +155,8 @@
                                         <label class="form-check-label" for="inlineRadio3">{!!$kuis->jawaban_c!!}</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="inlineRadio4" disabled {{ $kuis->kunci_jawaban == "C" ? "checked" : "" }}>
-                                        <label class="form-check-label" for="inlineRadio4">{!!$kuis->jawaban_c!!}</label>
+                                        <input class="form-check-input" type="radio" id="inlineRadio4" disabled {{ $kuis->kunci_jawaban == "D" ? "checked" : "" }}>
+                                        <label class="form-check-label" for="inlineRadio4">{!!$kuis->jawaban_d!!}</label>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">

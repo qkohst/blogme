@@ -50,7 +50,6 @@ class SilabusAcademyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'judul_silabus' => 'required|min:5|max:100',
-            'nomor_urut' => 'required|numeric|min:1',
             'waktu_belajar' => 'required|numeric|min:5',
             'deskripsi' => 'required|min:15|max:255',
         ]);
@@ -60,7 +59,6 @@ class SilabusAcademyController extends Controller
             $silabus = new SilabusAcademy([
                 'academies_id' => $id,
                 'judul_silabus' => $request->judul_silabus,
-                'nomor_urut' => $request->nomor_urut,
                 'waktu_belajar' => $request->waktu_belajar,
                 'deskripsi' => $request->deskripsi,
 
@@ -123,7 +121,6 @@ class SilabusAcademyController extends Controller
     {
         $silabus = SilabusAcademy::findorfail($silabu);
         $validator = Validator::make($request->all(), [
-            'nomor_urut' => 'required|numeric|min:1',
             'waktu_belajar' => 'required|numeric|min:5',
             'deskripsi' => 'required|min:15|max:255',
         ]);
@@ -131,7 +128,6 @@ class SilabusAcademyController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         } else {
             $data = [
-                'nomor_urut' => $request->nomor_urut,
                 'waktu_belajar' => $request->waktu_belajar,
                 'deskripsi' => $request->deskripsi,
             ];
@@ -146,7 +142,7 @@ class SilabusAcademyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($silabu)
+    public function destroy($id, $silabu)
     {
         try {
             $silabus = SilabusAcademy::findorfail($silabu);

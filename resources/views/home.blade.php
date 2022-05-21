@@ -10,7 +10,9 @@
         <h2>Ikutan diskusi forum tanya jawab, tulis blog dan Membangun portofolio semua di Qkoh St</h2>
         <div class="d-flex">
           <a href="{{ route('courses.index') }}" class="btn-get-started scrollto text-md mr-1"> Mulai Belajar <i class="icofont-readernaut"></i></a>
+          @if (is_null(Auth::user()))
           <a href="{{ route('login') }}" class="get-started-btn scrollto text-md">Masuk</a>
+          @endif
         </div>
       </div>
       <div class="col-lg-6 order-1 order-lg-2 hero-img">

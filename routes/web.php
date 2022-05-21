@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/unauthorized', function () {
     $title = 'Unauthorized';
     return view('errorpages.401', compact('title'));
 });
@@ -26,7 +26,6 @@ Route::get('job', 'HomeController@job')->name('job');
 Route::get('event', 'HomeController@event')->name('event');
 Route::get('partnership', 'HomeController@partnership')->name('partnership');
 
-// Lanjut Dibawah ini 
 Route::resource('academy/class', 'AcademyController',  [
     'names' => 'courses',
     'uses' => ['index', 'show']
@@ -107,7 +106,10 @@ Route::group(['middleware' => ['auth']], function () {
     // Route Member
     Route::group(['middleware' => 'checkRole:2'], function () {
         Route::group(['prefix' => 'member'], function () {
-            // 
+            Route::resource('academy/class/{id}/', 'Member\ModulAcademyController',  [
+                'names' => 'modul',
+                'uses' => ['index', 'show']
+            ]);
         });
     });
 });

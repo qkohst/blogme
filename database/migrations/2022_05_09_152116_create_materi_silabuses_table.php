@@ -18,7 +18,6 @@ class CreateMateriSilabusesTable extends Migration
             $table->unsignedBigInteger('silabus_academies_id')->unsigned();
             $table->enum('tipe_materi', [1, 2, 3, 4]);
             $table->enum('tipe_pembaca', ['Semua Orang', 'Member']);
-            $table->bigInteger('nomor_urut');
             $table->string('judul_materi', 100);
             $table->timestamps();
             

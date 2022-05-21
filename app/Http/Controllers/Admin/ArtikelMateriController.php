@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\ArtikelMateri;
 use App\Http\Controllers\Controller;
 use App\MateriSilabus;
+use App\SilabusAcademy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -46,18 +47,11 @@ class ArtikelMateriController extends Controller
         if ($validator->fails()) {
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         } else {
-            $materi_terakhir = MateriSilabus::where('silabus_academies_id', $id)->orderBy('nomor_urut', 'desc')->first();
-            if ($materi_terakhir == null) {
-                $nomor_urut = 1;
-            } else {
-                $nomor_urut = $materi_terakhir->nomor_urut++;
-            }
 
             // Add data to table materi_silabuses
             $materi = new MateriSilabus([
                 'silabus_academies_id' => $id,
                 'tipe_materi' => 1,
-                'nomor_urut' => $nomor_urut,
                 'tipe_pembaca' => $request->tipe_pembaca,
                 'judul_materi' => $request->judul_materi,
             ]);

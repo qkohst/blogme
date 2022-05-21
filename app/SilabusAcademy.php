@@ -9,7 +9,6 @@ class SilabusAcademy extends Model
     protected $fillable = [
         'academies_id',
         'judul_silabus',
-        'nomor_urut',
         'waktu_belajar',
         'deskripsi',
     ];

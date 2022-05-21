@@ -170,7 +170,7 @@ class AcademyController extends Controller
         $tools_academies = ToolsAcademy::where('academies_id', $academy->id)->get();
         $technologies_academies = TechnologyAcademy::where('academies_id', $academy->id)->get();
 
-        $silabus_academies = SilabusAcademy::where('academies_id', $academy->id)->orderBy('nomor_urut', 'asc')->get();
+        $silabus_academies = SilabusAcademy::where('academies_id', $academy->id)->get();
         foreach ($silabus_academies as $silabus) {
             $silabus->count_artikel = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 1)->count();
             $silabus->count_vidio = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 2)->count();

@@ -23,16 +23,10 @@
                 <div class="card-body pt-2">
                     <p class="text-sm">Silabus Pembelajaran</p>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-9">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Judul</label>
                                 <input class="form-control" type="text" name="judul_silabus" value="{{old('judul_silabus')}}">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">No Urut</label>
-                                <input class="form-control" type="number" name="nomor_urut" value="{{old('nomor_urut')}}">
                             </div>
                         </div>
                         <div class="col-md-3">
