@@ -26,12 +26,7 @@ class TechnologyAcademyController extends Controller
      */
     public function create()
     {
-        $title = 'Tambah Teknologi';
-        $title2 = 'Academy';
-        return view('admin.academy.technology.create', compact(
-            'title',
-            'title2'
-        ));
+        //   
     }
 
     /**

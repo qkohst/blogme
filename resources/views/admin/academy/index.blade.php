@@ -320,7 +320,47 @@
                                     <h6 class="text-uppercase mb-0">Data Fasilitas Academy</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('fasilitas.academy.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modalTambahFasilitas"><i class="icofont-plus me-2"></i>Tambah</a>
+                                </div>
+                            </div>
+                            <!-- Modal Tambah Kategory-->
+                            <div class="modal fade" id="modalTambahFasilitas" aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Fasilitas</h5>
+                                        </div>
+                                        <form action="{{ route('fasilitas.academy.store') }}" method="post">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <p class="text-uppercase text-sm">Fasilitas Academy</p>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="example-text-input" class="form-control-label">Nama Fasilitas</label>
+                                                            <input class="form-control" type="text" name="nama_fasilitas" value="{{old('nama_fasilitas')}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="example-text-input" class="form-control-label">Icon <span> <a href="https://icofont.com/icons" target="_black">(* icofont.com)</a> </span> </label>
+                                                            <input class="form-control" type="text" name="icon" placeholder="<i class=''icofont-.*''></i>" value="{{old('icon')}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="example-text-input" class="form-control-label">Deskripsi</label>
+                                                            <textarea class="form-control" name="deskripsi">{{old('deskripsi')}}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -348,7 +388,7 @@
                                             </td>
 
                                             <td class="align-middle ms-auto text-center">
-                                                <a class="btn btn-link text-dark px-2 mb-0" href="{{ route('fasilitas.academy.edit', $fasilitas->id) }}"><i class="icofont-pencil-alt-2 text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                                <a class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="modal" data-bs-target="#modalEditFasilitas{{$fasilitas->id}}"><i class="icofont-pencil-alt-2 text-dark me-2" aria-hidden="true"></i>Edit</a>
 
                                                 <a href="#" class="btn btn-link text-danger text-gradient px-2 mb-0 btn-delete" data-id="fasilitas{{$fasilitas->id}}">
                                                     <form action="{{ route('fasilitas.academy.destroy', $fasilitas->id) }}" method="post" id="deletefasilitas{{$fasilitas->id}}">
@@ -359,6 +399,47 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        <!-- Modal Edit Fasilitas-->
+                                        <div class="modal fade" id="modalEditFasilitas{{$fasilitas->id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Fasilitas</h5>
+                                                    </div>
+                                                    <form id="formEditFasilitas{{$fasilitas->id}}" action="{{ route('fasilitas.academy.update', $fasilitas->id) }}" method="post">
+                                                        {{ method_field('PATCH') }}
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <p class="text-uppercase text-sm">Fasilitas Academy</p>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Nama Fasilitas</label>
+                                                                        <input class="form-control" type="text" name="nama_fasilitas" value="{{$fasilitas->nama_fasilitas}}" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Icon <span> <a href="https://icofont.com/icons" target="_black">(* icofont.com)</a> </span> </label>
+                                                                        <input class="form-control" type="text" name="icon" placeholder="<i class=''icofont-.*''></i>" value="{{$fasilitas->icon}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Deskripsi</label>
+                                                                        <textarea class="form-control" name="deskripsi">{{$fasilitas->deskripsi}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <a href="#" class="btn btn-primary btn-save" data-id="Fasilitas{{$fasilitas->id}}">Simpan</a>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @endforeach
 
                                     </tbody>
@@ -377,7 +458,41 @@
                                     <h6 class="text-uppercase mb-0">Data Tools Belajar</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('tools.academy.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modalTambahTools"><i class="icofont-plus me-2"></i>Tambah</a>
+                                </div>
+                            </div>
+                            <!-- Modal Tambah Tools-->
+                            <div class="modal fade" id="modalTambahTools" aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Tools</h5>
+                                        </div>
+                                        <form action="{{ route('tools.academy.store') }}" method="post">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <p class="text-uppercase text-sm">Tools Belajar</p>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="example-text-input" class="form-control-label">Nama Tools</label>
+                                                            <input class="form-control" type="text" name="nama_tool" value="{{old('nama_tool')}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="example-text-input" class="form-control-label">Icon <span> <a href="https://icofont.com/icons" target="_black">(* icofont.com)</a> </span> </label>
+                                                            <input class="form-control" type="text" name="icon" placeholder="<i class=''icofont-.*''></i>" value="{{old('icon')}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -430,7 +545,41 @@
                                     <h6 class="text-uppercase mb-0">Data Teknologi Belajar</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('technology.academy.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modalTambahTeknologi"><i class="icofont-plus me-2"></i>Tambah</a>
+                                </div>
+                            </div>
+                            <!-- Modal Tambah Teknologi-->
+                            <div class="modal fade" id="modalTambahTeknologi" aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Tools</h5>
+                                        </div>
+                                        <form action="{{ route('technology.academy.store') }}" method="post">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <p class="text-uppercase text-sm">Teknologi Belajar</p>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="example-text-input" class="form-control-label">Nama Teknologi</label>
+                                                            <input class="form-control" type="text" name="nama_teknologi" value="{{old('nama_teknologi')}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="example-text-input" class="form-control-label">Icon <span> <a href="https://icofont.com/icons" target="_black">(* icofont.com)</a> </span> </label>
+                                                            <input class="form-control" type="text" name="icon" placeholder="<i class=''icofont-.*''></i>" value="{{old('icon')}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -26,12 +26,7 @@ class FasilitasAcademyController extends Controller
      */
     public function create()
     {
-        $title = 'Tambah Fasilitas';
-        $title2 = 'Academy';
-        return view('admin.academy.fasilitas.create', compact(
-            'title',
-            'title2'
-        ));
+        //    
     }
 
     /**
@@ -80,14 +75,7 @@ class FasilitasAcademyController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Edit Fasilitas';
-        $title2 = 'Academy';
-        $fasilitas = Fasilitas::findorfail($id);
-        return view('admin.academy.fasilitas.edit', compact(
-            'title',
-            'title2',
-            'fasilitas'
-        ));
+        //    
     }
 
     /**

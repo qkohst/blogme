@@ -26,12 +26,7 @@ class ToolsAcademyController extends Controller
      */
     public function create()
     {
-        $title = 'Tambah Tools';
-        $title2 = 'Academy';
-        return view('admin.academy.tools.create', compact(
-            'title',
-            'title2'
-        ));
+        //   
     }
 
     /**

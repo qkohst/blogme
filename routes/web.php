@@ -66,15 +66,15 @@ Route::group(['middleware' => ['auth']], function () {
             ]);
             Route::resource('academy/fasilitas', 'Admin\FasilitasAcademyController',  [
                 'names' => 'fasilitas.academy',
-                'except' => ['index', 'show']
+                'except' => ['index', 'show', 'create', 'edit']
             ]);
             Route::resource('academy/tools', 'Admin\ToolsAcademyController',  [
                 'names' => 'tools.academy',
-                'uses' => ['create', 'store', 'destroy']
+                'uses' => ['store', 'destroy']
             ]);
             Route::resource('academy/technology', 'Admin\TechnologyAcademyController',  [
                 'names' => 'technology.academy',
-                'uses' => ['create', 'store', 'destroy']
+                'uses' => ['store', 'destroy']
             ]);
             Route::resource('academy/{id}/silabus', 'Admin\SilabusAcademyController',  [
                 'names' => 'academy.silabus',
