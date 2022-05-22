@@ -77,7 +77,7 @@ class AcademyController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'nama_kelas' => 'required|min:3|max:100|unique:academies,nama_kelas',
             'gambar' => 'required',
             'kategori' => 'required',
@@ -93,66 +93,62 @@ class AcademyController extends Controller
             'teknologi' => 'required|array|min:1',
         ]);
 
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        } else {
-            $gambar = $request->file('gambar');
-            $nama_file = time() . '.' . $gambar->getClientOriginalExtension();
-            $gambar->move('admin-assets/img/academies/', $nama_file);
+        $gambar = $request->file('gambar');
+        $nama_file = time() . '.' . $gambar->getClientOriginalExtension();
+        $gambar->move('admin-assets/img/academies/', $nama_file);
 
-            $academy = new Academy([
-                'kategories_id' => $request->kategori,
-                'nama_kelas' => $request->nama_kelas,
-                'gambar' => $nama_file,
-                'level' => $request->level,
-                'deskripsi' => $request->deskripsi,
-                'minimum_ram' => $request->minimum_ram,
-                'minimum_layar' => $request->minimum_layar,
-                'minimum_sistem_operasi' => $request->minimum_sistem_operasi,
-                'minimum_processor' => $request->minimum_processor,
-                'status' => 'off',
-                'jenis_kelas' => $request->jenis_kelas,
-            ]);
-            $academy->save();
+        $academy = new Academy([
+            'kategories_id' => $request->kategori,
+            'nama_kelas' => $request->nama_kelas,
+            'gambar' => $nama_file,
+            'level' => $request->level,
+            'deskripsi' => $request->deskripsi,
+            'minimum_ram' => $request->minimum_ram,
+            'minimum_layar' => $request->minimum_layar,
+            'minimum_sistem_operasi' => $request->minimum_sistem_operasi,
+            'minimum_processor' => $request->minimum_processor,
+            'status' => 'off',
+            'jenis_kelas' => $request->jenis_kelas,
+        ]);
+        $academy->save();
 
-            // Add data to table fasilitas academies
-            for ($count_fasilitas = 0; $count_fasilitas < count($request->fasilitas_kelas); $count_fasilitas++) {
-                $data_fasilitas = array(
-                    'fasilitas_id' => $request->fasilitas_kelas[$count_fasilitas],
-                    'academies_id'  => $academy->id,
-                    'created_at'  => Carbon::now(),
-                    'updated_at'  => Carbon::now(),
-                );
-                $insert_data_fasilitas[] = $data_fasilitas;
-            }
-            FasilitasAcademy::insert($insert_data_fasilitas);
-
-            // Add data to table tools academies
-            for ($count_tools = 0; $count_tools < count($request->tools); $count_tools++) {
-                $data_tools = array(
-                    'tools_id' => $request->tools[$count_tools],
-                    'academies_id'  => $academy->id,
-                    'created_at'  => Carbon::now(),
-                    'updated_at'  => Carbon::now(),
-                );
-                $insert_data_tools[] = $data_tools;
-            }
-            ToolsAcademy::insert($insert_data_tools);
-
-            // Add data to table technology academies
-            for ($count_technology = 0; $count_technology < count($request->teknologi); $count_technology++) {
-                $data_teknologi = array(
-                    'technologies_id' => $request->teknologi[$count_technology],
-                    'academies_id'  => $academy->id,
-                    'created_at'  => Carbon::now(),
-                    'updated_at'  => Carbon::now(),
-                );
-                $insert_data_teknologi[] = $data_teknologi;
-            }
-            TechnologyAcademy::insert($insert_data_teknologi);
-
-            return redirect('admin/academy')->with('toast_success', 'Berhasil disimpan.');
+        // Add data to table fasilitas academies
+        for ($count_fasilitas = 0; $count_fasilitas < count($request->fasilitas_kelas); $count_fasilitas++) {
+            $data_fasilitas = array(
+                'fasilitas_id' => $request->fasilitas_kelas[$count_fasilitas],
+                'academies_id'  => $academy->id,
+                'created_at'  => Carbon::now(),
+                'updated_at'  => Carbon::now(),
+            );
+            $insert_data_fasilitas[] = $data_fasilitas;
         }
+        FasilitasAcademy::insert($insert_data_fasilitas);
+
+        // Add data to table tools academies
+        for ($count_tools = 0; $count_tools < count($request->tools); $count_tools++) {
+            $data_tools = array(
+                'tools_id' => $request->tools[$count_tools],
+                'academies_id'  => $academy->id,
+                'created_at'  => Carbon::now(),
+                'updated_at'  => Carbon::now(),
+            );
+            $insert_data_tools[] = $data_tools;
+        }
+        ToolsAcademy::insert($insert_data_tools);
+
+        // Add data to table technology academies
+        for ($count_technology = 0; $count_technology < count($request->teknologi); $count_technology++) {
+            $data_teknologi = array(
+                'technologies_id' => $request->teknologi[$count_technology],
+                'academies_id'  => $academy->id,
+                'created_at'  => Carbon::now(),
+                'updated_at'  => Carbon::now(),
+            );
+            $insert_data_teknologi[] = $data_teknologi;
+        }
+        TechnologyAcademy::insert($insert_data_teknologi);
+
+        return redirect('admin/academy')->with('toast_success', 'Berhasil disimpan.');
     }
 
     /**

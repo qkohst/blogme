@@ -93,7 +93,6 @@
                                         <tr>
                                             <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">Kelas</th>
                                             <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 ps-2">Kategori</th>
-                                            <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 ps-2">Jumlah Siswa</th>
                                             <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 ps-2">Silabus</th>
                                             <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
                                             <th class="text-dark opacity-7"></th>
@@ -108,18 +107,19 @@
                                                         <img src="/admin-assets/img/academies/{{$academy->gambar}}" class="avatar avatar-md me-3" alt="academy image">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm text-uppercase">{{$academy->nama_kelas}}</h6>
-                                                        <p class="text-xs text-secondary mb-0">Level : {{$academy->level}} | Jenis Kelas : {{$academy->jenis_kelas}}</p>
+                                                        <h6 class="mb-0 text-sm" title="{{$academy->nama_kelas}}">
+                                                            {!! substr(strip_tags($academy->nama_kelas), 0, 30) !!}
+                                                        </h6>
+                                                        <p class="text-xs text-secondary mb-0">Level : {{$academy->level}}
+                                                            | Jenis Kelas : {{$academy->jenis_kelas}}
+                                                            | 150 siswa
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <p class="text-xs text-secondary mb-0">{{$academy->kategories->nama_kategori}}</p>
                                             </td>
-                                            <td>
-                                                <p class="text-xs text-secondary mb-0">150 belum</p>
-                                            </td>
-
                                             <td class="align-middle">
 
                                                 @if($academy->count_silabus == 0)
@@ -130,7 +130,6 @@
                                                     @endif
 
                                             </td>
-
                                             <td class="align-middle">
                                                 @if($academy->status == 'on')
                                                 <span class="badge badge-sm bg-gradient-success">Aktif</span>
@@ -166,7 +165,47 @@
                                     <h6 class="text-uppercase mb-0">Data Kategori Kursus</h6>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <a class="btn bg-gradient-primary mb-0" href="{{ route('kategory.academy.create') }}"><i class="icofont-plus me-2"></i>Tambah</a>
+                                    <a class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modalTambahKetegory"><i class="icofont-plus me-2"></i>Tambah</a>
+                                </div>
+                                <!-- Modal Tambah Kategory-->
+                                <div class="modal fade" id="modalTambahKetegory" aria-labelledby="exampleModalLabel">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+                                            </div>
+                                            <form action="{{ route('kategory.academy.store') }}" method="post">
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <p class="text-uppercase text-sm">Kategori Academy</p>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="example-text-input" class="form-control-label">Nama Kategori</label>
+                                                                <input class="form-control" type="text" name="nama_kategori" value="{{old('nama_kategori')}}" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="example-text-input" class="form-control-label">Gambar</label>
+                                                                <input class="form-control" type="file" name="gambar" accept="image/png, image/jpeg" value="{{old('gambar')}}" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="example-text-input" class="form-control-label">Deskripsi</label>
+                                                                <textarea class="form-control" name="deskripsi" required>{{old('deskripsi')}}</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -199,7 +238,9 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <p class="text-xs text-secondary mb-0">{{$kategory->deskripsi}}</p>
+                                                <p class="text-xs text-secondary mb-0" title="{{$kategory->deskripsi}}">
+                                                    {!! substr(strip_tags($kategory->deskripsi), 0, 45) !!}...
+                                                </p>
                                             </td>
                                             <td class="align-middle text-sm">
                                                 @if($kategory->status == "on")
@@ -209,7 +250,7 @@
                                                 @endif
                                             </td>
                                             <td class="align-middle ms-auto text-center">
-                                                <a class="btn btn-link text-dark px-2 mb-0" href="{{ route('kategory.academy.edit', $kategory->id) }}"><i class="icofont-pencil-alt-2 text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                                <a class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="modal" data-bs-target="#modalEditKategori{{$kategory->id}}"><i class="icofont-pencil-alt-2 text-dark me-2" aria-hidden="true"></i>Edit</a>
 
                                                 <a href="#" class="btn btn-link text-danger text-gradient px-2 mb-0 btn-delete" data-id="kategori{{$kategory->id}}">
                                                     <form action="{{ route('kategory.academy.destroy', $kategory->id) }}" method="post" id="deletekategori{{$kategory->id}}">
@@ -220,6 +261,47 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        <!-- Modal Edit Kategori-->
+                                        <div class="modal fade" id="modalEditKategori{{$kategory->id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Kategori</h5>
+                                                    </div>
+                                                    <form id="formEditKategori{{$kategory->id}}" action="{{ route('kategory.academy.update', $kategory->id) }}" method="post" enctype="multipart/form-data">
+                                                        {{ method_field('PATCH') }}
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <p class="text-uppercase text-sm">Kategori Academy</p>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Nama Ketegori</label>
+                                                                        <input class="form-control" type="text" name="nama_kategori" value="{{$kategory->nama_kategori}}" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="example-text-input" class="form-control-label">Deskripsi</label>
+                                                                        <textarea class="form-control" name="deskripsi">{{$kategory->deskripsi}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox" id="rememberMe" name="status" @if ($kategory->status == 'on') checked @endif>
+                                                                        <label class="form-check-label" for="rememberMe">Aktif</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <a href="#" class="btn btn-primary btn-save" data-id="Kategori{{$kategory->id}}">Simpan</a>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @endforeach
 
                                     </tbody>
@@ -430,6 +512,31 @@
                     }).then((Delete) => {
                         if (Delete) {
                             $(`#delete${id}`).submit();
+                        } else {
+                            swal.close();
+                        }
+                    });
+                });
+                $('.btn-save').click(function(e) {
+                    id = e.target.dataset.id;
+                    swal({
+                        title: 'Apakah anda yakin ?',
+                        text: "Simpan perubahan data !",
+                        type: 'warning',
+                        buttons: {
+                            confirm: {
+                                text: 'Simpan',
+                                className: 'btn bg-gradient-primary'
+                            },
+                            cancel: {
+                                visible: true,
+                                text: 'Batal',
+                                className: 'btn btn-outline-danger'
+                            }
+                        }
+                    }).then((Delete) => {
+                        if (Delete) {
+                            $(`#formEdit${id}`).submit();
                         } else {
                             swal.close();
                         }

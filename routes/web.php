@@ -62,7 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
             ]);
             Route::resource('academy/kategory', 'Admin\KategoryAcademyController',  [
                 'names' => 'kategory.academy',
-                'except' => ['index', 'show']
+                'except' => ['index', 'show', 'create', 'edit']
             ]);
             Route::resource('academy/fasilitas', 'Admin\FasilitasAcademyController',  [
                 'names' => 'fasilitas.academy',

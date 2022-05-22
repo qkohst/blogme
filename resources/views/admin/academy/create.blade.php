@@ -32,38 +32,50 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Nama Kelas</label>
-                                <input class="form-control" type="text" name="nama_kelas" value="{{old('nama_kelas')}}">
+                                <input class="form-control @error('nama_kelas') is-invalid @enderror" type="text" name="nama_kelas" value="{{old('nama_kelas')}}">
+                                @error('nama_kelas')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Gambar</label>
-                                <input class="form-control" type="file" name="gambar" accept="image/png, image/jpeg" value="{{old('gambar')}}">
+                                <input class="form-control @error('gambar') is-invalid @enderror" type="file" name="gambar" accept="image/png, image/jpeg" value="{{old('gambar')}}">
+                                @error('gambar')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Kategori</label>
-                                <select class="form-select" aria-label="Default select example" name="kategori">
-                                    <option selected>-- Pilih Kategori --</option>
+                                <select class="form-select @error('kategori') is-invalid @enderror" aria-label="Default select example" name="kategori">
+                                    <option value="" selected>-- Pilih Kategori --</option>
                                     @foreach($kategories as $kategory)
                                     <option value="{{$kategory->id}}" {{ old('kategori') == $kategory->id ? "selected" : "" }}>{{$kategory->nama_kategori}}</option>
                                     @endforeach
                                 </select>
+                                @error('kategori')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Jenis Kelas</label> <br>
-                                <select class="form-select" aria-label="Default select example" name="jenis_kelas">
-                                    <option selected>-- Pilih Jenis Kelas --</option>
+                                <select class="form-select @error('jenis_kelas') is-invalid @enderror" aria-label="Default select example" name="jenis_kelas">
+                                    <option value="" selected>-- Pilih Jenis Kelas --</option>
                                     <option value="Gratis" {{ old('jenis_kelas') == 'Gratis' ? "selected" : "" }}>Gratis</option>
                                     <option value="Berbayar" {{ old('jenis_kelas') == 'Berbayar' ? "selected" : "" }}>Berbayar</option>
                                 </select>
+                                @error('jenis_kelas')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group mb-1">
                                 <label for="example-text-input" class="form-control-label">Level</label> <br>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="level" id="inlineRadio1" value="Dasar" {{ old('level') == "Dasar" ? "checked" : "" }}>
@@ -86,9 +98,12 @@
                                     <label class="form-check-label" for="inlineRadio5">Profesional</label>
                                 </div>
                             </div>
+                            @error('level')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group mb-1">
                                 <label for="example-text-input" class="form-control-label">Fasilitas Kelas</label> <br>
                                 @foreach($data_fasilitas as $fasilitas)
                                 <div class="form-check form-check-inline">
@@ -96,13 +111,18 @@
                                     <label class="form-check-label" for="inlineCheckbox{{$fasilitas->id}}">{{$fasilitas->nama_fasilitas}}</label>
                                 </div>
                                 @endforeach
-
                             </div>
+                            @error('fasilitas_kelas')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Deskripsi Kelas</label>
-                                <textarea class="form-control summernote" name="deskripsi">{{old('deskripsi')}}</textarea>
+                                <textarea class="form-control @error('deskripsi') is-invalid @enderror summernote" name="deskripsi">{{old('deskripsi')}}</textarea>
+                                @error('deskripsi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -114,25 +134,37 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">RAM</label>
-                                <input class="form-control" type="text" name="minimum_ram" value="{{old('minimum_ram')}}">
+                                <input class="form-control @error('minimum_ram') is-invalid @enderror" type="text" name="minimum_ram" value="{{old('minimum_ram')}}">
+                                @error('minimum_ram')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Layar</label>
-                                <input class="form-control" type="text" name="minimum_layar" value="{{old('minimum_layar')}}">
+                                <input class="form-control @error('minimum_layar') is-invalid @enderror" type="text" name="minimum_layar" value="{{old('minimum_layar')}}">
+                                @error('minimum_layar')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Sistem Operasi</label>
-                                <input class="form-control" type="text" name="minimum_sistem_operasi" value="{{old('minimum_sistem_operasi')}}">
+                                <input class="form-control @error('minimum_sistem_operasi') is-invalid @enderror" type="text" name="minimum_sistem_operasi" value="{{old('minimum_sistem_operasi')}}">
+                                @error('minimum_sistem_operasi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Prosesor</label>
-                                <input class="form-control" type="text" name="minimum_processor" value="{{old('minimum_processor')}}">
+                                <input class="form-control @error('minimum_processor') is-invalid @enderror" type="text" name="minimum_processor" value="{{old('minimum_processor')}}">
+                                @error('minimum_processor')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -141,12 +173,14 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Tools</label>
-                                <select class="form-control select2" name="tools[]" multiple="multiple" data-placeholder="select tools" style="width: 100%;">
+                                <select class="form-control select2 @error('tools') is-invalid @enderror" name="tools[]" multiple="multiple" data-placeholder="select tools" style="width: 100%;">
                                     @foreach($tools as $tool)
-
                                     <option value="{{$tool->id}}" {{ in_array($tool->id, old('tools', [])) ? 'selected' : '' }}>{{$tool->nama_tool}}</option>
                                     @endforeach
                                 </select>
+                                @error('tools')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -156,12 +190,14 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Teknologi Yang Digunakan</label>
-                                <select class="form-control select2" name="teknologi[]" multiple="multiple" data-placeholder="select teknologi" style="width: 100%;">
+                                <select class="form-control select2 @error('teknologi') is-invalid @enderror" name="teknologi[]" multiple="multiple" data-placeholder="select teknologi" style="width: 100%;">
                                     @foreach($technologies as $technology)
-
                                     <option value="{{$technology->id}}" {{ in_array($technology->id, old('teknologi', [])) ? 'selected' : '' }}>{{$technology->nama_teknologi}}</option>
                                     @endforeach
                                 </select>
+                                @error('teknologi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
