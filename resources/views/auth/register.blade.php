@@ -10,8 +10,8 @@
         <form action="{{ route('register') }}" method="post">
             @csrf
             <div class="mb-2">
-                <input type="text" class="form-control form-control-lg @error('name') is-invalid @enderror" placeholder="Name" aria-label="Name" name="name" value="{{old('name')}}">
-                @error('name')
+                <input type="text" class="form-control form-control-lg @error('username') is-invalid @enderror" placeholder="Username" aria-label="username" name="username" value="{{old('username')}}">
+                @error('username')
                 <small class="form-text text-danger">{{ $message }}</small>
                 @enderror
             </div>

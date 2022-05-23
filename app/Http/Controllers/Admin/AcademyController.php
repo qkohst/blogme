@@ -271,6 +271,7 @@ class AcademyController extends Controller
     {
         try {
             $academy = Academy::findorfail($id);
+            unlink(public_path() . 'admin-assets/img/academies/' . $academy->gambar);
             $academy->delete();
             return back()->with('toast_success', 'Berhasil dihapus.');
         } catch (\Exception $e) {

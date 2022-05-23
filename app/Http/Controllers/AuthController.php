@@ -40,14 +40,14 @@ class AuthController extends Controller
     public function register_post(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:3|max:255',
+            'username' => 'required|min:3|max:50|unique:users',
             'email' => 'required|email:dns|unique:users',
             'password' => 'required|min:6|max:20',
             'confirm_password' => 'required|same:password',
         ]);
 
         $user = new User([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 2,

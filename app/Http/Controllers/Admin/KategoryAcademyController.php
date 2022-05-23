@@ -124,6 +124,7 @@ class KategoryAcademyController extends Controller
     {
         try {
             $kategory = Kategory::findorfail($id);
+            unlink(public_path() . '/admin-assets/img/kategory/' . $kategory->gambar);
             $kategory->delete();
             return back()->with('toast_success', 'Berhasil dihapus.');
         } catch (\Exception $e) {

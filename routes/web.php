@@ -110,6 +110,13 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'modul',
                 'uses' => ['index', 'show']
             ]);
+            Route::resource('profile', 'Member\ProfileController',  [
+                'names' => 'profile',
+                'uses' => ['index', 'show']
+            ]);
+            Route::get('settings', 'Member\SettingsProfileController@index')->name('settings.index');
+            Route::post('settings/profile', 'Member\SettingsProfileController@profile')->name('settings.profile');
+            Route::post('settings/personal', 'Member\SettingsProfileController@personal')->name('settings.personal');
         });
     });
 });
