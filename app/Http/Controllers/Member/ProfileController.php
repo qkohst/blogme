@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\DataPribadiUser;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -18,9 +19,11 @@ class ProfileController extends Controller
     {
         $title = 'Profil Saya';
         $user = User::findorfail(Auth::user()->id);
+        $data_pribadi = DataPribadiUser::where('users_id', $user->id)->first();
         return view('member.profile.index', compact(
             'title',
             'user',
+            'data_pribadi'
         ));
     }
 

@@ -40,16 +40,10 @@ class SettingsProfileController extends Controller
             ));
         } elseif ($pages == 'account') {
             $title = 'Ganti Password';
-            return view('member.settings.profile', compact(
+            return view('member.settings.account', compact(
                 'title',
-                'user',
             ));
-        } elseif ($pages == 'academy') {
-            $title = 'Academy';
-            return view('member.settings.profile', compact(
-                'title',
-                'user',
-            ));
+            // LANJUT SINI 
         }
     }
 

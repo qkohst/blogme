@@ -40,6 +40,7 @@ Route::post('register', 'AuthController@register_post')->name('register');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('logout', 'AuthController@logout')->name('logout');
+    Route::post('change-password', 'AuthController@change_password')->name('change_password');
 
     // Route Admin
     Route::group(['middleware' => 'checkRole:1'], function () {

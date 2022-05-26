@@ -32,8 +32,8 @@
       <div class="row counters">
 
         <div class="col-lg-3 col-6 text-center">
-          <span data-toggle="counter-up">232</span>
-          <p>Member</p>
+          <span data-toggle="counter-up">{{$count_member}}</span>
+          <p>Member Bergabung</p>
         </div>
 
         <div class="col-lg-3 col-6 text-center">

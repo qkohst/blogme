@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -55,6 +56,25 @@ class AuthController extends Controller
         ]);
         $user->save();
         return redirect('login')->with('toast_success', 'Registrasi berhasil, silahkan Login !');
+    }
+
+    public function change_password(Request $request)
+    {
+        $request->validate([
+            'password_lama' => 'required|min:6',
+            'password_baru' => 'required|min:6|different:password_lama',
+            'konfirmasi_password' => 'required|same:password_baru',
+        ]);
+        $user = User::findorfail(Auth::user()->id);
+        if (Hash::check($request->password_lama, $user->password)) {
+            $user->fill([
+                'password' => Hash::make($request->password_baru)
+            ])->save();
+
+            return back()->with('toast_success', 'Password berhasil diperbarui.');
+        } else {
+            return back()->with('toast_error', 'Password lama tidak sesuai.');
+        }
     }
 
     public function logout(Request $request)

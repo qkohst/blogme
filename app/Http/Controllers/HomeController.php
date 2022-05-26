@@ -6,6 +6,7 @@ use App\Contact;
 use App\Faq;
 use App\Kategory;
 use App\Team;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,11 +28,14 @@ class HomeController extends Controller
             'link_youtube' => $contact->link_youtube,
         ]);
 
+        $count_member = User::where('role', 2)->count();
+
         return view('home', compact(
             'title',
             'contact',
             'teams',
-            'faqs'
+            'faqs',
+            'count_member'
         ));
     }
 

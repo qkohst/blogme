@@ -22,17 +22,17 @@
     <section id="about" class="about">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 text-center">
-                    <img src="/avatar/{{Auth::user()->avatar}}" class="rounded" alt="Images" height="250">
+                <div class="col-lg-3 mb-2">
+                    <img src="/avatar/{{$user->avatar}}" class="rounded" alt="Images" height="250">
                 </div>
                 <div class="col-lg-9 pt-lg-0 content">
-                    <h3>{{Auth::user()->username}}</h3>
-                    <p><i class="icofont-email"></i> {{Auth::user()->email}}</p>
-                    <p><i class="icofont-location-pin"></i> Alamat sdjadjadadadad</p>
-                    <p>Bergabung sejak : {{Auth::user()->created_at}}</p>
+                    <h3>{{$user->username}}</h3>
+                    <p><i class="icofont-email"></i> {{$user->email}}</p>
+                    <p><i class="icofont-location-pin"></i> {{$data_pribadi->kota_domisili}}</p>
+                    <p>Bergabung sejak : {{date('d M Y', strtotime($user->created_at))}}</p>
 
                     <div class="d-flex">
-                        <a href="{{ route('settings.index') }}" class="btn-get-started scrollto"><i class="icofont-ui-settings"></i> Pengaturan</a>
+                        <a href="{{ route('settings.index') }}?pages=profile" class="btn-get-started scrollto"><i class="icofont-ui-settings"></i> Pengaturan</a>
                     </div>
                 </div>
             </div>

@@ -13,10 +13,10 @@
             <div class="form-group">
                 <label for="foto">Foto Diri</label>
                 <div class="row">
-                    <div id="divImageMediaPreview" class="col-2">
+                    <div id="divImageMediaPreview" class="col-lg-2">
                         <img src="/avatar/{{$user->avatar}}" class="rounded" alt="Images" height="120">
                     </div>
-                    <div class="col-10 align-text-bottom">
+                    <div class="col-lg-10 align-text-bottom">
                         <div class="file-drop-area">
                             <span class="choose-file-button">Pilih Foto</span>
                             <span class="file-message">atau seret dan lepas file di sini</span>
