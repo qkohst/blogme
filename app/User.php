@@ -46,4 +46,19 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\DataPribadiUser');
     }
+
+    public function riwayat_belajars()
+    {
+        return $this->hasMany('App\RiwayatBelajar');
+    }
+
+    public function diskusi_academies()
+    {
+        return $this->hasMany('App\DiskusiAcademy');
+    }
+
+    public function peserta_academies()
+    {
+        return $this->hasMany('App\PesertaAcademy');
+    }
 }

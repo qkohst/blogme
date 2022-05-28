@@ -93,6 +93,12 @@ class AcademyController extends Controller
             'teknologi' => 'required|array|min:1',
         ]);
 
+        if($request->jenis_kelas == 'Berbayar'){
+            $request->validate([
+                'biaya' => 'required|numeric|min:5000',
+            ]);
+        }
+
         $gambar = $request->file('gambar');
         $nama_file = time() . '.' . $gambar->getClientOriginalExtension();
         $gambar->move('admin-assets/img/academies/', $nama_file);
@@ -109,6 +115,7 @@ class AcademyController extends Controller
             'minimum_processor' => $request->minimum_processor,
             'status' => 'off',
             'jenis_kelas' => $request->jenis_kelas,
+            'biaya' => $request->biaya,
         ]);
         $academy->save();
 
@@ -226,7 +233,7 @@ class AcademyController extends Controller
     public function update(Request $request, $id)
     {
         $academy = Academy::findorfail($id);
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'kategori' => 'required',
             'jenis_kelas' => 'required',
             'level' => 'required|in:Dasar,Pemula,Menengah,Mahir,Profesional',
@@ -236,29 +243,37 @@ class AcademyController extends Controller
             'minimum_sistem_operasi' => 'required|min:3|max:100',
             'minimum_processor' => 'required|min:3|max:100',
         ]);
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        } else {
-            if ($request->status == 'on') {
-                $check_status = 'on';
-            } else {
-                $check_status = 'off';
-            }
 
-            $data = [
-                'level' => $request->level,
-                'kategori' => $request->kategori,
-                'jenis_kelas' => $request->jenis_kelas,
-                'deskripsi' => $request->deskripsi,
-                'minimum_ram' => $request->minimum_ram,
-                'minimum_layar' => $request->minimum_layar,
-                'minimum_sistem_operasi' => $request->minimum_sistem_operasi,
-                'minimum_processor' => $request->minimum_processor,
-                'status' => $check_status,
-            ];
-            $academy->update($data);
-            return redirect('admin/academy/' . $academy->id)->with('toast_success', 'Berhasil diedit.');
+        if($request->jenis_kelas == 'Berbayar'){
+            $request->validate([
+                'biaya' => 'required|numeric|min:5000',
+            ]);
+            $biaya = $request->biaya;
+        }else{
+            $biaya = null;
         }
+
+        if ($request->status == 'on') {
+            $check_status = 'on';
+        } else {
+            $check_status = 'off';
+        }
+
+        $data = [
+            'level' => $request->level,
+            'kategori' => $request->kategori,
+            'jenis_kelas' => $request->jenis_kelas,
+            'deskripsi' => $request->deskripsi,
+            'minimum_ram' => $request->minimum_ram,
+            'minimum_layar' => $request->minimum_layar,
+            'minimum_sistem_operasi' => $request->minimum_sistem_operasi,
+            'minimum_processor' => $request->minimum_processor,
+            'status' => $check_status,
+            'biaya' => $biaya,
+        ];
+        $academy->update($data);
+        return redirect('admin/academy/' . $academy->id)->with('toast_success', 'Berhasil diedit.');
+        
     }
 
     /**
@@ -271,7 +286,7 @@ class AcademyController extends Controller
     {
         try {
             $academy = Academy::findorfail($id);
-            unlink(public_path() . 'admin-assets/img/academies/' . $academy->gambar);
+            unlink(public_path() . '/admin-assets/img/academies/' . $academy->gambar);
             $academy->delete();
             return back()->with('toast_success', 'Berhasil dihapus.');
         } catch (\Exception $e) {

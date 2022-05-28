@@ -17,7 +17,8 @@ class Academy extends Model
         'minimum_sistem_operasi',
         'minimum_processor',
         'status',
-        'jenis_kelas'
+        'jenis_kelas',
+        'biaya'
     ];
 
     public function scopeFilter($query, array $filters)
@@ -70,5 +71,15 @@ class Academy extends Model
     public function silabus_academies()
     {
         return $this->hasMany('App\SilabusAcademy');
+    }
+
+    public function diskusi_academies()
+    {
+        return $this->hasMany('App\DiskusiAcademy');
+    }
+
+    public function peserta_academies()
+    {
+        return $this->hasMany('App\PesertaAcademy');
     }
 }

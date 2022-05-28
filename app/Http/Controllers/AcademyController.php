@@ -6,10 +6,13 @@ use App\Academy;
 use App\FasilitasAcademy;
 use App\Kategory;
 use App\MateriSilabus;
+use App\PesertaAcademy;
+use App\RiwayatBelajar;
 use App\SilabusAcademy;
 use App\TechnologyAcademy;
 use App\ToolsAcademy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AcademyController extends Controller
 {
@@ -40,6 +43,50 @@ class AcademyController extends Controller
             'academies',
             'kategori'
         ));
+    }
+
+    public function register($id)
+    {
+        $academy = Academy::findorfail($id);
+        $title = 'Daftar Kelas';
+        $title2 = $academy->nama_kelas;
+        $durasi_belajar = SilabusAcademy::where('academies_id', $academy->id)->sum('waktu_belajar');
+        $technologies_academies = TechnologyAcademy::where('academies_id', $academy->id)->get();
+        $fasilitas_academies = FasilitasAcademy::where('academies_id', $academy->id)->get();
+
+        return view('academy.register', compact(
+            'title',
+            'title2',
+            'academy',
+            'durasi_belajar',
+            'technologies_academies',
+            'fasilitas_academies'
+        ));
+    }
+
+    public function store_register(Request $request, $id)
+    {
+        $academy = Academy::findorfail($id);
+
+        if ($academy->jenis_kelas == 'Gratis') {
+            $peserta = new PesertaAcademy([
+                'academies_id' => $academy->id,
+                'users_id' => Auth::user()->id,
+                'bukti_transfer' => null,
+                'status' => 'approved'
+            ]);
+            $peserta->save();
+            return redirect('academy/class/' . $academy->id)->with('toast_success', 'Registrasi berhasil, selamat belajar !');
+        } else {
+            $peserta = new PesertaAcademy([
+                'academies_id' => $academy->id,
+                'users_id' => Auth::user()->id,
+                'bukti_transfer' => null,
+                'status' => 'waiting'
+            ]);
+            $peserta->save();
+            return redirect('member/orders?pages=waiting')->with('toast_success', 'Registrasi berhasil, silahkan selesaikan pembayaran !');
+        }
     }
 
     /**
@@ -87,7 +134,20 @@ class AcademyController extends Controller
             $silabus->count_submission = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 4)->count();
 
             $silabus->materi_silabuses = MateriSilabus::where('silabus_academies_id', $silabus->id)->get();
+            foreach ($silabus->materi_silabuses as $materi_silabuses) {
+                $riwayat_belajar = RiwayatBelajar::where('materi_silabuses_id', $materi_silabuses->id)->where('users_id', Auth::user()->id)->first();
+                if (is_null($riwayat_belajar)) {
+                    $materi_silabuses->status_belajar = null;
+                } else {
+                    $materi_silabuses->status_belajar = $riwayat_belajar->status;
+                }
+            }
         }
+
+        $id_silabus = SilabusAcademy::where('academies_id', $academy->id)->get('id');
+        $id_materi = MateriSilabus::whereIn('silabus_academies_id', $id_silabus)->get('id');
+        $riwayat_belajar_terakhir = RiwayatBelajar::whereIn('materi_silabuses_id', $id_materi)->where('users_id', Auth::user()->id)->orderBy('id', 'desc')->first();
+
         return view('academy.show', compact(
             'title',
             'academy',
@@ -96,7 +156,8 @@ class AcademyController extends Controller
             'fasilitas_academies',
             'tools_academies',
             'technologies_academies',
-            'silabus_academies'
+            'silabus_academies',
+            'riwayat_belajar_terakhir'
         ));
     }
 

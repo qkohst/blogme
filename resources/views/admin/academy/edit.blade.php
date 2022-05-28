@@ -31,31 +31,51 @@
                 <div class="card-body pt-2">
                     <p class="text-uppercase text-sm">Data Kelas</p>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Nama Kelas</label>
-                                <input class="form-control" type="text" name="nama_kelas" value="{{$academy->nama_kelas}}" disabled>
+                                <input class="form-control @error('nama_kelas') is-invalid @enderror" type="text" name="nama_kelas" value="{{$academy->nama_kelas}}" disabled>
+                                @error('nama_kelas')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Kategori</label>
-                                <select class="form-select" aria-label="Default select example" name="kategori">
+                                <select class="form-select  @error('kategori') is-invalid @enderror" aria-label="Default select example" name="kategori">
                                     <option selected>-- Pilih Kategori --</option>
                                     @foreach($kategories as $kategory)
                                     <option value="{{$kategory->id}}" {{ $academy->kategories_id == $kategory->id ? "selected" : "" }}>{{$kategory->nama_kategori}}</option>
                                     @endforeach
                                 </select>
+                                @error('kategori')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Jenis Kelas</label>
-                                <select class="form-select" aria-label="Default select example" name="jenis_kelas">
+                                <select class="form-select @error('jenis_kelas') is-invalid @enderror" aria-label="Default select example" name="jenis_kelas" onchange="enableForm(this);">
                                     <option selected>-- Pilih Jenis kelas --</option>
                                     <option value="Gratis" {{ $academy->jenis_kelas == 'Gratis' ? "selected" : "" }}>Gratis</option>
                                     <option value="Berbayar" {{ $academy->jenis_kelas == 'Berbayar' ? "selected" : "" }}>Berbayar</option>
                                 </select>
+                                @error('jenis_kelas')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Biaya Belajar <small class="text-warning"><i>* Rp. (tanpa titik)</i></small></label>
+                                
+                                <input type="number" class="form-control" id="biayaDisable" placeholder="0" disabled style="display: none;">
+                                <input type="number" class="form-control @error('biaya') is-invalid @enderror" name="biaya" id="biayaEnable" value="{{$academy->biaya}}">
+                                @error('biaya')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -82,6 +102,10 @@
                                     <label class="form-check-label" for="inlineRadio5">Profesional</label>
                                 </div>
                             </div>
+
+                            @error('level')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -108,26 +132,38 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">RAM</label>
-                                    <input class="form-control" type="text" name="minimum_ram" value="{{$academy->minimum_ram}}">
+                                    <input class="form-control @error('minimum_ram') is-invalid @enderror" type="text" name="minimum_ram" value="{{$academy->minimum_ram}}">
                                 </div>
+                                @error('minimum_ram')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Layar</label>
-                                    <input class="form-control" type="text" name="minimum_layar" value="{{$academy->minimum_layar}}">
+                                    <input class="form-control @error('minimum_layar') is-invalid @enderror" type="text" name="minimum_layar" value="{{$academy->minimum_layar}}">
                                 </div>
+                                @error('minimum_layar')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Sistem Operasi</label>
-                                    <input class="form-control" type="text" name="minimum_sistem_operasi" value="{{$academy->minimum_sistem_operasi}}">
+                                    <input class="form-control @error('minimum_sistem_operasi') is-invalid @enderror" type="text" name="minimum_sistem_operasi" value="{{$academy->minimum_sistem_operasi}}">
                                 </div>
+                                @error('minimum_sistem_operasi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Prosesor</label>
-                                    <input class="form-control" type="text" name="minimum_processor" value="{{$academy->minimum_processor}}">
+                                    <input class="form-control @error('minimum_processor') is-invalid @enderror" type="text" name="minimum_processor" value="{{$academy->minimum_processor}}">
                                 </div>
+                                @error('minimum_processor')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <p class="text-sm">Tools yang dibutuhkan :</p>
@@ -242,5 +278,15 @@
     jQuery(document).ready(function() {
         SweetAlert2Demo.init();
     });
+
+    function enableForm(that) {
+        if (that.value == "Berbayar") {
+            document.getElementById("biayaEnable").style.display = "block";
+            document.getElementById("biayaDisable").style.display = "none";
+        } else {
+            document.getElementById("biayaEnable").style.display = "none";
+            document.getElementById("biayaDisable").style.display = "block";
+        }
+    }
 </script>
 @endsection

@@ -6,6 +6,18 @@
     padding: 2px;
 }
 
+a.disabled {
+    color: gray;
+    pointer-events: none;
+}
+
+
+/*		Sweet Alert		*/
+.swal-footer {
+    text-align: center !important;
+    margin-bottom: 10px !important;
+}
+
 /* File Drop Input  */
 
 .file-drop-area {

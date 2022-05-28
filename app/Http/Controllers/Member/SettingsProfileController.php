@@ -43,7 +43,6 @@ class SettingsProfileController extends Controller
             return view('member.settings.account', compact(
                 'title',
             ));
-            // LANJUT SINI 
         }
     }
 

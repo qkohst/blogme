@@ -39,13 +39,14 @@
                         <li><a href="{{ route('profile.index') }}"><i class="icofont-user"></i> Profil Saya</a></li>
                         <li class="drop-down"><a href="#"><i class="icofont-external"></i> Program Saya</a>
                             <ul>
-                                <li class="{{ Route::is('forum-qa') ? 'active' : '' }}"><a href="{{ route('forum-qa') }}"><i class="icofont-learn"></i> Academy</a></li>
-                                <li class="{{ Route::is('forum-qa') ? 'active' : '' }}"><a href="{{ route('forum-qa') }}"><i class="icofont-workers-group"></i> Forum Q&A</a></li>
-                                <li class="{{ Route::is('forum-qa') ? 'active' : '' }}"><a href="{{ route('forum-qa') }}"><i class="icofont-world"></i> Blog</a></li>
-                                <li class="{{ Route::is('forum-qa') ? 'active' : '' }}"><a href="{{ route('forum-qa') }}"><i class="icofont-search-job"></i> Job</a></li>
-                                <li class="{{ Route::is('forum-qa') ? 'active' : '' }}"><a href="{{ route('forum-qa') }}"><i class="icofont-license"></i> Event</a></li>
+                                <li><a href="#"><i class="icofont-learn"></i> Academy</a></li>
+                                <li><a href="#"><i class="icofont-workers-group"></i> Forum Q&A</a></li>
+                                <li><a href="#"><i class="icofont-world"></i> Blog</a></li>
+                                <li><a href="#"><i class="icofont-search-job"></i> Job</a></li>
+                                <li><a href="#"><i class="icofont-license"></i> Event</a></li>
                             </ul>
                         </li>
+                        <li><a href="{{ route('orders.index') }}?pages=waiting"><i class="icofont-shopping-cart"></i> Pesanan Saya</a></li>
                         <li><a href="{{ route('settings.index') }}?pages=profile"><i class="icofont-ui-settings"></i> Pengaturan</a></li>
 
                         <hr class="mt-1 mb-1">

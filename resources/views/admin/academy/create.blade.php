@@ -29,7 +29,7 @@
                 <div class="card-body pt-2">
                     <p class="text-uppercase text-sm">Data Kelas</p>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Nama Kelas</label>
                                 <input class="form-control @error('nama_kelas') is-invalid @enderror" type="text" name="nama_kelas" value="{{old('nama_kelas')}}">
@@ -38,7 +38,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Gambar</label>
                                 <input class="form-control @error('gambar') is-invalid @enderror" type="file" name="gambar" accept="image/png, image/jpeg" value="{{old('gambar')}}">
@@ -47,7 +47,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Kategori</label>
                                 <select class="form-select @error('kategori') is-invalid @enderror" aria-label="Default select example" name="kategori">
@@ -61,15 +61,26 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Jenis Kelas</label> <br>
-                                <select class="form-select @error('jenis_kelas') is-invalid @enderror" aria-label="Default select example" name="jenis_kelas">
+                                <select class="form-select @error('jenis_kelas') is-invalid @enderror" aria-label="Default select example" name="jenis_kelas" onchange="enableForm(this);">
                                     <option value="" selected>-- Pilih Jenis Kelas --</option>
-                                    <option value="Gratis" {{ old('jenis_kelas') == 'Gratis' ? "selected" : "" }}>Gratis</option>
-                                    <option value="Berbayar" {{ old('jenis_kelas') == 'Berbayar' ? "selected" : "" }}>Berbayar</option>
+                                    <option value="Gratis">Gratis</option>
+                                    <option value="Berbayar">Berbayar</option>
                                 </select>
                                 @error('jenis_kelas')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Biaya Belajar <small class="text-warning"><i>* Rp. (tanpa titik)</i></small></label>
+
+                                <input type="number" class="form-control" id="biayaDisable" placeholder="0" disabled>
+                                <input type="number" class="form-control @error('biaya') is-invalid @enderror" name="biaya" id="biayaEnable" style="display: none;">
+                                @error('biaya')
                                 <small class="form-text text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -203,7 +214,6 @@
                     </div>
 
                 </div>
-
                 <div class="card-footer pt-0 pb-2">
                     <button class="btn bg-gradient-primary btn-sm ms-auto" type="submit">Simpan</button>
                     <a href="{{ route('academy.index') }}" class="btn btn-outline-primary btn-sm ms-auto">Batal</a>
@@ -231,5 +241,15 @@
         // Summernote
         $('.summernote').summernote()
     })
+
+    function enableForm(that) {
+        if (that.value == "Berbayar") {
+            document.getElementById("biayaEnable").style.display = "block";
+            document.getElementById("biayaDisable").style.display = "none";
+        } else {
+            document.getElementById("biayaEnable").style.display = "none";
+            document.getElementById("biayaDisable").style.display = "block";
+        }
+    }
 </script>
 @endsection

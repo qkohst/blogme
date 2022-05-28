@@ -48,7 +48,11 @@
                         <li><i class="icofont-clock-time"></i> {{round($durasi_belajar/60)}} Jam Belajar</li>
                     </ul>
                     <div class="d-flex">
-                        <a href="#about" class="btn-get-started scrollto mr-1">Mulai Belajar</a>
+                        @if(is_null($riwayat_belajar_terakhir))
+                        <a href="{{ route('register.academy', $academy->id) }}" class="btn-get-started scrollto mr-1">Belajar Sekarang</a>
+                        @else
+                        <a href="{{ route('modul.index', $academy->id) }}?materi={{$riwayat_belajar_terakhir->materi_silabuses_id}}" class="btn-get-started scrollto mr-1">Lanjutkan Belajar</a>
+                        @endif
                         <a href="#silabus" class="get-started-btn scrollto text-md">Lihat Silabus</a>
                     </div>
                 </div>
@@ -151,7 +155,10 @@
                 @if($silabus_academies->count() == 0)
                 <p class="text-secondary">Belum ada materi pada kelas ini</p>
                 @else
+
+                <?php $no_silabus = 0; ?>
                 @foreach($silabus_academies as $silabus)
+                <?php $no_silabus++; ?>
                 <div class="col-12 faq-list">
                     <div class="card" data-aos="fade-up">
 
@@ -193,8 +200,10 @@
                         </div>
 
                         <div id="faq{{$silabus->id}}" class="card-footer collapse" data-parent=".faq-list">
+                            <?php $no_materi = 0; ?>
                             @foreach($silabus->materi_silabuses as $materi)
-                            <a href="{{ route('modul.index', $academy->id) }}?materi={{$materi->id}}" class="ml-3 my-2">
+                            <?php $no_materi++; ?>
+                            <a href="{{ route('modul.index', $academy->id) }}?materi={{$materi->id}}" class="ml-3 my-2 {{ $no_silabus == 1 && $no_materi == 1 ? '' : 'disabled' }}">
                                 <span class="align-middle text-md">
                                     @if($materi->tipe_pembaca != 'Semua Orang')
                                     <i class="icofont-lock text-md"></i>

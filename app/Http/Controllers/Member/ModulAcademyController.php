@@ -7,10 +7,12 @@ use App\ArtikelMateri;
 use App\Http\Controllers\Controller;
 use App\KuisMateri;
 use App\MateriSilabus;
+use App\RiwayatBelajar;
 use App\SilabusAcademy;
 use App\SubmissionMateri;
 use App\VidioMateri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ModulAcademyController extends Controller
 {
@@ -22,15 +24,40 @@ class ModulAcademyController extends Controller
     public function index($id)
     {
 
-        $silabus_academies = SilabusAcademy::where('academies_id', $id)->get();
-        foreach ($silabus_academies as $silabus) {
-            $silabus->materi_silabuses = MateriSilabus::where('silabus_academies_id', $silabus->id)->get();
-        }
-
         $academy = Academy::findorfail($id);
         $materi = MateriSilabus::findorfail(request('materi'));
         $title = $materi->judul_materi;
         $title2 = $academy->nama_kelas;
+
+        // Check progress belajar user 
+        if (is_null(request('from'))) {
+            $chek_riwayat_belajar = RiwayatBelajar::where('materi_silabuses_id', $materi->id)->where('users_id', Auth::user()->id)->first();
+            if (is_null($chek_riwayat_belajar)) {
+                $riwayat_belajar = new RiwayatBelajar([
+                    'users_id' => Auth::user()->id,
+                    'materi_silabuses_id' => $materi->id,
+                    'status' => 'on progress',
+                ]);
+                $riwayat_belajar->save();
+            }
+        } else {
+            $materi_sebelumnya = RiwayatBelajar::where('materi_silabuses_id', request('from'))->where('users_id', Auth::user()->id)->first();
+            $update_status = [
+                'status' => 'complete'
+            ];
+            $materi_sebelumnya->update($update_status);
+
+            $check_materi_sekarang = RiwayatBelajar::where('materi_silabuses_id', $materi->id)->where('users_id', Auth::user()->id)->first();
+            if (is_null($check_materi_sekarang)) {
+                $riwayat_belajar = new RiwayatBelajar([
+                    'users_id' => Auth::user()->id,
+                    'materi_silabuses_id' => $materi->id,
+                    'status' => 'on progress',
+                ]);
+                $riwayat_belajar->save();
+            }
+        }
+
 
         // previous
         $previous_materi = MateriSilabus::where('silabus_academies_id', $materi->silabus_academies_id)->where('id', '<', $materi->id)->max('id');
@@ -56,6 +83,20 @@ class ModulAcademyController extends Controller
             }
         } else {
             $next = $next_materi;
+        }
+
+        $silabus_academies = SilabusAcademy::where('academies_id', $id)->get();
+        foreach ($silabus_academies as $silabus) {
+            $silabus->materi_silabuses = MateriSilabus::where('silabus_academies_id', $silabus->id)->get();
+
+            foreach ($silabus->materi_silabuses as $materi_silabuses) {
+                $riwayat_belajar = RiwayatBelajar::where('materi_silabuses_id', $materi_silabuses->id)->where('users_id', Auth::user()->id)->first();
+                if (is_null($riwayat_belajar)) {
+                    $materi_silabuses->status_belajar = null;
+                } else {
+                    $materi_silabuses->status_belajar = $riwayat_belajar->status;
+                }
+            }
         }
 
         if ($materi->tipe_materi == 1) {

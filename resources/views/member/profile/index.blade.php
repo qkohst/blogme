@@ -26,8 +26,10 @@
                     <img src="/avatar/{{$user->avatar}}" class="rounded" alt="Images" height="250">
                 </div>
                 <div class="col-lg-9 pt-lg-0 content">
-                    <h3>{{$user->username}}</h3>
-                    <p><i class="icofont-email"></i> {{$user->email}}</p>
+                    <h3>{{$profil->nama_lengkap}}</h3>
+                    <h5>{{$profil->headline}}</h5>
+
+                    <p class="mb-1"><i class="icofont-email"></i> {{$user->email}}</p>
                     <p><i class="icofont-location-pin"></i> {{$data_pribadi->kota_domisili}}</p>
                     <p>Bergabung sejak : {{date('d M Y', strtotime($user->created_at))}}</p>
 
@@ -80,6 +82,9 @@
                     <a class="nav-link" id="custom-content-above-academy-tab" data-toggle="pill" href="#custom-content-above-academy" role="tab" aria-controls="custom-content-above-academy" aria-selected="false">Academy</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" id="custom-content-above-forum-qa-tab" data-toggle="pill" href="#custom-content-above-forum-qa" role="tab" aria-controls="custom-content-above-forum-qa" aria-selected="false">Forum Q&A</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" id="custom-content-above-blog-tab" data-toggle="pill" href="#custom-content-above-blog" role="tab" aria-controls="custom-content-above-blog" aria-selected="false">Blog</a>
                 </li>
                 <li class="nav-item">
@@ -88,20 +93,23 @@
                 <li class="nav-item">
                     <a class="nav-link" id="custom-content-above-event-tab" data-toggle="pill" href="#custom-content-above-event" role="tab" aria-controls="custom-content-above-event" aria-selected="false">Event</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="custom-content-above-forum-qa-tab" data-toggle="pill" href="#custom-content-above-forum-qa" role="tab" aria-controls="custom-content-above-forum-qa" aria-selected="false">Forum Q&A</a>
-                </li>
+
             </ul>
 
             <div class="tab-content" id="custom-content-above-tabContent">
 
                 <div class="tab-pane fade show active" id="custom-content-above-tentang-saya" role="tabpanel" aria-labelledby="custom-content-above-tentang-saya-tab">
                     <p class="lead my-3">Tentang Saya</p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada lacus ullamcorper dui molestie, sit amet congue quam finibus. Etiam ultricies nunc non magna feugiat commodo. Etiam odio magna, mollis auctor felis vitae, ullamcorper ornare ligula. Proin pellentesque tincidunt nisi, vitae ullamcorper felis aliquam id. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin id orci eu lectus blandit suscipit. Phasellus porta, ante et varius ornare, sem enim sollicitudin eros, at commodo leo est vitae lacus. Etiam ut porta sem. Proin porttitor porta nisl, id tempor risus rhoncus quis. In in quam a nibh cursus pulvinar non consequat neque. Mauris lacus elit, condimentum ac condimentum at, semper vitae lectus. Cras lacinia erat eget sapien porta consectetur.
+                    {{$profil->tentang_saya}}
                 </div>
 
                 <div class="tab-pane fade" id="custom-content-above-academy" role="tabpanel" aria-labelledby="custom-content-above-academy-tab">
                     <p class="lead my-3">Kelas Yang Dipelajari</p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada lacus ullamcorper dui molestie, sit amet congue quam finibus. Etiam ultricies nunc non magna feugiat commodo. Etiam odio magna, mollis auctor felis vitae, ullamcorper ornare ligula. Proin pellentesque tincidunt nisi, vitae ullamcorper felis aliquam id. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin id orci eu lectus blandit suscipit. Phasellus porta, ante et varius ornare, sem enim sollicitudin eros, at commodo leo est vitae lacus. Etiam ut porta sem. Proin porttitor porta nisl, id tempor risus rhoncus quis. In in quam a nibh cursus pulvinar non consequat neque. Mauris lacus elit, condimentum ac condimentum at, semper vitae lectus. Cras lacinia erat eget sapien porta consectetur.
+                </div>
+
+                <div class="tab-pane fade" id="custom-content-above-forum-qa" role="tabpanel" aria-labelledby="custom-content-above-forum-qa-tab">
+                    <p class="lead my-3">Forum Q&A</p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada lacus ullamcorper dui molestie, sit amet congue quam finibus. Etiam ultricies nunc non magna feugiat commodo. Etiam odio magna, mollis auctor felis vitae, ullamcorper ornare ligula. Proin pellentesque tincidunt nisi, vitae ullamcorper felis aliquam id. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin id orci eu lectus blandit suscipit. Phasellus porta, ante et varius ornare, sem enim sollicitudin eros, at commodo leo est vitae lacus. Etiam ut porta sem. Proin porttitor porta nisl, id tempor risus rhoncus quis. In in quam a nibh cursus pulvinar non consequat neque. Mauris lacus elit, condimentum ac condimentum at, semper vitae lectus. Cras lacinia erat eget sapien porta consectetur.
                 </div>
 
@@ -120,10 +128,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada lacus ullamcorper dui molestie, sit amet congue quam finibus. Etiam ultricies nunc non magna feugiat commodo. Etiam odio magna, mollis auctor felis vitae, ullamcorper ornare ligula. Proin pellentesque tincidunt nisi, vitae ullamcorper felis aliquam id. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin id orci eu lectus blandit suscipit. Phasellus porta, ante et varius ornare, sem enim sollicitudin eros, at commodo leo est vitae lacus. Etiam ut porta sem. Proin porttitor porta nisl, id tempor risus rhoncus quis. In in quam a nibh cursus pulvinar non consequat neque. Mauris lacus elit, condimentum ac condimentum at, semper vitae lectus. Cras lacinia erat eget sapien porta consectetur.
                 </div>
 
-                <div class="tab-pane fade" id="custom-content-above-forum-qa" role="tabpanel" aria-labelledby="custom-content-above-forum-qa-tab">
-                    <p class="lead my-3">Forum Q&A</p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada lacus ullamcorper dui molestie, sit amet congue quam finibus. Etiam ultricies nunc non magna feugiat commodo. Etiam odio magna, mollis auctor felis vitae, ullamcorper ornare ligula. Proin pellentesque tincidunt nisi, vitae ullamcorper felis aliquam id. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin id orci eu lectus blandit suscipit. Phasellus porta, ante et varius ornare, sem enim sollicitudin eros, at commodo leo est vitae lacus. Etiam ut porta sem. Proin porttitor porta nisl, id tempor risus rhoncus quis. In in quam a nibh cursus pulvinar non consequat neque. Mauris lacus elit, condimentum ac condimentum at, semper vitae lectus. Cras lacinia erat eget sapien porta consectetur.
-                </div>
+
 
             </div>
         </div>

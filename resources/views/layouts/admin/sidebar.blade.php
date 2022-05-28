@@ -19,7 +19,7 @@
 
         <!-- Home Menu Navbar -->
         <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Home Menu</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Main Menu</h6>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">
@@ -46,6 +46,12 @@
                 </div>
                 <span class="nav-link-text ms-1">Contact</span>
             </a>
+            <a class="nav-link {{ Route::is('contact.*') ? 'active' : '' }}" href="{{ route('contact.index') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-credit-card text-warning text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Rekening Bank</span>
+            </a>
         </li>
         <!-- End Home Menu Navbar -->
 
@@ -64,7 +70,13 @@
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
                     <i class="icofont-cloud-upload text-primary text-lg opacity-10"></i>
                 </div>
-                <span class="nav-link-text ms-1">Submission</span>
+                <span class="nav-link-text ms-1">Submission Kelas</span>
+            </a>
+            <a class="nav-link" href="#">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-group-students text-dark text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Pendaftaran Peserta</span>
             </a>
         </li>
 

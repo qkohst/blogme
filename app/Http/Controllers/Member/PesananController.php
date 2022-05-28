@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Member;
 
-use App\DataPribadiUser;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\ProfilUser;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+class PesananController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,16 +14,23 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $title = 'Profil Saya';
-        $user = User::findorfail(Auth::user()->id);
-        $data_pribadi = DataPribadiUser::where('users_id', $user->id)->first();
-        $profil = ProfilUser::where('users_id', $user->id)->first();
-        return view('member.profile.index', compact(
-            'title',
-            'user',
-            'data_pribadi',
-            'profil',
-        ));
+        $pages = request('pages');
+        if ($pages == 'waiting') {
+            $title = 'Menunggu Pembayaran';
+            return view('member.orders.waiting', compact(
+                'title',
+            ));
+        } elseif ($pages == 'rejected') {
+            $title = 'Dibatalkan';
+            return view('member.orders.rejected', compact(
+                'title',
+            ));
+        } elseif ($pages == 'paid') {
+            $title = 'Sudah bayar';
+            return view('member.orders.paid', compact(
+                'title',
+            ));
+        }
     }
 
     /**

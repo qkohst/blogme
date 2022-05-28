@@ -26,6 +26,7 @@ class CreateAcademiesTable extends Migration
             $table->string('minimum_processor', 100);
             $table->enum('status', ['on', 'off']);
             $table->enum('jenis_kelas', ['Gratis', 'Berbayar']);
+            $table->bigInteger('biaya')->nullable();
             $table->timestamps();
 
             $table->foreign('kategories_id')->references('id')->on('kategories');

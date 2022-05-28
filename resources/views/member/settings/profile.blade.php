@@ -7,7 +7,7 @@
     <div class="card-header text-lg">
         {{$title}}
     </div>
-    <form action="{{ route('settings.profile') }}" method="post" enctype="multipart/form-data">
+    <form class="my-form" action="{{ route('settings.profile') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="card-body p-4">
             <div class="form-group">
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-dark"> Simpan Perubahan</button>
+            <a href="#" class="btn btn-dark btn-save">Simpan Perubahan</a>
         </div>
     </form>
 </div>
@@ -74,6 +74,10 @@
 @endsection
 
 @section('page_scripts')
+
+<!-- Sweet Alert -->
+<script src="/admin-assets/js/plugins/sweetalert/sweetalert.min.js"></script>
+
 
 <script>
     $(document).on('change', '.file-input', function() {
@@ -111,6 +115,48 @@
         }
 
 
+    });
+
+    var SweetAlert2Demo = function() {
+        //== Demos
+        var initDemos = function() {
+
+            $('.btn-save').click(function(e) {
+                id = e.target.dataset.id;
+                swal({
+                    title: 'Apakah anda yakin ?',
+                    text: "Simpan perubahan data !",
+                    type: 'warning',
+                    buttons: {
+                        confirm: {
+                            text: 'Simpan',
+                            className: 'btn btn-dark'
+                        },
+                        cancel: {
+                            visible: true,
+                            text: 'Batal',
+                            className: 'btn btn-outline-dark'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        $('.my-form').submit();
+                    } else {
+                        swal.close();
+                    }
+                });
+            });
+        };
+        return {
+            //== Init
+            init: function() {
+                initDemos();
+            },
+        };
+    }();
+    //== Class Initialization
+    jQuery(document).ready(function() {
+        SweetAlert2Demo.init();
     });
 </script>
 @endsection

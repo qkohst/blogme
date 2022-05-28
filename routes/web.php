@@ -107,10 +107,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Route Member
     Route::group(['middleware' => 'checkRole:2'], function () {
         Route::group(['prefix' => 'member'], function () {
-            Route::resource('academy/class/{id}/', 'Member\ModulAcademyController',  [
-                'names' => 'modul',
-                'uses' => ['index', 'show']
-            ]);
             Route::resource('profile', 'Member\ProfileController',  [
                 'names' => 'profile',
                 'uses' => ['index', 'show']
@@ -118,6 +114,20 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('settings', 'Member\SettingsProfileController@index')->name('settings.index');
             Route::post('settings/profile', 'Member\SettingsProfileController@profile')->name('settings.profile');
             Route::post('settings/personal', 'Member\SettingsProfileController@personal')->name('settings.personal');
+            Route::resource('orders', 'Member\PesananController',  [
+                'names' => 'orders',
+                'uses' => ['index', 'show']
+            ]);
+
+            Route::get('academy/class/{id}/register', 'AcademyController@register')->name('register.academy');
+            Route::post('academy/class/{id}/register', 'AcademyController@store_register')->name('store_register.academy');
+
+            Route::group(['middleware' => 'checkJenisKelas', 'checkTipePembaca'], function () {
+                Route::resource('academy/class/{id}/', 'Member\ModulAcademyController',  [
+                    'names' => 'modul',
+                    'uses' => ['index']
+                ]);
+            });
         });
     });
 });
