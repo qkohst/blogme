@@ -48,10 +48,14 @@
                         <li><i class="icofont-clock-time"></i> {{round($durasi_belajar/60)}} Jam Belajar</li>
                     </ul>
                     <div class="d-flex">
+                        @if(is_null($check_peserta))
                         @if(is_null($riwayat_belajar_terakhir))
                         <a href="{{ route('register.academy', $academy->id) }}" class="btn-get-started scrollto mr-1">Belajar Sekarang</a>
                         @else
                         <a href="{{ route('modul.index', $academy->id) }}?materi={{$riwayat_belajar_terakhir->materi_silabuses_id}}" class="btn-get-started scrollto mr-1">Lanjutkan Belajar</a>
+                        @endif
+                        @else
+                        <a href="#silabus" class="btn-get-started scrollto mr-1">Lanjutkan Belajar</a>
                         @endif
                         <a href="#silabus" class="get-started-btn scrollto text-md">Lihat Silabus</a>
                     </div>

@@ -48,20 +48,27 @@ class AcademyController extends Controller
     public function register($id)
     {
         $academy = Academy::findorfail($id);
-        $title = 'Daftar Kelas';
-        $title2 = $academy->nama_kelas;
-        $durasi_belajar = SilabusAcademy::where('academies_id', $academy->id)->sum('waktu_belajar');
-        $technologies_academies = TechnologyAcademy::where('academies_id', $academy->id)->get();
-        $fasilitas_academies = FasilitasAcademy::where('academies_id', $academy->id)->get();
+        $check_peserta = PesertaAcademy::where('academies_id', $academy->id)->where('users_id', Auth::user()->id)->first();
+        if (is_null($check_peserta)) {
+            $title = 'Daftar Kelas';
+            $title2 = $academy->nama_kelas;
+            $durasi_belajar = SilabusAcademy::where('academies_id', $academy->id)->sum('waktu_belajar');
+            $technologies_academies = TechnologyAcademy::where('academies_id', $academy->id)->get();
+            $fasilitas_academies = FasilitasAcademy::where('academies_id', $academy->id)->get();
 
-        return view('academy.register', compact(
-            'title',
-            'title2',
-            'academy',
-            'durasi_belajar',
-            'technologies_academies',
-            'fasilitas_academies'
-        ));
+            return view('academy.register', compact(
+                'title',
+                'title2',
+                'academy',
+                'durasi_belajar',
+                'technologies_academies',
+                'fasilitas_academies'
+            ));
+        } elseif ($check_peserta->status == 'waiting') {
+            return redirect('member/orders?pages=waiting')->with('toast_warning', 'Selesaikan pesanan anda untuk melanjutkan.');
+        } elseif ($check_peserta->status == 'rejected') {
+            return redirect('member/orders?pages=rejected')->with('toast_warning', 'Selesaikan pesanan anda untuk melanjutkan.');
+        }
     }
 
     public function store_register(Request $request, $id)
@@ -135,7 +142,12 @@ class AcademyController extends Controller
 
             $silabus->materi_silabuses = MateriSilabus::where('silabus_academies_id', $silabus->id)->get();
             foreach ($silabus->materi_silabuses as $materi_silabuses) {
-                $riwayat_belajar = RiwayatBelajar::where('materi_silabuses_id', $materi_silabuses->id)->where('users_id', Auth::user()->id)->first();
+                if (Auth::check()) {
+                    $riwayat_belajar = RiwayatBelajar::where('materi_silabuses_id', $materi_silabuses->id)->where('users_id', Auth::user()->id)->first();
+                } else {
+                    $riwayat_belajar = null;
+                }
+
                 if (is_null($riwayat_belajar)) {
                     $materi_silabuses->status_belajar = null;
                 } else {
@@ -146,7 +158,13 @@ class AcademyController extends Controller
 
         $id_silabus = SilabusAcademy::where('academies_id', $academy->id)->get('id');
         $id_materi = MateriSilabus::whereIn('silabus_academies_id', $id_silabus)->get('id');
-        $riwayat_belajar_terakhir = RiwayatBelajar::whereIn('materi_silabuses_id', $id_materi)->where('users_id', Auth::user()->id)->orderBy('id', 'desc')->first();
+        if (Auth::check()) {
+            $check_peserta = PesertaAcademy::where('academies_id', $academy->id)->where('users_id', Auth::user()->id)->where('status', 'approved')->first();
+            $riwayat_belajar_terakhir = RiwayatBelajar::whereIn('materi_silabuses_id', $id_materi)->where('users_id', Auth::user()->id)->orderBy('id', 'desc')->first();
+        } else {
+            $riwayat_belajar_terakhir = null;
+            $check_peserta = null;
+        }
 
         return view('academy.show', compact(
             'title',
@@ -157,7 +175,8 @@ class AcademyController extends Controller
             'tools_academies',
             'technologies_academies',
             'silabus_academies',
-            'riwayat_belajar_terakhir'
+            'riwayat_belajar_terakhir',
+            'check_peserta'
         ));
     }
 

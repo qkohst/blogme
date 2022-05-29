@@ -57,6 +57,10 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'contact',
                 'uses' => ['index', 'update']
             ]);
+            Route::resource('bank', 'Admin\RekeningBankController',  [
+                'names' => 'bank',
+                'except' => ['create', 'edit', 'show']
+            ]);
 
             Route::resource('academy', 'Admin\AcademyController',  [
                 'names' => 'academy',
