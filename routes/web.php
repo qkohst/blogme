@@ -105,6 +105,11 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'submission.materi',
                 'uses' => ['store', 'show', 'edit', 'update']
             ]);
+
+            Route::resource('peserta', 'Admin\PendaftaranPesertaController',  [
+                'names' => 'peserta',
+                'uses' => ['index', 'update']
+            ]);
         });
     });
 
@@ -120,7 +125,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('settings/personal', 'Member\SettingsProfileController@personal')->name('settings.personal');
             Route::resource('orders', 'Member\PesananController',  [
                 'names' => 'orders',
-                'uses' => ['index', 'show']
+                'uses' => ['index', 'show', 'destroy', 'update']
             ]);
 
             Route::get('academy/class/{id}/register', 'AcademyController@register')->name('register.academy');

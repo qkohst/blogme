@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class KuisMateri extends Model
 {
     protected $fillable = [
-        'materi_silabuses_id',
+        'materi_silabus_id',
         'soal',
         'jawaban_a',
         'jawaban_b',
@@ -19,6 +19,6 @@ class KuisMateri extends Model
 
     public function materi_silabuses()
     {
-        return $this->belongsTo('App\MateriSilabus');
+        return $this->belongsTo('App\MateriSilabus', 'materi_silabus_id');
     }
 }

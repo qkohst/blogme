@@ -5,8 +5,8 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="{{ route('academy.index') }}">{{$title4}}</a></li>
-        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/admin/academy/{{$vidio->materi_silabuses->silabus_academies->academies->id}}">{{$title3}}</a></li>
-        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/admin/academy/{{$vidio->materi_silabuses->silabus_academies->academies->id}}/silabus/{{$vidio->materi_silabuses->silabus_academies->id}}">{{$title2}}</a></li>
+        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/admin/academy/{{$materi->silabus_academies->academies->id}}">{{$title3}}</a></li>
+        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/admin/academy/{{$materi->silabus_academies->academies->id}}/silabus/{{$materi->silabus_academies->id}}">{{$title2}}</a></li>
         <li class=" breadcrumb-item text-sm text-white active" aria-current="page">{{$title}}</li>
     </ol>
 </nav>
@@ -74,18 +74,28 @@
                                         <input class="form-check-input" type="radio" name="tipe_pembaca" id="inlineRadio2" value="Member" {{ $materi->tipe_pembaca == "Member" ? "checked" : "" }}>
                                         <label class="form-check-label" for="inlineRadio2">Member</label>
                                     </div>
+                                    @error('tipe_pembaca')
+                                    <br>
+                                    <small class="form-text text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Deskripsi Vidio</label>
-                                    <textarea class="form-control" name="deskripsi_vidio">{{$vidio->deskripsi_vidio}}</textarea>
+                                    <textarea class="form-control @error('deskripsi_vidio') is-invalid @enderror" name="deskripsi_vidio">{{$materi->vidio_materis->deskripsi_vidio}}</textarea>
+                                    @error('deskripsi_vidio')
+                                    <small class="form-text text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Embed Vidio Youtube</label>
-                                    <textarea class="form-control" name="embed_vidio" pattern="<iframe .*" placeholder="<iframe width=''560'' height=''315'' src=''https://www.youtube.com/embed/.*">{{$vidio->embed_vidio}}</textarea>
+                                    <textarea class="form-control @error('embed_vidio') is-invalid @enderror" name="embed_vidio" pattern="<iframe .*" placeholder="<iframe width=''560'' height=''315'' src=''https://www.youtube.com/embed/.*">{{$materi->vidio_materis->embed_vidio}}</textarea>
+                                    @error('embed_vidio')
+                                    <small class="form-text text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -93,7 +103,7 @@
 
                     <div class="card-footer pt-0 pb-2">
                         <a href="#" class="btn bg-gradient-primary btn-sm ms-auto btn-save">Simpan</a>
-                        <a href="/admin/academy/{{$vidio->materi_silabuses->silabus_academies->academies->id}}/silabus/{{$vidio->materi_silabuses->silabus_academies->id}}" class="btn btn-outline-primary btn-sm ms-auto">Batal</a>
+                        <a href="/admin/academy/{{$materi->silabus_academies->academies->id}}/silabus/{{$materi->silabus_academies->id}}" class="btn btn-outline-primary btn-sm ms-auto">Batal</a>
                     </div>
                 </form>
             </div>

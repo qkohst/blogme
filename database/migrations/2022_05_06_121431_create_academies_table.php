@@ -15,7 +15,7 @@ class CreateAcademiesTable extends Migration
     {
         Schema::create('academies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('kategories_id')->unsigned();
+            $table->unsignedBigInteger('kategory_id')->unsigned();
             $table->string('nama_kelas', 100);
             $table->string('gambar');
             $table->enum('level', ['Dasar', 'Pemula', 'Menengah', 'Mahir', 'Profesional']);
@@ -29,7 +29,7 @@ class CreateAcademiesTable extends Migration
             $table->bigInteger('biaya')->nullable();
             $table->timestamps();
 
-            $table->foreign('kategories_id')->references('id')->on('kategories');
+            $table->foreign('kategory_id')->references('id')->on('kategories');
         });
     }
 

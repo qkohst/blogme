@@ -8,16 +8,16 @@ class ToolsAcademy extends Model
 {
     protected $fillable = [
         'tools_id',
-        'academies_id',
+        'academy_id',
     ];
 
     public function tools()
     {
-        return $this->belongsTo('App\Tools');
+        return $this->belongsTo('App\Tools', 'tools_id');
     }
 
     public function academies()
     {
-        return $this->belongsTo('App\Academy');
+        return $this->belongsTo('App\Academy', 'academy_id');
     }
 }

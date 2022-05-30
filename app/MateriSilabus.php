@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MateriSilabus extends Model
 {
     protected $fillable = [
-        'silabus_academies_id',
+        'silabus_academy_id',
         'tipe_materi',
         'tipe_pembaca',
         'judul_materi'
@@ -15,7 +15,7 @@ class MateriSilabus extends Model
 
     public function silabus_academies()
     {
-        return $this->belongsTo('App\SilabusAcademy');
+        return $this->belongsTo('App\SilabusAcademy', 'silabus_academy_id');
     }
 
     public function artikel_materis()

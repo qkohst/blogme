@@ -24,7 +24,7 @@ class SettingsProfileController extends Controller
         $user = User::findorfail(Auth::user()->id);
         if ($pages == 'profile') {
             $title = 'Profil Pengguna';
-            $profile = ProfilUser::where('users_id', $user->id)->first();
+            $profile = ProfilUser::where('user_id', $user->id)->first();
             return view('member.settings.profile', compact(
                 'title',
                 'user',
@@ -78,7 +78,7 @@ class SettingsProfileController extends Controller
 
         // perbarui atau simpan data profile 
 
-        $profile = ProfilUser::where('users_id', $user->id)->first();
+        $profile = ProfilUser::where('user_id', $user->id)->first();
         if (is_null($profile)) {
             $profile_user = new ProfilUser([
                 'users_id' => $user->id,

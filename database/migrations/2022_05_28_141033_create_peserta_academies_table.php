@@ -15,14 +15,14 @@ class CreatePesertaAcademiesTable extends Migration
     {
         Schema::create('peserta_academies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('academies_id')->unsigned();
-            $table->unsignedBigInteger('users_id')->unsigned();
+            $table->unsignedBigInteger('academy_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned();
             $table->string('bukti_transfer')->nullable();
             $table->enum('status', ['waiting', 'approved', 'rejected']);
             $table->timestamps();
 
-            $table->foreign('academies_id')->references('id')->on('academies');
-            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('academy_id')->references('id')->on('academies');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

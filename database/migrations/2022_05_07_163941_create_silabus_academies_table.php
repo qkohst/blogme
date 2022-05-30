@@ -15,7 +15,7 @@ class CreateSilabusAcademiesTable extends Migration
     {
         Schema::create('silabus_academies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('academies_id')->unsigned();
+            $table->unsignedBigInteger('academy_id')->unsigned();
             $table->string('judul_silabus', 100);
             $table->bigInteger('waktu_belajar');
             $table->string('deskripsi');

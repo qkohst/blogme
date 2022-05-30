@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class SubmissionMateri extends Model
 {
     protected $fillable = [
-        'materi_silabuses_id',
+        'materi_silabus_id',
         'isi_materi',
     ];
 
     public function materi_silabuses()
     {
-        return $this->belongsTo('App\MateriSilabus');
+        return $this->belongsTo('App\MateriSilabus', 'materi_silabus_id');
     }
 }

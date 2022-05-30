@@ -46,7 +46,7 @@
                                 <select class="form-select  @error('kategori') is-invalid @enderror" aria-label="Default select example" name="kategori">
                                     <option selected>-- Pilih Kategori --</option>
                                     @foreach($kategories as $kategory)
-                                    <option value="{{$kategory->id}}" {{ $academy->kategories_id == $kategory->id ? "selected" : "" }}>{{$kategory->nama_kategori}}</option>
+                                    <option value="{{$kategory->id}}" {{ $academy->kategory_id == $kategory->id ? "selected" : "" }}>{{$kategory->nama_kategori}}</option>
                                     @endforeach
                                 </select>
                                 @error('kategori')

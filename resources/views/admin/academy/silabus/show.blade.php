@@ -98,7 +98,7 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
-                        @if($materi_silabuses->count() == 0)
+                        @if($silabus->materi_silabuses->count() == 0)
                         <hr class="horizontal dark">
                         <div class="text-center mb-2">Data materi belum tersedia</div>
                         @else
@@ -112,7 +112,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($materi_silabuses as $materi)
+                                @foreach($silabus->materi_silabuses as $materi)
                                 <tr>
                                     <td>
                                         <p class="text-sm px-3 mb-0">{{$materi->judul_materi}}</p>

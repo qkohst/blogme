@@ -15,12 +15,12 @@ class CreateVidioMaterisTable extends Migration
     {
         Schema::create('vidio_materis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('materi_silabuses_id')->unsigned();
+            $table->unsignedBigInteger('materi_silabus_id')->unsigned();
             $table->string('deskripsi_vidio');
             $table->longText('embed_vidio');
             $table->timestamps();
 
-            $table->foreign('materi_silabuses_id')->references('id')->on('materi_silabuses')->onDelete('cascade');
+            $table->foreign('materi_silabus_id')->references('id')->on('materi_silabuses')->onDelete('cascade');
         });
     }
 

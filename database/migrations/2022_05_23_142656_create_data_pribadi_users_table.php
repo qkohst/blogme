@@ -15,7 +15,7 @@ class CreateDataPribadiUsersTable extends Migration
     {
         Schema::create('data_pribadi_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('users_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned();
             $table->string('nomor_telepon', 15);
             $table->string('kota_domisili', 50);
             $table->string('tempat_lahir', 50);
@@ -26,7 +26,7 @@ class CreateDataPribadiUsersTable extends Migration
             $table->string('institusi_tempat_bekerja', 100)->nullable();
             $table->timestamps();
 
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

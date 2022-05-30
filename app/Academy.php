@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Academy extends Model
 {
     protected $fillable = [
-        'kategories_id',
+        'kategory_id',
         'nama_kelas',
         'gambar',
         'level',
@@ -24,7 +24,7 @@ class Academy extends Model
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['kategories'] ?? false, function ($query, $kategories) {
-            return $query->where('kategories_id', $kategories);
+            return $query->where('kategory_id', $kategories);
         });
 
         $query->when($filters['jenis_kelas'] ?? false, function ($query, $jenis_kelas) {
@@ -50,7 +50,7 @@ class Academy extends Model
 
     public function kategories()
     {
-        return $this->belongsTo('App\Kategory');
+        return $this->belongsTo('App\Kategory', 'kategory_id');
     }
 
     public function fasilitas_academies()

@@ -49,7 +49,7 @@
                                 @endif
 
                                 {{$academy->kategories->nama_kategori}}
-                                | <i class="icofont-ui-clock"></i> {{round($durasi_belajar/60)}} jam belajar
+                                | <i class="icofont-ui-clock"></i> {{round($academy->silabus_academies->sum('waktu_belajar')/60)}} jam belajar
                             </p>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                                             <p class="text-sm">{{$academy->minimum_ram}}</p>
 
                                             <p class="text-sm mb-1">Tools yang dibutuhkan :</p>
-                                            @foreach($tools_academies as $tool)
+                                            @foreach($academy->tools_academies as $tool)
                                             <p class="mb-1 text-sm">
                                                 {!!$tool->tools->icon!!}
                                                 {{$tool->tools->nama_tool}}
@@ -150,7 +150,7 @@
                                         <div class="col-12">
                                             <p class="text-uppercase font-weight-bold text-sm">Teknologi</p>
                                             <p class="text-sm mb-1">Teknologi yang digunakan :</p>
-                                            @foreach($technologies_academies as $teknologi)
+                                            @foreach($academy->technology_academies as $teknologi)
                                             <p class="mb-1 text-sm">
                                                 {!!$teknologi->technologies->icon!!}
                                                 {{$teknologi->technologies->nama_teknologi}}
@@ -162,7 +162,7 @@
                                         <div class="col-12">
                                             <p class="text-uppercase font-weight-bold text-sm">Fasilitas Kelas</p>
                                             <p class="text-sm mb-1">Yang akan didapatkan peserta ketika mengikuti kelas :</p>
-                                            @foreach($fasilitas_academies as $fasilitas)
+                                            @foreach($academy->fasilitas_academies as $fasilitas)
                                             <p class="mb-1 text-sm">
                                                 {!!$fasilitas->fasilitas->icon!!}
                                                 {{$fasilitas->fasilitas->nama_fasilitas}}
@@ -254,7 +254,7 @@
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
-                                @if($silabus_academies->count() == 0)
+                                @if($academy->silabus_academies->count() == 0)
                                 <hr class="horizontal dark">
                                 <div class="text-center mb-2">Data silabus belum tersedia</div>
                                 @else
@@ -268,7 +268,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($silabus_academies as $silabus)
+                                        @foreach($academy->silabus_academies as $silabus)
                                         <tr>
                                             <td>
                                                 <p class="text-sm px-3 font-weight-bold mb-0">{{$silabus->judul_silabus}}</p>
@@ -280,25 +280,25 @@
                                                 </p>
                                             </td>
                                             <td>
-                                                @if ($silabus->count_artikel == 0 && $silabus->count_vidio == 0 && $silabus->count_kuis == 0 && $silabus->count_submission == 0)
+                                                @if ($silabus->materi_silabuses->where('tipe_materi',1)->count() == 0 && $silabus->materi_silabuses->where('tipe_materi',2)->count() == 0 && $silabus->materi_silabuses->where('tipe_materi',3)->count() == 0 && $silabus->materi_silabuses->where('tipe_materi',4)->count() == 0)
                                                 <span class="text-capitalize badge badge-sm bg-gradient-secondary">
                                                     Materi belum ditemukan
                                                 </span>
                                                 @else
                                                 <span class="text-capitalize badge badge-sm bg-gradient-info">
-                                                    @if($silabus->count_artikel != 0)
-                                                    <i class="icofont-ui-file"></i> <b>{{$silabus->count_artikel}}</b> <small>Artikel</small>
+                                                    @if($silabus->materi_silabuses->where('tipe_materi',1)->count() != 0)
+                                                    <i class="icofont-ui-file"></i> <b>{{$silabus->materi_silabuses->where('tipe_materi',1)->count()}}</b> <small>Artikel</small>
                                                     @endif
 
-                                                    @if($silabus->count_vidio != 0)
-                                                    <i class="icofont-file-avi-mp4"></i> <b>{{$silabus->count_vidio}}</b> <small>Vidio Interaktif</small>
+                                                    @if($silabus->materi_silabuses->where('tipe_materi',2)->count() != 0)
+                                                    <i class="icofont-file-avi-mp4"></i> <b>{{$silabus->materi_silabuses->where('tipe_materi',2)->count()}}</b> <small>Vidio Interaktif</small>
                                                     @endif
 
-                                                    @if($silabus->count_kuis != 0)
-                                                    <i class="icofont-checked"></i> <b>{{$silabus->count_kuis}}</b> <small>Kuis</small>
+                                                    @if($silabus->materi_silabuses->where('tipe_materi',3)->count() != 0)
+                                                    <i class="icofont-checked"></i> <b>{{$silabus->materi_silabuses->where('tipe_materi',3)->count()}}</b> <small>Kuis</small>
                                                     @endif
-                                                    @if($silabus->count_submission != 0)
-                                                    <i class="icofont-upload-alt"></i> <b>{{$silabus->count_submission}}</b> <small>Submission</small>
+                                                    @if($silabus->materi_silabuses->where('tipe_materi',4)->count() != 0)
+                                                    <i class="icofont-upload-alt"></i> <b>{{$silabus->materi_silabuses->where('tipe_materi',4)->count()}}</b> <small>Submission</small>
                                                     @endif
                                                 </span>
                                                 @endif

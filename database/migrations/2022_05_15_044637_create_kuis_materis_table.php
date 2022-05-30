@@ -15,7 +15,7 @@ class CreateKuisMaterisTable extends Migration
     {
         Schema::create('kuis_materis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('materi_silabuses_id')->unsigned();
+            $table->unsignedBigInteger('materi_silabus_id')->unsigned();
             $table->longText('soal');
             $table->longText('jawaban_a');
             $table->longText('jawaban_b');
@@ -25,7 +25,7 @@ class CreateKuisMaterisTable extends Migration
             $table->bigInteger('poin');
             $table->timestamps();
             
-            $table->foreign('materi_silabuses_id')->references('id')->on('materi_silabuses')->onDelete('cascade');
+            $table->foreign('materi_silabus_id')->references('id')->on('materi_silabuses')->onDelete('cascade');
         });
     }
 

@@ -58,9 +58,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <p class="font-weight-bold text-sm">{{$materi->judul_materi}}</p>
-                            <p>{{$vidio->deskripsi_vidio}}</p>
+                            <p>{{$materi->vidio_materis->deskripsi_vidio}}</p>
 
-                            {!!$vidio->embed_vidio!!}
+                            {!!$materi->vidio_materis->embed_vidio!!}
                         </div>
 
                     </div>

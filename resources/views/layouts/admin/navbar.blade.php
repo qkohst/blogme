@@ -22,7 +22,27 @@
 
                  <li class="nav-item dropdown pe-3 d-flex align-items-center">
                      <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                         <i class="icofont-alarm cursor-pointer"></i>
+                         <i class="icofont-user me-sm-1"></i>
+                         <span class="d-sm-inline d-none">{{Auth::user()->username}}</span>
+                     </a>
+                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                         <li>
+                             <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
+                                 Profile
+                             </a>
+                             <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
+                                 Change Password
+                             </a>
+                             <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
+                                 Logout
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
+
+                 <li class="nav-item dropdown pe-3 me-1 d-flex align-items-center">
+                     <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                         <i class="icofont-alarm cursor-pointer"></i><span class="total-count">3</span>
                      </a>
                      <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                          <li class="mb-2">
@@ -89,26 +109,6 @@
                                          </p>
                                      </div>
                                  </div>
-                             </a>
-                         </li>
-                     </ul>
-                 </li>
-
-                 <li class="nav-item dropdown pe-3 d-flex align-items-center">
-                     <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                         <i class="icofont-user me-sm-1"></i>
-                         <span class="d-sm-inline d-none">{{Auth::user()->username}}</span>
-                     </a>
-                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                         <li>
-                             <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
-                                 Profile
-                             </a>
-                             <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
-                                 Change Password
-                             </a>
-                             <a class="dropdown-item border-radius-md" href="{{ route('logout') }}">
-                                 Logout
                              </a>
                          </li>
                      </ul>

@@ -16,11 +16,11 @@ class CreateToolsAcademiesTable extends Migration
         Schema::create('tools_academies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tools_id')->unsigned();
-            $table->unsignedBigInteger('academies_id')->unsigned();
+            $table->unsignedBigInteger('academy_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('tools_id')->references('id')->on('tools');
-            $table->foreign('academies_id')->references('id')->on('academies')->onDelete('cascade');
+            $table->foreign('academy_id')->references('id')->on('academies')->onDelete('cascade');
         });
     }
 

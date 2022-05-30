@@ -15,11 +15,11 @@ class CreateSubmissionMaterisTable extends Migration
     {
         Schema::create('submission_materis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('materi_silabuses_id')->unsigned();
+            $table->unsignedBigInteger('materi_silabus_id')->unsigned();
             $table->longText('isi_materi');
             $table->timestamps();
             
-            $table->foreign('materi_silabuses_id')->references('id')->on('materi_silabuses')->onDelete('cascade');
+            $table->foreign('materi_silabus_id')->references('id')->on('materi_silabuses')->onDelete('cascade');
         });
     }
 

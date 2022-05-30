@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\PesertaAcademy;
+use App\RekeningBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PesananController extends Controller
 {
@@ -33,6 +35,13 @@ class PesananController extends Controller
             $title = 'Sudah bayar';
             return view('member.orders.paid', compact(
                 'title',
+            ));
+        } elseif ($pages == 'banks') {
+            $title = 'Informasi Pembayaran';
+            $banks = RekeningBank::all();
+            return view('member.orders.banks', compact(
+                'title',
+                'banks'
             ));
         }
     }
@@ -89,7 +98,27 @@ class PesananController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $peserta = PesertaAcademy::findorfail($id);
+        $validator = Validator::make($request->all(), [
+            'bukti_transfer' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        } else {
+            $bukti_transfer = $request->file('bukti_transfer');
+            $nama_file = time() . '.' . $bukti_transfer->getClientOriginalExtension();
+            $bukti_transfer->move('bukti_transfer/', $nama_file);
+            $data = [
+                'bukti_transfer' => $nama_file,
+            ];
+            if (!is_null($peserta->bukti_transfer)) {
+                unlink(public_path() . '/bukti_transfer/' . $peserta->bukti_transfer);
+            }
+            $peserta->update($data);
+            return back()->with('toast_success', 'Berhasil diupload.');
+        }
+
+        // ADD NOTIFIKASI TO ADMIN
     }
 
     /**
@@ -100,6 +129,12 @@ class PesananController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $peserta = PesertaAcademy::findorfail($id);
+            $peserta->delete();
+            return back()->with('toast_success', 'Berhasil dihapus.');
+        } catch (\Exception $e) {
+            return back()->with('toast_error', 'Data tidak dapat dihapus.');
+        }
     }
 }

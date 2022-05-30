@@ -15,13 +15,13 @@ class CreateMateriSilabusesTable extends Migration
     {
         Schema::create('materi_silabuses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('silabus_academies_id')->unsigned();
+            $table->unsignedBigInteger('silabus_academy_id')->unsigned();
             $table->enum('tipe_materi', [1, 2, 3, 4]);
             $table->enum('tipe_pembaca', ['Semua Orang', 'Member']);
             $table->string('judul_materi', 100);
             $table->timestamps();
             
-            $table->foreign('silabus_academies_id')->references('id')->on('silabus_academies')->onDelete('cascade');
+            $table->foreign('silabus_academy_id')->references('id')->on('silabus_academies')->onDelete('cascade');
 
             // Tipe Materi 
             // 1 = Artikel 

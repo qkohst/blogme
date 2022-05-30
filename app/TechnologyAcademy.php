@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class TechnologyAcademy extends Model
 {
     protected $fillable = [
-        'technologies_id',
-        'academies_id',
+        'technology_id',
+        'academy_id',
     ];
 
     public function technologies()
     {
-        return $this->belongsTo('App\Technology');
+        return $this->belongsTo('App\Technology', 'technology_id');
     }
 
     public function academies()
     {
-        return $this->belongsTo('App\Academy');
+        return $this->belongsTo('App\Academy', 'academy_id');
     }
 }

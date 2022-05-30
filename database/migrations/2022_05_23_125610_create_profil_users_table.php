@@ -15,13 +15,13 @@ class CreateProfilUsersTable extends Migration
     {
         Schema::create('profil_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('users_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned();
             $table->string('nama_lengkap', 100);
             $table->string('headline')->nullable();
             $table->longText('tentang_saya')->nullable();
             $table->timestamps();
 
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

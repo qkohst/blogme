@@ -7,15 +7,12 @@ use App\Fasilitas;
 use App\FasilitasAcademy;
 use App\Http\Controllers\Controller;
 use App\Kategory;
-use App\MateriSilabus;
-use App\SilabusAcademy;
 use App\Technology;
 use App\TechnologyAcademy;
 use App\Tools;
 use App\ToolsAcademy;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class AcademyController extends Controller
 {
@@ -28,18 +25,14 @@ class AcademyController extends Controller
     {
         $title = 'Academy';
         $academies = Academy::orderBy('created_at', 'desc')->get();
-        foreach ($academies as $academy) {
-            $academy->count_silabus = SilabusAcademy::where('academies_id', $academy->id)->count();
-        }
-
-        $kategories = Kategory::all();
+        $data_kategory = Kategory::all();
         $data_fasilitas = Fasilitas::all();
         $tools = Tools::all();
         $technologies = Technology::all();
         return view('admin.academy.index', compact(
             'title',
             'academies',
-            'kategories',
+            'data_kategory',
             'data_fasilitas',
             'tools',
             'technologies',
@@ -93,7 +86,7 @@ class AcademyController extends Controller
             'teknologi' => 'required|array|min:1',
         ]);
 
-        if($request->jenis_kelas == 'Berbayar'){
+        if ($request->jenis_kelas == 'Berbayar') {
             $request->validate([
                 'biaya' => 'required|numeric|min:5000',
             ]);
@@ -104,7 +97,7 @@ class AcademyController extends Controller
         $gambar->move('admin-assets/img/academies/', $nama_file);
 
         $academy = new Academy([
-            'kategories_id' => $request->kategori,
+            'kategory_id' => $request->kategori,
             'nama_kelas' => $request->nama_kelas,
             'gambar' => $nama_file,
             'level' => $request->level,
@@ -123,7 +116,7 @@ class AcademyController extends Controller
         for ($count_fasilitas = 0; $count_fasilitas < count($request->fasilitas_kelas); $count_fasilitas++) {
             $data_fasilitas = array(
                 'fasilitas_id' => $request->fasilitas_kelas[$count_fasilitas],
-                'academies_id'  => $academy->id,
+                'academy_id'  => $academy->id,
                 'created_at'  => Carbon::now(),
                 'updated_at'  => Carbon::now(),
             );
@@ -135,7 +128,7 @@ class AcademyController extends Controller
         for ($count_tools = 0; $count_tools < count($request->tools); $count_tools++) {
             $data_tools = array(
                 'tools_id' => $request->tools[$count_tools],
-                'academies_id'  => $academy->id,
+                'academy_id'  => $academy->id,
                 'created_at'  => Carbon::now(),
                 'updated_at'  => Carbon::now(),
             );
@@ -146,8 +139,8 @@ class AcademyController extends Controller
         // Add data to table technology academies
         for ($count_technology = 0; $count_technology < count($request->teknologi); $count_technology++) {
             $data_teknologi = array(
-                'technologies_id' => $request->teknologi[$count_technology],
-                'academies_id'  => $academy->id,
+                'technology_id' => $request->teknologi[$count_technology],
+                'academy_id'  => $academy->id,
                 'created_at'  => Carbon::now(),
                 'updated_at'  => Carbon::now(),
             );
@@ -169,28 +162,10 @@ class AcademyController extends Controller
         $title = 'Detail Kelas';
         $title2 = 'Academy';
         $academy = Academy::findorfail($id);
-        $fasilitas_academies = FasilitasAcademy::where('academies_id', $academy->id)->get();
-        $tools_academies = ToolsAcademy::where('academies_id', $academy->id)->get();
-        $technologies_academies = TechnologyAcademy::where('academies_id', $academy->id)->get();
-
-        $silabus_academies = SilabusAcademy::where('academies_id', $academy->id)->get();
-        foreach ($silabus_academies as $silabus) {
-            $silabus->count_artikel = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 1)->count();
-            $silabus->count_vidio = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 2)->count();
-            $silabus->count_kuis = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 3)->count();
-            $silabus->count_submission = MateriSilabus::where('silabus_academies_id', $silabus->id)->where('tipe_materi', 4)->count();
-        }
-
-        $durasi_belajar = SilabusAcademy::where('academies_id', $academy->id)->sum('waktu_belajar');
         return view('admin.academy.show', compact(
             'title',
             'title2',
             'academy',
-            'fasilitas_academies',
-            'tools_academies',
-            'technologies_academies',
-            'silabus_academies',
-            'durasi_belajar'
         ));
     }
 
@@ -206,9 +181,9 @@ class AcademyController extends Controller
         $title2 = 'Detail';
         $title3 = 'Academy';
         $academy = Academy::findorfail($id);
-        $fasilitas_academies = FasilitasAcademy::where('academies_id', $academy->id)->get();
-        $tools_academies = ToolsAcademy::where('academies_id', $academy->id)->get();
-        $technologies_academies = TechnologyAcademy::where('academies_id', $academy->id)->get();
+        $fasilitas_academies = FasilitasAcademy::where('academy_id', $academy->id)->get();
+        $tools_academies = ToolsAcademy::where('academy_id', $academy->id)->get();
+        $technologies_academies = TechnologyAcademy::where('academy_id', $academy->id)->get();
 
         $kategories = Kategory::where('status', 'on')->get();
         return view('admin.academy.edit', compact(
@@ -244,12 +219,12 @@ class AcademyController extends Controller
             'minimum_processor' => 'required|min:3|max:100',
         ]);
 
-        if($request->jenis_kelas == 'Berbayar'){
+        if ($request->jenis_kelas == 'Berbayar') {
             $request->validate([
                 'biaya' => 'required|numeric|min:5000',
             ]);
             $biaya = $request->biaya;
-        }else{
+        } else {
             $biaya = null;
         }
 
@@ -261,7 +236,7 @@ class AcademyController extends Controller
 
         $data = [
             'level' => $request->level,
-            'kategori' => $request->kategori,
+            'kategory_id' => $request->kategori,
             'jenis_kelas' => $request->jenis_kelas,
             'deskripsi' => $request->deskripsi,
             'minimum_ram' => $request->minimum_ram,
@@ -273,7 +248,6 @@ class AcademyController extends Controller
         ];
         $academy->update($data);
         return redirect('admin/academy/' . $academy->id)->with('toast_success', 'Berhasil diedit.');
-        
     }
 
     /**

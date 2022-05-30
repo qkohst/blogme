@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Member;
+namespace App\Http\Controllers\Admin;
 
-use App\DataPribadiUser;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\ProfilUser;
+use App\PesertaAcademy;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+class PendaftaranPesertaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,15 +15,11 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $title = 'Profil Saya';
-        $user = User::findorfail(Auth::user()->id);
-        $data_pribadi = DataPribadiUser::where('users_id', $user->id)->first();
-        $profil = ProfilUser::where('user_id', $user->id)->first();
-        return view('member.profile.index', compact(
+        $title = 'Pendaftaran Peserta Kelas';
+        $peserta_academy = PesertaAcademy::where('bukti_transfer', '!=', null)->where('status', 'waiting')->get();
+        return view('admin.peserta-academy.index', compact(
             'title',
-            'user',
-            'data_pribadi',
-            'profil',
+            'peserta_academy'
         ));
     }
 

@@ -12,16 +12,6 @@ use Illuminate\Support\Facades\Validator;
 class SilabusAcademyController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -57,7 +47,7 @@ class SilabusAcademyController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         } else {
             $silabus = new SilabusAcademy([
-                'academies_id' => $id,
+                'academy_id' => $id,
                 'judul_silabus' => $request->judul_silabus,
                 'waktu_belajar' => $request->waktu_belajar,
                 'deskripsi' => $request->deskripsi,
@@ -80,13 +70,11 @@ class SilabusAcademyController extends Controller
         $title2 = 'Detail Kelas';
         $title3 = 'Academy';
         $silabus = SilabusAcademy::findorfail($silabu);
-        $materi_silabuses = MateriSilabus::where('silabus_academies_id', $silabus->id)->get();
         return view('admin.academy.silabus.show', compact(
             'title',
             'title2',
             'title3',
             'silabus',
-            'materi_silabuses'
         ));
     }
 

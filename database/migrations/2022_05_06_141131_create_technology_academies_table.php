@@ -15,12 +15,12 @@ class CreateTechnologyAcademiesTable extends Migration
     {
         Schema::create('technology_academies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('technologies_id')->unsigned();
-            $table->unsignedBigInteger('academies_id')->unsigned();
+            $table->unsignedBigInteger('technology_id')->unsigned();
+            $table->unsignedBigInteger('academy_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('technologies_id')->references('id')->on('technologies');
-            $table->foreign('academies_id')->references('id')->on('academies')->onDelete('cascade');
+            $table->foreign('technology_id')->references('id')->on('technologies');
+            $table->foreign('academy_id')->references('id')->on('academies')->onDelete('cascade');
         });
     }
 

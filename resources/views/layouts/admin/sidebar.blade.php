@@ -66,17 +66,17 @@
                 </div>
                 <span class="nav-link-text ms-1">Academy</span>
             </a>
+            <a class="nav-link {{ Route::is('peserta.*') ? 'active' : '' }}" href="{{ route('peserta.index') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-group-students text-dark text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Pendaftaran Peserta</span>
+            </a>
             <a class="nav-link" href="#">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
                     <i class="icofont-cloud-upload text-primary text-lg opacity-10"></i>
                 </div>
                 <span class="nav-link-text ms-1">Submission Kelas</span>
-            </a>
-            <a class="nav-link" href="#">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
-                    <i class="icofont-group-students text-dark text-lg opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Pendaftaran Peserta</span>
             </a>
         </li>
 

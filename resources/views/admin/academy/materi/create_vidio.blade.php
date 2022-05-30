@@ -52,7 +52,10 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Judul Materi</label>
-                                <input class="form-control" type="text" name="judul_materi" value="{{old('judul_materi')}}">
+                                <input class="form-control @error('judul_materi') is-invalid @enderror" type="text" name="judul_materi" value="{{old('judul_materi')}}">
+                                @error('judul_materi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -66,18 +69,28 @@
                                     <input class="form-check-input" type="radio" name="tipe_pembaca" id="inlineRadio2" value="Member" {{ old('tipe_pembaca') == "Member" ? "checked" : "" }}>
                                     <label class="form-check-label" for="inlineRadio2">Member</label>
                                 </div>
+                                @error('tipe_pembaca')
+                                <br>
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Deskripsi Vidio</label>
-                                <textarea class="form-control" name="deskripsi_vidio">{{old('deskripsi_vidio')}}</textarea>
+                                <textarea class="form-control @error('deskripsi_vidio') is-invalid @enderror" name="deskripsi_vidio">{{old('deskripsi_vidio')}}</textarea>
+                                @error('deskripsi_vidio')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Embed Vidio Youtube</label>
-                                <textarea class="form-control" name="embed_vidio" pattern="<iframe .*" placeholder="<iframe width=''560'' height=''315'' src=''https://www.youtube.com/embed/.*">{{old('embed_vidio')}}</textarea>
+                                <textarea class="form-control @error('embed_vidio') is-invalid @enderror" name="embed_vidio" pattern="<iframe .*" placeholder="<iframe width=''560'' height=''315'' src=''https://www.youtube.com/embed/.*">{{old('embed_vidio')}}</textarea>
+                                @error('embed_vidio')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>

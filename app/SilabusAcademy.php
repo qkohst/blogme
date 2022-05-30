@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SilabusAcademy extends Model
 {
     protected $fillable = [
-        'academies_id',
+        'academy_id',
         'judul_silabus',
         'waktu_belajar',
         'deskripsi',
@@ -15,7 +15,7 @@ class SilabusAcademy extends Model
 
     public function academies()
     {
-        return $this->belongsTo('App\Academy');
+        return $this->belongsTo('App\Academy', 'academy_id');
     }
 
     public function materi_silabuses()

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProfilUser extends Model
 {
     protected $fillable = [
-        'users_id',
+        'user_id',
         'nama_lengkap',
         'headline',
         'tentang_saya'
@@ -15,6 +15,6 @@ class ProfilUser extends Model
 
     public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

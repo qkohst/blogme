@@ -28,7 +28,9 @@
 
                 <!-- Left Nav  -->
                 <div class="col-lg-3">
-                    <div class="text-lg mb-3">
+                    <a href="{{ route('orders.index') }}?pages=banks" class="btn btn-dark btn-block {{ request('pages') == 'paid' ? 'd-none' : '' }}"><i class="icofont-warning-alt"></i> Informasi Pembayaran</a>
+
+                    <div class="text-lg my-3">
                         Pesanan Saya
                     </div>
 
@@ -40,15 +42,16 @@
                         </li>
                         <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
                             <a class="nav-link {{ request('pages') == 'rejected' ? 'active show' : '' }}" href="{{ route('orders.index') }}?pages=rejected">
-                                <p class="text-md"><i class="icofont-close"></i> Dibatalkan</p>
+                                <p class="text-md"><i class="icofont-close"></i> Pesanan Ditolak</p>
                             </a>
                         </li>
                         <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
                             <a class="nav-link {{ request('pages') == 'paid' ? 'active show' : '' }}" href="{{ route('orders.index') }}?pages=paid">
-                                <p class="text-md"><i class="icofont-check"></i> Sudah Bayar</p>
+                                <p class="text-md"><i class="icofont-check"></i> Pesanan Selesai</p>
                             </a>
                         </li>
                     </ul>
+
                 </div>
 
                 <div class="col-lg-9 col-md-12 mt-4 mt-lg-0">

@@ -57,7 +57,10 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Judul Materi</label>
-                                <input class="form-control" type="text" name="judul_materi" value="{{old('judul_materi')}}">
+                                <input class="form-control @error('judul_materi') is-invalid @enderror" type="text" name="judul_materi" value="{{old('judul_materi')}}">
+                                @error('judul_materi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -71,12 +74,19 @@
                                     <input class="form-check-input" type="radio" name="tipe_pembaca" id="inlineRadio2" value="Member" {{ old('tipe_pembaca') == "Member" ? "checked" : "" }}>
                                     <label class="form-check-label" for="inlineRadio2">Member</label>
                                 </div>
+                                @error('tipe_pembaca')
+                                <br>
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Isi Materi</label>
-                                <textarea class="form-control summernote" name="isi_materi">{{old('isi_materi')}}</textarea>
+                                <textarea class="form-control @error('isi_materi') is-invalid @enderror summernote" name="isi_materi">{{old('isi_materi')}}</textarea>
+                                @error('isi_materi')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DataPribadiUser extends Model
 {
     protected $fillable = [
-        'users_id',
+        'user_id',
         'nomor_telepon',
         'kota_domisili',
         'tempat_lahir',
@@ -20,6 +20,6 @@ class DataPribadiUser extends Model
 
     public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

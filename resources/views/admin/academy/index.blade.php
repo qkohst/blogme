@@ -123,7 +123,7 @@
                                             <td class="align-middle">
 
                                                 @if($academy->count_silabus == 0)
-                                                <span class="badge badge-sm bg-gradient-danger">{{$academy->count_silabus}} silabus</span>
+                                                <span class="badge badge-sm bg-gradient-danger">{{$academy->silabus_academies->count()}} silabus</span>
                                                 @elseif($academy->count_silabus <= 3) <span class="badge badge-sm bg-gradient-warning">{{$academy->count_silabus}} silabus</span>
                                                     @else
                                                     <span class="badge badge-sm bg-gradient-success">{{$academy->count_silabus}} silabus</span>
@@ -210,7 +210,7 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-                            @if($kategories->count() == 0)
+                            @if($data_kategory->count() == 0)
                             <hr class="horizontal dark">
                             <div class="text-center mb-2">Data kategori belum tersedia</div>
                             @else
@@ -225,7 +225,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($kategories as $kategory)
+                                        @foreach($data_kategory as $kategory)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
