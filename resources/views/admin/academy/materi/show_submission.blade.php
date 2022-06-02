@@ -58,7 +58,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <p class="font-weight-bold text-sm">{{$materi->judul_materi}}</p>
-                            <p>{!!$submission->isi_materi!!}</p>
+                            <p>{!!$materi->submission_materis->isi_materi!!}</p>
                         </div>
 
                     </div>

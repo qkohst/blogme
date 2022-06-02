@@ -12,25 +12,6 @@ use Illuminate\Support\Facades\Validator;
 
 class KuisMateriController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response 
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,7 +21,7 @@ class KuisMateriController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'judul_kuis' => 'required|min:5|max:100',
             'tipe_pembaca' => 'required|in:Semua Orang,Member',
             'soal.*' => 'required|min:10',
@@ -51,38 +32,34 @@ class KuisMateriController extends Controller
             'kunci_jawaban.*' => 'required|in:A,B,C,D',
             'poin.*' => 'required|numeric|digits_between:1,100',
         ]);
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        } else {
-           
-            // Add data to table materi_silabuses
-            $materi = new MateriSilabus([
-                'silabus_academies_id' => $id,
-                'tipe_materi' => 3,
-                'tipe_pembaca' => $request->tipe_pembaca,
-                'judul_materi' => $request->judul_kuis,
-            ]);
-            $materi->save();
 
-            // Add data to table kuis_materis
-            for ($count = 0; $count < count($request->soal); $count++) {
-                $data = array(
-                    'materi_silabuses_id' => $materi->id,
-                    'soal'  => $request->soal[$count],
-                    'jawaban_a'  => $request->jawaban_a[$count],
-                    'jawaban_b'  => $request->jawaban_b[$count],
-                    'jawaban_c'  => $request->jawaban_c[$count],
-                    'jawaban_d'  => $request->jawaban_d[$count],
-                    'kunci_jawaban'  => $request->kunci_jawaban[$count],
-                    'poin'  => $request->poin[$count],
-                    'created_at'  => Carbon::now(),
-                    'updated_at'  => Carbon::now(),
-                );
-                $store_data[] = $data;
-            }
-            KuisMateri::insert($store_data);
-            return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
+        // Add data to table materi_silabuses
+        $materi = new MateriSilabus([
+            'silabus_academy_id' => $id,
+            'tipe_materi' => 3,
+            'tipe_pembaca' => $request->tipe_pembaca,
+            'judul_materi' => $request->judul_kuis,
+        ]);
+        $materi->save();
+
+        // Add data to table kuis_materis
+        for ($count = 0; $count < count($request->soal); $count++) {
+            $data = array(
+                'materi_silabus_id' => $materi->id,
+                'soal'  => $request->soal[$count],
+                'jawaban_a'  => $request->jawaban_a[$count],
+                'jawaban_b'  => $request->jawaban_b[$count],
+                'jawaban_c'  => $request->jawaban_c[$count],
+                'jawaban_d'  => $request->jawaban_d[$count],
+                'kunci_jawaban'  => $request->kunci_jawaban[$count],
+                'poin'  => $request->poin[$count],
+                'created_at'  => Carbon::now(),
+                'updated_at'  => Carbon::now(),
+            );
+            $store_data[] = $data;
         }
+        KuisMateri::insert($store_data);
+        return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
     }
 
     /**
@@ -98,27 +75,15 @@ class KuisMateriController extends Controller
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
         $materi = MateriSilabus::findorfail($kui);
-        $data_kuis = KuisMateri::where('materi_silabuses_id', $materi->id)->get();
         return view('admin.academy.materi.show_kuis', compact(
             'title',
             'title2',
             'title3',
             'title4',
             'materi',
-            'data_kuis',
         ));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -177,7 +142,7 @@ class KuisMateriController extends Controller
     public function store_kuis(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'materi_silabuses_id' => 'required',
+            'materi_silabus_id' => 'required',
             'soal' => 'required|min:10',
             'jawaban_a' => 'required|min:2',
             'jawaban_b' => 'required|min:2',
@@ -190,7 +155,7 @@ class KuisMateriController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         } else {
             $kuis = new KuisMateri([
-                'materi_silabuses_id' => $request->materi_silabuses_id,
+                'materi_silabus_id' => $request->materi_silabus_id,
                 'soal' => $request->soal,
                 'jawaban_a' => $request->jawaban_a,
                 'jawaban_b' => $request->jawaban_b,

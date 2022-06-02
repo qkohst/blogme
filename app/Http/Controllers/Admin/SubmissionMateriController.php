@@ -10,25 +10,6 @@ use Illuminate\Support\Facades\Validator;
 
 class SubmissionMateriController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -38,32 +19,28 @@ class SubmissionMateriController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'judul_materi' => 'required|min:5|max:100',
             'tipe_pembaca' => 'required|in:Semua Orang,Member',
             'deskripsi' => 'required|min:50',
         ]);
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        } else {
 
-            // Add data to table materi_silabuses
-            $materi = new MateriSilabus([
-                'silabus_academies_id' => $id,
-                'tipe_materi' => 4,
-                'tipe_pembaca' => $request->tipe_pembaca,
-                'judul_materi' => $request->judul_materi,
-            ]);
-            $materi->save();
+        // Add data to table materi_silabuses
+        $materi = new MateriSilabus([
+            'silabus_academy_id' => $id,
+            'tipe_materi' => 4,
+            'tipe_pembaca' => $request->tipe_pembaca,
+            'judul_materi' => $request->judul_materi,
+        ]);
+        $materi->save();
 
-            // Add data to table artikel_materies
-            $submission = new SubmissionMateri([
-                'materi_silabuses_id' => $materi->id,
-                'isi_materi' => $request->deskripsi,
-            ]);
-            $submission->save();
-            return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
-        }
+        // Add data to table artikel_materies
+        $submission = new SubmissionMateri([
+            'materi_silabus_id' => $materi->id,
+            'isi_materi' => $request->deskripsi,
+        ]);
+        $submission->save();
+        return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
     }
 
     /**
@@ -79,14 +56,12 @@ class SubmissionMateriController extends Controller
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
         $materi = MateriSilabus::findorfail($submission);
-        $submission = SubmissionMateri::where('materi_silabuses_id', $materi->id)->first();
         return view('admin.academy.materi.show_submission', compact(
             'title',
             'title2',
             'title3',
             'title4',
             'materi',
-            'submission',
         ));
     }
 
@@ -103,14 +78,12 @@ class SubmissionMateriController extends Controller
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
         $materi = MateriSilabus::findorfail($submission);
-        $submission = SubmissionMateri::where('materi_silabuses_id', $materi->id)->first();
         return view('admin.academy.materi.edit_submission', compact(
             'title',
             'title2',
             'title3',
             'title4',
             'materi',
-            'submission',
         ));
     }
 
@@ -123,39 +96,25 @@ class SubmissionMateriController extends Controller
      */
     public function update(Request $request, $id, $submission)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'tipe_pembaca' => 'required|in:Semua Orang,Member',
             'deskripsi' => 'required|min:50',
         ]);
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
-        } else {
-            $materi = MateriSilabus::findorfail($submission);
-            $submission = SubmissionMateri::where('materi_silabuses_id', $materi->id)->first();
 
-            // Update Data Materi
-            $data_materi = [
-                'tipe_pembaca' => $request->tipe_pembaca,
-            ];
-            $materi->update($data_materi);
-            // Update Data submission
-            $data_submission = [
-                'isi_materi' => $request->deskripsi,
-            ];
-            $submission->update($data_submission);
+        $materi = MateriSilabus::findorfail($submission);
+        $submission = SubmissionMateri::where('materi_silabus_id', $materi->id)->first();
 
-            return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
-        }
-    }
+        // Update Data Materi
+        $data_materi = [
+            'tipe_pembaca' => $request->tipe_pembaca,
+        ];
+        $materi->update($data_materi);
+        // Update Data submission
+        $data_submission = [
+            'isi_materi' => $request->deskripsi,
+        ];
+        $submission->update($data_submission);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
     }
 }

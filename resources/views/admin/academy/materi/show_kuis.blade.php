@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
-                                                <input type="hidden" name="materi_silabuses_id" value="{{$materi->id}}">
+                                                <input type="hidden" name="materi_silabus_id" value="{{$materi->id}}">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="example-text-input" class="form-control-label text-uppercase">Soal </label>
@@ -138,8 +138,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <p class="font-weight-bold text-sm">{{$materi->judul_materi}}</p>
+                            @if($materi->kuis_materis->count() == 0)
+                            <div class="text-center mb-2">Soal belum tersedia</div>
+                            @else
                             <ul class="list-group">
-                                @foreach($data_kuis as $kuis)
+                                @foreach($materi->kuis_materis as $kuis)
                                 <li class="list-group-item border-1 pb-1 px-4 mb-4 bg-gray-80 border-radius-lg">
                                     {!!$kuis->soal!!}
                                     <div class="form-check form-check-inline">
@@ -254,6 +257,7 @@
                                 </li>
                                 @endforeach
                             </ul>
+                            @endif
                         </div>
                     </div>
                 </div>
