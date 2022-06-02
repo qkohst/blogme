@@ -114,7 +114,7 @@
                         <div class="member">
                             <img src="/admin-assets/img/academies/{{$academy->gambar}}" alt="Img">
                             <h4 class="text-left" title="{{$academy->nama_kelas}}">{!! substr(strip_tags($academy->nama_kelas), 0, 30) !!}</h4>
-                            <small class="float-left text-dark mr-2"><i class="icofont-clock-time"></i> {{round($academy->durasi_belajar/60)}} Jam</small>
+                            <small class="float-left text-dark mr-2"><i class="icofont-clock-time"></i> {{round($academy->silabus_academies->sum('waktu_belajar')/60)}} Jam</small>
                             <small class="float-left text-dark mr-2"><i class="icofont-chart-histogram"></i> {{$academy->level}}</small>
                             <small class="float-left text-dark mr-2"><i class="icofont-layers"></i> {{$academy->kategories->nama_kategori}}</small>
 

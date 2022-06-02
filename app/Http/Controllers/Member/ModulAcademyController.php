@@ -31,27 +31,27 @@ class ModulAcademyController extends Controller
 
         // Check progress belajar user 
         if (is_null(request('from'))) {
-            $chek_riwayat_belajar = RiwayatBelajar::where('materi_silabuses_id', $materi->id)->where('users_id', Auth::user()->id)->first();
+            $chek_riwayat_belajar = RiwayatBelajar::where('materi_silabus_id', $materi->id)->where('user_id', Auth::user()->id)->first();
             if (is_null($chek_riwayat_belajar)) {
                 $riwayat_belajar = new RiwayatBelajar([
-                    'users_id' => Auth::user()->id,
-                    'materi_silabuses_id' => $materi->id,
+                    'user_id' => Auth::user()->id,
+                    'materi_silabus_id' => $materi->id,
                     'status' => 'on progress',
                 ]);
                 $riwayat_belajar->save();
             }
         } else {
-            $materi_sebelumnya = RiwayatBelajar::where('materi_silabuses_id', request('from'))->where('users_id', Auth::user()->id)->first();
+            $materi_sebelumnya = RiwayatBelajar::where('materi_silabus_id', request('from'))->where('user_id', Auth::user()->id)->first();
             $update_status = [
                 'status' => 'complete'
             ];
             $materi_sebelumnya->update($update_status);
 
-            $check_materi_sekarang = RiwayatBelajar::where('materi_silabuses_id', $materi->id)->where('users_id', Auth::user()->id)->first();
+            $check_materi_sekarang = RiwayatBelajar::where('materi_silabus_id', $materi->id)->where('user_id', Auth::user()->id)->first();
             if (is_null($check_materi_sekarang)) {
                 $riwayat_belajar = new RiwayatBelajar([
-                    'users_id' => Auth::user()->id,
-                    'materi_silabuses_id' => $materi->id,
+                    'user_id' => Auth::user()->id,
+                    'materi_silabus_id' => $materi->id,
                     'status' => 'on progress',
                 ]);
                 $riwayat_belajar->save();
@@ -60,37 +60,37 @@ class ModulAcademyController extends Controller
 
 
         // previous
-        $previous_materi = MateriSilabus::where('silabus_academies_id', $materi->silabus_academies_id)->where('id', '<', $materi->id)->max('id');
+        $previous_materi = MateriSilabus::where('silabus_academy_id', $materi->silabus_academy_id)->where('id', '<', $materi->id)->max('id');
         if ($previous_materi == null) {
-            $previous_silabus = SilabusAcademy::where('academies_id', $id)->where('id', '<', $materi->silabus_academies_id)->max('id');
+            $previous_silabus = SilabusAcademy::where('academy_id', $id)->where('id', '<', $materi->silabus_academy_id)->max('id');
             if ($previous_silabus == null) {
                 $previous = null;
             } else {
-                $previous = MateriSilabus::where('silabus_academies_id', $previous_silabus)->max('id');
+                $previous = MateriSilabus::where('silabus_academy_id', $previous_silabus)->max('id');
             }
         } else {
             $previous = $previous_materi;
         }
 
         // Next
-        $next_materi = MateriSilabus::where('silabus_academies_id', $materi->silabus_academies_id)->where('id', '>', $materi->id)->min('id');
+        $next_materi = MateriSilabus::where('silabus_academy_id', $materi->silabus_academy_id)->where('id', '>', $materi->id)->min('id');
         if ($next_materi == null) {
-            $next_silabus = SilabusAcademy::where('academies_id', $id)->where('id', '>', $materi->silabus_academies_id)->min('id');
+            $next_silabus = SilabusAcademy::where('academy_id', $id)->where('id', '>', $materi->silabus_academy_id)->min('id');
             if ($next_silabus == null) {
                 $next = null;
             } else {
-                $next = MateriSilabus::where('silabus_academies_id', $next_silabus)->min('id');
+                $next = MateriSilabus::where('silabus_academy_id', $next_silabus)->min('id');
             }
         } else {
             $next = $next_materi;
         }
 
-        $silabus_academies = SilabusAcademy::where('academies_id', $id)->get();
+        $silabus_academies = SilabusAcademy::where('academy_id', $id)->get();
         foreach ($silabus_academies as $silabus) {
-            $silabus->materi_silabuses = MateriSilabus::where('silabus_academies_id', $silabus->id)->get();
+            $silabus->materi_silabuses = MateriSilabus::where('silabus_academy_id', $silabus->id)->get();
 
             foreach ($silabus->materi_silabuses as $materi_silabuses) {
-                $riwayat_belajar = RiwayatBelajar::where('materi_silabuses_id', $materi_silabuses->id)->where('users_id', Auth::user()->id)->first();
+                $riwayat_belajar = RiwayatBelajar::where('materi_silabus_id', $materi_silabuses->id)->where('user_id', Auth::user()->id)->first();
                 if (is_null($riwayat_belajar)) {
                     $materi_silabuses->status_belajar = null;
                 } else {
@@ -100,7 +100,7 @@ class ModulAcademyController extends Controller
         }
 
         if ($materi->tipe_materi == 1) {
-            $artikel = ArtikelMateri::where('materi_silabuses_id', $materi->id)->first();
+            $artikel = ArtikelMateri::where('materi_silabus_id', $materi->id)->first();
             return view('academy.materi.artikel', compact(
                 'title',
                 'title2',
@@ -112,7 +112,7 @@ class ModulAcademyController extends Controller
                 'next'
             ));
         } elseif ($materi->tipe_materi == 2) {
-            $vidio = VidioMateri::where('materi_silabuses_id', $materi->id)->first();
+            $vidio = VidioMateri::where('materi_silabus_id', $materi->id)->first();
             return view('academy.materi.vidio', compact(
                 'title',
                 'title2',
@@ -124,7 +124,7 @@ class ModulAcademyController extends Controller
                 'next'
             ));
         } elseif ($materi->tipe_materi == 3) {
-            $data_kuis = KuisMateri::where('materi_silabuses_id', $materi->id)->get();
+            $data_kuis = KuisMateri::where('materi_silabus_id', $materi->id)->get();
             return view('academy.materi.kuis', compact(
                 'title',
                 'title2',
@@ -136,7 +136,7 @@ class ModulAcademyController extends Controller
                 'next'
             ));
         } elseif ($materi->tipe_materi == 4) {
-            $submission = SubmissionMateri::where('materi_silabuses_id', $materi->id)->first();
+            $submission = SubmissionMateri::where('materi_silabus_id', $materi->id)->first();
             return view('academy.materi.submission', compact(
                 'title',
                 'title2',

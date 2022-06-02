@@ -20,7 +20,7 @@ class ProfileController extends Controller
     {
         $title = 'Profil Saya';
         $user = User::findorfail(Auth::user()->id);
-        $data_pribadi = DataPribadiUser::where('users_id', $user->id)->first();
+        $data_pribadi = DataPribadiUser::where('user_id', $user->id)->first();
         $profil = ProfilUser::where('user_id', $user->id)->first();
         return view('member.profile.index', compact(
             'title',

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\MateriSilabus;
 use App\SubmissionMateri;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class SubmissionMateriController extends Controller
 {

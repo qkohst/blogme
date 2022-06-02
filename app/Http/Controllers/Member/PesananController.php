@@ -21,7 +21,7 @@ class PesananController extends Controller
         $pages = request('pages');
         if ($pages == 'waiting') {
             $title = 'Menunggu Pembayaran';
-            $pesanan_kelas = PesertaAcademy::where('users_id', Auth::user()->id)->where('status', 'waiting')->orderBy('id', 'desc')->get();
+            $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'waiting')->orderBy('id', 'desc')->get();
             return view('member.orders.waiting', compact(
                 'title',
                 'pesanan_kelas'

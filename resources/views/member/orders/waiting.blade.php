@@ -28,7 +28,7 @@
                                 <img src="/admin-assets/img/academies/{{$pesanan->academies->gambar}}" class="rounded" alt="Images" height="105px">
                             </div>
                             <div class="col-lg-10">
-                                <p class="my-1"><a href="{{ route('courses.show', $pesanan->academies_id) }}" title="Lihat detail kelas">{{$pesanan->academies->nama_kelas}}</a></p>
+                                <p class="my-1"><a href="{{ route('courses.show', $pesanan->academy_id) }}" title="Lihat detail kelas">{{$pesanan->academies->nama_kelas}}</a></p>
                                 <p class="mt-1">{!! substr(strip_tags($pesanan->academies->deskripsi), 0, 60) !!} ...</p>
 
                                 @if(is_null($pesanan->bukti_transfer))

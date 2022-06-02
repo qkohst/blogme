@@ -32,7 +32,7 @@ class SettingsProfileController extends Controller
             ));
         } elseif ($pages == 'personal') {
             $title = 'Data Pribadi';
-            $data_pribadi = DataPribadiUser::where('users_id', $user->id)->first();
+            $data_pribadi = DataPribadiUser::where('user_id', $user->id)->first();
             return view('member.settings.personal', compact(
                 'title',
                 'user',
@@ -81,7 +81,7 @@ class SettingsProfileController extends Controller
         $profile = ProfilUser::where('user_id', $user->id)->first();
         if (is_null($profile)) {
             $profile_user = new ProfilUser([
-                'users_id' => $user->id,
+                'user_id' => $user->id,
                 'nama_lengkap' => $request->nama_lengkap,
                 'headline' => $request->headline,
                 'tentang_saya' => $request->tentang_saya,
@@ -111,10 +111,10 @@ class SettingsProfileController extends Controller
             'institusi_tempat_bekerja' => 'max:100',
         ]);
 
-        $data_pribadi = DataPribadiUser::where('users_id', $user->id)->first();
+        $data_pribadi = DataPribadiUser::where('user_id', $user->id)->first();
         if (is_null($data_pribadi)) {
             $data_pribadi = new DataPribadiUser([
-                'users_id' => $user->id,
+                'user_id' => $user->id,
                 'nomor_telepon' => $request->nomor_telepon,
                 'kota_domisili' => $request->kota_domisili,
                 'tempat_lahir' => $request->tempat_lahir,

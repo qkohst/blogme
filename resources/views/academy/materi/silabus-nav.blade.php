@@ -40,8 +40,8 @@
 
                             @foreach($silabus_academies as $silabus)
                             <li data-aos="fade-up">
-                                <a data-toggle="collapse" class="{{ $silabus->id !=$materi->silabus_academies_id ? 'collapsed' : '' }} text-dark" href="#faq{{$silabus->id}}" title="{{$silabus->judul_silabus}}">{!! substr(strip_tags($silabus->judul_silabus), 0, 30) !!} <i class="icofont-simple-up"></i></a>
-                                <div id="faq{{$silabus->id}}" class="collapse {{ $silabus->id ==$materi->silabus_academies_id ? 'show' : '' }}" data-parent=".faq-list">
+                                <a data-toggle="collapse" class="{{ $silabus->id !=$materi->silabus_academy_id ? 'collapsed' : '' }} text-dark" href="#faq{{$silabus->id}}" title="{{$silabus->judul_silabus}}">{!! substr(strip_tags($silabus->judul_silabus), 0, 30) !!} <i class="icofont-simple-up"></i></a>
+                                <div id="faq{{$silabus->id}}" class="collapse {{ $silabus->id ==$materi->silabus_academy_id ? 'show' : '' }}" data-parent=".faq-list">
                                     @foreach($silabus->materi_silabuses as $matery)
                                     <a href="{{ route('modul.index', $academy->id) }}?materi={{$matery->id}}" class="text-sm my-2 {{ request('materi') ==$matery->id ? 'text-primary' : '' }} {{ $matery->status_belajar != null ? '' : 'disabled' }}">{{$matery->judul_materi}}
                                         @if($matery->tipe_pembaca == 'Semua Orang')

@@ -22,9 +22,9 @@ class CheckTipePembaca
         if ($materi->tipe_pembaca == 'Semua Orang') {
             return $next($request);
         } else {
-            $peserta = PesertaAcademy::where('academies_id', $materi->silabus_academies->academies_id)->where('users_id', Auth::user()->id)->first();
+            $peserta = PesertaAcademy::where('academy_id', $materi->silabus_academies->academy_id)->where('user_id', Auth::user()->id)->first();
             if (is_null($peserta)) {
-                return redirect('member/academy/class/' . $materi->silabus_academies->academies_id . '/register')->with('toast_warning', 'Anda belum terdaftar pada kelas ini.');
+                return redirect('member/academy/class/' . $materi->silabus_academies->academy_id . '/register')->with('toast_warning', 'Anda belum terdaftar pada kelas ini.');
             } elseif ($peserta->status == 'approved') {
                 return $next($request);
             } else {

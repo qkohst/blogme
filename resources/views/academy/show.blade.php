@@ -37,7 +37,7 @@
                     <h3>{{$academy->nama_kelas}}</h3>
 
                     <p>Teknologi :
-                        @foreach($technologies_academies as $technology)
+                        @foreach($academy->technology_academies as $technology)
                         <small class="badge badge-secondary my-1">{!!$technology->technologies->icon!!} {{$technology->technologies->nama_teknologi}}</small>
                         @endforeach
 
@@ -45,14 +45,14 @@
                     <ul>
                         <li><i class="icofont-badge"></i> Level : {{$academy->level}}</li>
                         <li><i class="icofont-layers"></i> {{$academy->kategories->nama_kategori}}</li>
-                        <li><i class="icofont-clock-time"></i> {{round($durasi_belajar/60)}} Jam Belajar</li>
+                        <li><i class="icofont-clock-time"></i> {{round($academy->silabus_academies->sum('waktu_belajar')/60)}} Jam Belajar</li>
                     </ul>
                     <div class="d-flex">
                         @if(is_null($check_peserta))
                         @if(is_null($riwayat_belajar_terakhir))
                         <a href="{{ route('register.academy', $academy->id) }}" class="btn-get-started scrollto mr-1">Belajar Sekarang</a>
                         @else
-                        <a href="{{ route('modul.index', $academy->id) }}?materi={{$riwayat_belajar_terakhir->materi_silabuses_id}}" class="btn-get-started scrollto mr-1">Lanjutkan Belajar</a>
+                        <a href="{{ route('modul.index', $academy->id) }}?materi={{$riwayat_belajar_terakhir->materi_silabus_id}}" class="btn-get-started scrollto mr-1">Lanjutkan Belajar</a>
                         @endif
                         @else
                         <a href="#silabus" class="btn-get-started scrollto mr-1">Lanjutkan Belajar</a>
@@ -71,7 +71,7 @@
             <p class="text-uppercase font-weight-bold pt-4">Apa yang akan Anda dapatkan</p>
 
             <div class="owl-carousel testimonials-carousel">
-                @foreach($fasilitas_academies as $fasilitas)
+                @foreach($academy->fasilitas_academies as $fasilitas)
                 <div class="testimonial-item mx-2">
                     <div class="icon-box">
                         <div class="icon">
@@ -130,7 +130,7 @@
                             <p class="text-sm">{{$academy->minimum_ram}}</p>
 
                             <p class="text-sm mb-1">Tools yang dibutuhkan :</p>
-                            @foreach($tools_academies as $tool)
+                            @foreach($academy->tools_academies as $tool)
                             <p class="mb-1 text-sm">
                                 {!!$tool->tools->icon!!}
                                 {{$tool->tools->nama_tool}}
@@ -156,12 +156,12 @@
             </div>
 
             <div class="row">
-                @if($silabus_academies->count() == 0)
+                @if($academy->silabus_academies->count() == 0)
                 <p class="text-secondary">Belum ada materi pada kelas ini</p>
                 @else
 
                 <?php $no_silabus = 0; ?>
-                @foreach($silabus_academies as $silabus)
+                @foreach($academy->silabus_academies as $silabus)
                 <?php $no_silabus++; ?>
                 <div class="col-12 faq-list">
                     <div class="card" data-aos="fade-up">
@@ -175,25 +175,25 @@
                                     {{$silabus->deskripsi}}
                                 </p>
 
-                                @if ($silabus->count_artikel == 0 && $silabus->count_vidio == 0 && $silabus->count_kuis == 0 && $silabus->count_submission == 0)
+                                @if ($silabus->materi_silabuses->count() == 0)
                                 <span class="text-capitalize badge badge-md bg-gradient-secondary">
                                     Materi belum ditemukan
                                 </span>
                                 @else
                                 <span class="text-capitalize badge badge-md bg-gradient-dark">
-                                    @if($silabus->count_artikel != 0)
-                                    {{$silabus->count_artikel}} <small class="mr-1">Artikel</small>
+                                    @if($silabus->materi_silabuses->where('tipe_materi',1)->count() != 0)
+                                    {{$silabus->materi_silabuses->where('tipe_materi',1)->count()}} <small class="mr-1">Artikel</small>
                                     @endif
 
-                                    @if($silabus->count_vidio != 0)
-                                    {{$silabus->count_vidio}} <small class="mr-1">Vidio Interaktif</small>
+                                    @if($silabus->materi_silabuses->where('tipe_materi',2)->count() != 0)
+                                    {{$silabus->materi_silabuses->where('tipe_materi',2)->count()}} <small class="mr-1">Vidio Interaktif</small>
                                     @endif
 
-                                    @if($silabus->count_kuis != 0)
-                                    {{$silabus->count_kuis}} <small class="mr-1">Kuis</small>
+                                    @if($silabus->materi_silabuses->where('tipe_materi',3)->count() != 0)
+                                    {{$silabus->materi_silabuses->where('tipe_materi',3)->count()}} <small class="mr-1">Kuis</small>
                                     @endif
-                                    @if($silabus->count_submission != 0)
-                                    {{$silabus->count_submission}} <small class="mr-1">Submission</small>
+                                    @if($silabus->materi_silabuses->where('tipe_materi',4)->count() != 0)
+                                    {{$silabus->materi_silabuses->where('tipe_materi',4)->count()}} <small class="mr-1">Submission</small>
                                     @endif
                                 </span>
                                 @endif
