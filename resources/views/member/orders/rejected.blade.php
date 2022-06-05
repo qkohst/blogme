@@ -34,7 +34,7 @@
                                         <small class="float-left text-dark mr-2"><i class="icofont-clock-time"></i> {{round($pesanan->academies->silabus_academies->sum('waktu_belajar')/60)}} Jam Belajar</small>
                                         <small class="float-left text-dark mr-2"><i class="icofont-chart-histogram"></i> {{$pesanan->academies->level}}</small>
                                         <small class="float-left text-dark mr-2"><i class="icofont-layers"></i> {{$pesanan->academies->kategories->nama_kategori}}</small>
-                                        <small class="float-left text-dark mr-2"> Diperbarui : {{$pesanan->updated_at->diffForHumans()}}</small>
+                                        <small class="float-left text-dark mr-2"> Diperbarui : {{$pesanan->updated_at->diffForHumans()}}</small> <br>
 
                                         <span class="badge badge-warning">{{$pesanan->catatan_verifikasi}}</span>
                                     </div>

@@ -6,6 +6,7 @@ use App\Academy;
 use App\FasilitasAcademy;
 use App\Kategory;
 use App\MateriSilabus;
+use App\NotifikasiMember;
 use App\PesertaAcademy;
 use App\RiwayatBelajar;
 use App\SilabusAcademy;
@@ -24,6 +25,11 @@ class AcademyController extends Controller
     public function index()
     {
         $title = 'Kelas';
+        if (Auth::check()) {
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+        } else {
+            $data_notifikasi = null;
+        }
         $kategories = Kategory::where('status', 'on')->get();
         $academies = Academy::where('status', 'on')->filter(request(['kategories', 'jenis_kelas', 'level', 'search']))->orderBy('created_at', 'desc')->paginate(6);
 
@@ -35,6 +41,7 @@ class AcademyController extends Controller
 
         return view('academy.class', compact(
             'title',
+            'data_notifikasi',
             'kategories',
             'academies',
             'kategori'
@@ -48,6 +55,8 @@ class AcademyController extends Controller
         if (is_null($check_peserta)) {
             $title = 'Daftar Kelas';
             $title2 = $academy->nama_kelas;
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $durasi_belajar = SilabusAcademy::where('academy_id', $academy->id)->sum('waktu_belajar');
             $technologies_academies = TechnologyAcademy::where('academy_id', $academy->id)->get();
             $fasilitas_academies = FasilitasAcademy::where('academy_id', $academy->id)->get();
@@ -55,6 +64,7 @@ class AcademyController extends Controller
             return view('academy.register', compact(
                 'title',
                 'title2',
+                'data_notifikasi',
                 'academy',
                 'durasi_belajar',
                 'technologies_academies',
@@ -123,6 +133,11 @@ class AcademyController extends Controller
     {
         $academy = Academy::findorfail($id);
         $title = $academy->nama_kelas;
+        if (Auth::check()) {
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+        } else {
+            $data_notifikasi = null;
+        }
         $kategories = Kategory::where('status', 'on')->get();
 
         $id_silabus = SilabusAcademy::where('academy_id', $academy->id)->get('id');
@@ -137,6 +152,7 @@ class AcademyController extends Controller
 
         return view('academy.show', compact(
             'title',
+            'data_notifikasi',
             'academy',
             'kategories',
             'riwayat_belajar_terakhir',

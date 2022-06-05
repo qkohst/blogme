@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\NotifikasiAdmin;
+use App\NotifikasiMember;
 use App\PesertaAcademy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,7 @@ class PendaftaranPesertaController extends Controller
     public function index()
     {
         $title = 'Pendaftaran Peserta Kelas';
-        NotifikasiAdmin::where('url', 'admin/peserta')->update(['status' => '1']);
+        NotifikasiAdmin::where('url', '/admin/peserta')->update(['status' => '1']);
         $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
 
         $peserta_academy = PesertaAcademy::where('bukti_transfer', '!=', null)->where('status', 'waiting')->orderBy('id', 'desc')->get();
@@ -51,6 +52,23 @@ class PendaftaranPesertaController extends Controller
                 'catatan_verifikasi' => $request->catatan,
             ];
             $peserta_academy->update($data);
+            if ($request->status == 'approved') {
+                $notifikasi = new NotifikasiMember([
+                    'to_user_id' => $peserta_academy->user_id,
+                    'judul' => 'Pesanan anda telah disetujui',
+                    'url' => '/member/orders?pages=approved',
+                    'status' => '0',
+                ]);
+                $notifikasi->save();
+            } elseif ($request->status == 'rejected') {
+                $notifikasi = new NotifikasiMember([
+                    'to_user_id' => $peserta_academy->user_id,
+                    'judul' => 'Pesanan anda ditolak',
+                    'url' => '/member/orders?pages=rejected',
+                    'status' => '0',
+                ]);
+                $notifikasi->save();
+            }
             return back()->with('toast_success', 'Berhasil disimpan.');
         }
     }

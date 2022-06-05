@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use App\DataPribadiUser;
 use App\Http\Controllers\Controller;
+use App\NotifikasiMember;
 use App\User;
 use App\ProfilUser;
 use Illuminate\Http\Request;
@@ -19,11 +20,14 @@ class ProfileController extends Controller
     public function index()
     {
         $title = 'Profil Saya';
+        $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
         $user = User::findorfail(Auth::user()->id);
         $data_pribadi = DataPribadiUser::where('user_id', $user->id)->first();
         $profil = ProfilUser::where('user_id', $user->id)->first();
         return view('member.profile.index', compact(
             'title',
+            'data_notifikasi',
             'user',
             'data_pribadi',
             'profil',

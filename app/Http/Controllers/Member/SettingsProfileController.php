@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use App\DataPribadiUser;
 use App\Http\Controllers\Controller;
+use App\NotifikasiMember;
 use App\ProfilUser;
 use App\User;
 use Illuminate\Http\Request;
@@ -24,24 +25,33 @@ class SettingsProfileController extends Controller
         $user = User::findorfail(Auth::user()->id);
         if ($pages == 'profile') {
             $title = 'Profil Pengguna';
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $profile = ProfilUser::where('user_id', $user->id)->first();
             return view('member.settings.profile', compact(
                 'title',
+                'data_notifikasi',
                 'user',
                 'profile'
             ));
         } elseif ($pages == 'personal') {
             $title = 'Data Pribadi';
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $data_pribadi = DataPribadiUser::where('user_id', $user->id)->first();
             return view('member.settings.personal', compact(
                 'title',
+                'data_notifikasi',
                 'user',
                 'data_pribadi'
             ));
         } elseif ($pages == 'account') {
             $title = 'Ganti Password';
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             return view('member.settings.account', compact(
                 'title',
+                'data_notifikasi'
             ));
         }
     }

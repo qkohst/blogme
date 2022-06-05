@@ -28,41 +28,39 @@
 
                 @if (Auth::check())
 
-                <li class="drop-down"><a href=""><span class="total-count d-none d-lg-block">3</span><i class="icofont-alarm"></i> Notifikasi</a>
+                <li class="drop-down"><a href=""><span class="total-count d-none d-lg-block">{{$data_notifikasi->count()}}</span><i class="icofont-alarm"></i> Notifikasi</a>
                     <ul>
+                        @if($data_notifikasi->count() == 0)
                         <li>
-                            <a href="#">
+                            <div class="text-center text-sm">Belum ada data</div>
+                        </li>
+                        @else
+                        @foreach($data_notifikasi as $notifikasi)
+                        <li>
+                            <a href="{{$notifikasi->url}}">
                                 <div class="d-flex py-1">
+                                    @if(!is_null($notifikasi->from_user_id))
                                     <div class="my-auto">
-                                        <img src="../admin-assets/img/team-2.jpg" class="notiv-avatar avatar-sm  mr-3 ">
+                                        <img src="/avatar/{{$notifikasi->from_users->avatar}}" class="notiv-avatar avatar-sm  mr-3 ">
                                     </div>
+                                    @endif
                                     <div class="d-flex flex-column justify-content-center">
                                         <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">New message</span> from Laur
+                                            <span class="font-weight-bold">{{$notifikasi->judul}}</span>
+                                            @if(!is_null($notifikasi->from_user_id))
+                                            dari {{$notifikasi->from_users->username}}
+                                            @endif
                                         </h6>
                                         <p class="text-xs text-secondary mb-0">
-                                            <i class="fa fa-clock me-1"></i>
-                                            13 minutes ago
+                                            <i class="icofont-clock-time me-1"></i>
+                                            {{$notifikasi->created_at->diffForHumans()}}
                                         </p>
                                     </div>
                                 </div>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <div class="d-flex py-1">
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">New message</span> from Qkoh st
-                                        </h6>
-                                        <p class="text-xs text-secondary mb-0">
-                                            <i class="fa fa-clock me-1"></i>
-                                            13 minutes ago
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                        @endforeach
+                        @endif
                     </ul>
                 </li>
 

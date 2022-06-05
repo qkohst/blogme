@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\NotifikasiAdmin;
+use App\NotifikasiMember;
 use App\PesertaAcademy;
 use App\RekeningBank;
 use Illuminate\Http\Request;
@@ -20,39 +21,57 @@ class PesananController extends Controller
     public function index()
     {
         $pages = request('pages');
+
         if ($pages == 'waiting') {
             $title = 'Menunggu Pembayaran';
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'waiting')->where('bukti_transfer', null)->orderBy('id', 'desc')->get();
             return view('member.orders.waiting', compact(
                 'title',
+                'data_notifikasi',
                 'pesanan_kelas'
             ));
         } elseif ($pages == 'process') {
             $title = 'Menunggu Proses Verifikasi';
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'waiting')->where('bukti_transfer', '!=', null)->orderBy('id', 'desc')->get();
             return view('member.orders.process', compact(
                 'title',
+                'data_notifikasi',
                 'pesanan_kelas'
             ));
         } elseif ($pages == 'rejected') {
             $title = 'Pesanan Ditolak';
+            NotifikasiMember::where('to_user_id', Auth::user()->id)->where('url', '/member/orders?pages=rejected')->update(['status' => '1']);
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'rejected')->orderBy('id', 'desc')->get();
             return view('member.orders.rejected', compact(
                 'title',
+                'data_notifikasi',
                 'pesanan_kelas'
             ));
         } elseif ($pages == 'approved') {
             $title = 'Pesanan Selesai';
+            NotifikasiMember::where('to_user_id', Auth::user()->id)->where('url', '/member/orders?pages=approved')->update(['status' => '1']);
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'approved')->orderBy('id', 'desc')->get();
             return view('member.orders.approved', compact(
                 'title',
+                'data_notifikasi',
                 'pesanan_kelas'
             ));
         } elseif ($pages == 'banks') {
             $title = 'Informasi Pembayaran';
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $banks = RekeningBank::all();
             return view('member.orders.banks', compact(
                 'title',
+                'data_notifikasi',
                 'banks'
             ));
         }
@@ -91,7 +110,7 @@ class PesananController extends Controller
             $notifikasi = new NotifikasiAdmin([
                 'user_id' => Auth::user()->id,
                 'judul' => 'Pendaftaran Peserta Baru',
-                'url' => 'admin/peserta',
+                'url' => '/admin/peserta',
                 'status' => '0',
             ]);
             $notifikasi->save();

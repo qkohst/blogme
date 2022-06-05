@@ -7,6 +7,7 @@ use App\ArtikelMateri;
 use App\Http\Controllers\Controller;
 use App\KuisMateri;
 use App\MateriSilabus;
+use App\NotifikasiMember;
 use App\RiwayatBelajar;
 use App\SilabusAcademy;
 use App\SubmissionMateri;
@@ -100,10 +101,13 @@ class ModulAcademyController extends Controller
         }
 
         if ($materi->tipe_materi == 1) {
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $artikel = ArtikelMateri::where('materi_silabus_id', $materi->id)->first();
             return view('academy.materi.artikel', compact(
                 'title',
                 'title2',
+                'data_notifikasi',
                 'academy',
                 'silabus_academies',
                 'materi',
@@ -112,10 +116,13 @@ class ModulAcademyController extends Controller
                 'next'
             ));
         } elseif ($materi->tipe_materi == 2) {
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $vidio = VidioMateri::where('materi_silabus_id', $materi->id)->first();
             return view('academy.materi.vidio', compact(
                 'title',
                 'title2',
+                'data_notifikasi',
                 'academy',
                 'silabus_academies',
                 'materi',
@@ -124,10 +131,13 @@ class ModulAcademyController extends Controller
                 'next'
             ));
         } elseif ($materi->tipe_materi == 3) {
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $data_kuis = KuisMateri::where('materi_silabus_id', $materi->id)->get();
             return view('academy.materi.kuis', compact(
                 'title',
                 'title2',
+                'data_notifikasi',
                 'academy',
                 'silabus_academies',
                 'materi',
@@ -136,10 +146,13 @@ class ModulAcademyController extends Controller
                 'next'
             ));
         } elseif ($materi->tipe_materi == 4) {
+            $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
             $submission = SubmissionMateri::where('materi_silabus_id', $materi->id)->first();
             return view('academy.materi.submission', compact(
                 'title',
                 'title2',
+                'data_notifikasi',
                 'academy',
                 'silabus_academies',
                 'materi',
