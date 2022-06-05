@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\PesertaAcademy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PendaftaranPesertaController extends Controller
 {
@@ -24,49 +25,6 @@ class PendaftaranPesertaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -75,17 +33,21 @@ class PendaftaranPesertaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $peserta_academy = PesertaAcademy::findorfail($id);
+        $validator = Validator::make($request->all(), [
+            'status' => 'required',
+            'catatan' => 'required|max:255',
+        ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        } else {
+            $data = [
+                'status' => $request->status,
+                'catatan_verifikasi' => $request->catatan,
+            ];
+            $peserta_academy->update($data);
+            return back()->with('toast_success', 'Berhasil disimpan.');
+        }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

@@ -10,7 +10,8 @@ class PesertaAcademy extends Model
         'academy_id',
         'user_id',
         'bukti_transfer',
-        'status'
+        'status',
+        'catatan_verifikasi'
     ];
 
     public function academies()

@@ -58,9 +58,51 @@
                                     <span class="text-secondary text-xs font-weight-bold">{{$peserta->updated_at}}</span>
                                 </td>
                                 <td class="align-middle ms-auto text-center">
-                                    <a class="btn btn-link text-primary px-2 mb-0" href="{{ route('peserta.edit', $peserta->id) }}"><i class="icofont-verification-check text-primary me-2"></i>Verifikasi</a>
+                                    <a class="btn btn-link text-primary px-2 mb-0" data-bs-toggle="modal" data-bs-target="#modalVerifikasi{{$peserta->id}}"><i class="icofont-verification-check text-primary me-2"></i>Verifikasi</a>
                                 </td>
                             </tr>
+
+                            <!-- Modal Verifikasi -->
+                            <div class="modal fade" id="modalVerifikasi{{$peserta->id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Verifikasi {{$title}}</h5>
+                                        </div>
+                                        <form id="formVerifikasi{{$peserta->id}}" action="{{ route('peserta.update', $peserta->id) }}" method="post">
+                                            {{ method_field('PATCH') }}
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-lg-12 mb-4">
+                                                        <img src="/bukti_transfer/{{$peserta->bukti_transfer}}" class="me-3" width="100%" alt="Images">
+                                                    </div>
+                                                    <div class="col-lg-12 form-group">
+                                                        <label for="example-text-input" class="form-control-label">Status Verifikasi</label> <br>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="status" id="inlineRadio1" value="approved" {{ old('status') == "approved" ? "checked" : "" }}>
+                                                            <label class="form-check-label" for="inlineRadio1">Setujui</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="status" id="inlineRadio2" value="rejected" {{ old('status') == "rejected" ? "checked" : "" }}>
+                                                            <label class="form-check-label" for="inlineRadio2">Tolak</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 form-group">
+                                                        <label for="example-text-input" class="form-control-label">Catatan</label>
+                                                        <textarea class="form-control" name="catatan">{{old('catatan')}}</textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <a href="#" class="btn btn-primary btn-save" data-id="{{$peserta->id}}">Simpan</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
 
                         </tbody>
@@ -104,6 +146,32 @@
                 }).then((Delete) => {
                     if (Delete) {
                         $(`#delete${id}`).submit();
+                    } else {
+                        swal.close();
+                    }
+                });
+            });
+
+            $('.btn-save').click(function(e) {
+                id = e.target.dataset.id;
+                swal({
+                    title: 'Apakah anda yakin ?',
+                    text: "Simpan status verifkasi !",
+                    type: 'warning',
+                    buttons: {
+                        confirm: {
+                            text: 'Simpan',
+                            className: 'btn bg-gradient-primary'
+                        },
+                        cancel: {
+                            visible: true,
+                            text: 'Batal',
+                            className: 'btn btn-outline-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        $(`#formVerifikasi${id}`).submit();
                     } else {
                         swal.close();
                     }

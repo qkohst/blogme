@@ -19,6 +19,7 @@ class CreatePesertaAcademiesTable extends Migration
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->string('bukti_transfer')->nullable();
             $table->enum('status', ['waiting', 'approved', 'rejected']);
+            $table->string('catatan_verifikasi')->nullable();
             $table->timestamps();
 
             $table->foreign('academy_id')->references('id')->on('academies');

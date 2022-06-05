@@ -41,11 +41,16 @@
                             </a>
                         </li>
                         <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
+                            <a class="nav-link {{ request('pages') == 'process' ? 'active show' : '' }}" href="{{ route('orders.index') }}?pages=process">
+                                <p class="text-md"><i class="icofont-spinner"></i> Proses Verifikasi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="200">
                             <a class="nav-link {{ request('pages') == 'rejected' ? 'active show' : '' }}" href="{{ route('orders.index') }}?pages=rejected">
                                 <p class="text-md"><i class="icofont-close"></i> Pesanan Ditolak</p>
                             </a>
                         </li>
-                        <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
+                        <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="300">
                             <a class="nav-link {{ request('pages') == 'paid' ? 'active show' : '' }}" href="{{ route('orders.index') }}?pages=paid">
                                 <p class="text-md"><i class="icofont-check"></i> Pesanan Selesai</p>
                             </a>
