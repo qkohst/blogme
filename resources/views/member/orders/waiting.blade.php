@@ -22,28 +22,35 @@
             <tbody>
                 @foreach($pesanan_kelas as $pesanan)
                 <tr>
-                    <td>
+                    <td class="me-1">
                         <div class="row">
                             <div class="col-lg-2 d-none d-lg-block">
-                                <img src="/admin-assets/img/academies/{{$pesanan->academies->gambar}}" class="rounded" alt="Images" height="105px">
+                                <img src="/admin-assets/img/academies/{{$pesanan->academies->gambar}}" class="rounded" alt="Images" height="90px">
                             </div>
                             <div class="col-lg-10">
-                                <p class="my-1"><a href="{{ route('courses.show', $pesanan->academy_id) }}" title="Lihat detail kelas">{{$pesanan->academies->nama_kelas}}</a></p>
-                                <p class="mt-1">{!! substr(strip_tags($pesanan->academies->deskripsi), 0, 60) !!} ...</p>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="mb-1"><a href="{{ route('courses.show', $pesanan->academy_id) }}" title="Lihat detail kelas">{{$pesanan->academies->nama_kelas}}</a></p>
+                                        <small class="float-left text-dark mr-2"><i class="icofont-clock-time"></i> {{round($pesanan->academies->silabus_academies->sum('waktu_belajar')/60)}} Jam Belajar</small>
+                                        <small class="float-left text-dark mr-2"><i class="icofont-chart-histogram"></i> {{$pesanan->academies->level}}</small>
+                                        <small class="float-left text-dark mr-2"><i class="icofont-layers"></i> {{$pesanan->academies->kategories->nama_kategori}}</small>
+                                        <small class="float-left text-dark mr-2"> Dipesan : {{$pesanan->updated_at->diffForHumans()}}</small>
+                                    </div>
+                                </div>
 
-                                @if(is_null($pesanan->bukti_transfer))
-                                <a href="#" class="btn btn-dark btn-sm mr-1" title="Upload Bukti Pembayaran" data-bs-toggle="modal" data-bs-target="#modalUpload{{$pesanan->id}}"><i class="icofont-upload-alt"></i> Upload</a>
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <a href="#" class="btn btn-dark btn-sm mt-1 mr-1" title="Upload Bukti Pembayaran" data-bs-toggle="modal" data-bs-target="#modalUpload{{$pesanan->id}}"><i class="icofont-upload-alt"></i> Upload</a>
 
-                                <a href="#" class="btn btn-outline-danger btn-sm btn-delete" title="Hapus Pesanan" data-id="{{$pesanan->id}}">
-                                    <form action="{{ route('orders.destroy', $pesanan->id) }}" method="post" id="delete{{$pesanan->id}}">
-                                        @csrf
-                                        @method('delete')
-                                    </form>
-                                    <i class="icofont-ui-delete"></i> Hapus
-                                </a>
-                                @else
-                                <span class="badge badge-info"><i class="icofont-spinner"></i> Proses Verifikasi</span>
-                                @endif
+                                        <a href="#" class="btn btn-outline-danger btn-sm mt-1 btn-delete" title="Hapus Pesanan" data-id="{{$pesanan->id}}">
+                                            <form action="{{ route('orders.destroy', $pesanan->id) }}" method="post" id="delete{{$pesanan->id}}">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
+                                            <i class="icofont-ui-delete"></i> Hapus
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </td>

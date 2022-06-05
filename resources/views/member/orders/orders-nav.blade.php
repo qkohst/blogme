@@ -28,7 +28,7 @@
 
                 <!-- Left Nav  -->
                 <div class="col-lg-3">
-                    <a href="{{ route('orders.index') }}?pages=banks" class="btn btn-dark btn-block {{ request('pages') == 'paid' ? 'd-none' : '' }}"><i class="icofont-warning-alt"></i> Informasi Pembayaran</a>
+                    <a href="{{ route('orders.index') }}?pages=banks" class="btn btn-dark btn-block {{ request('pages') == 'banks' ? 'd-none' : '' }}"><i class="icofont-warning-alt"></i> Informasi Pembayaran</a>
 
                     <div class="text-lg my-3">
                         Pesanan Saya
@@ -51,7 +51,7 @@
                             </a>
                         </li>
                         <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="300">
-                            <a class="nav-link {{ request('pages') == 'paid' ? 'active show' : '' }}" href="{{ route('orders.index') }}?pages=paid">
+                            <a class="nav-link {{ request('pages') == 'approved' ? 'active show' : '' }}" href="{{ route('orders.index') }}?pages=approved">
                                 <p class="text-md"><i class="icofont-check"></i> Pesanan Selesai</p>
                             </a>
                         </li>

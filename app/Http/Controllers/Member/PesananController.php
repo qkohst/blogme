@@ -21,22 +21,31 @@ class PesananController extends Controller
         $pages = request('pages');
         if ($pages == 'waiting') {
             $title = 'Menunggu Pembayaran';
-            $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'waiting')->where('bukti_transfer', NULL)->orderBy('id', 'desc')->get();
+            $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'waiting')->where('bukti_transfer', null)->orderBy('id', 'desc')->get();
             return view('member.orders.waiting', compact(
                 'title',
                 'pesanan_kelas'
             ));
+        } elseif ($pages == 'process') {
+            $title = 'Menunggu Proses Verifikasi';
+            $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'waiting')->where('bukti_transfer', '!=', null)->orderBy('id', 'desc')->get();
+            return view('member.orders.process', compact(
+                'title',
+                'pesanan_kelas'
+            ));
         } elseif ($pages == 'rejected') {
-            $title = 'Dibatalkan';
+            $title = 'Pesanan Ditolak';
             $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'rejected')->orderBy('id', 'desc')->get();
             return view('member.orders.rejected', compact(
                 'title',
                 'pesanan_kelas'
             ));
-        } elseif ($pages == 'paid') {
-            $title = 'Sudah bayar';
-            return view('member.orders.paid', compact(
+        } elseif ($pages == 'approved') {
+            $title = 'Pesanan Selesai';
+            $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'approved')->orderBy('id', 'desc')->get();
+            return view('member.orders.approved', compact(
                 'title',
+                'pesanan_kelas'
             ));
         } elseif ($pages == 'banks') {
             $title = 'Informasi Pembayaran';
@@ -112,12 +121,14 @@ class PesananController extends Controller
             $bukti_transfer->move('bukti_transfer/', $nama_file);
             $data = [
                 'bukti_transfer' => $nama_file,
+                'status' => 'waiting',
+                'catatan_verifikasi' => null,
             ];
             if (!is_null($peserta->bukti_transfer)) {
                 unlink(public_path() . '/bukti_transfer/' . $peserta->bukti_transfer);
             }
             $peserta->update($data);
-            return back()->with('toast_success', 'Berhasil diupload.');
+            return redirect('/member/orders?pages=process')->with('toast_success', 'Berhasil diupload.');
         }
 
         // ADD NOTIFIKASI TO ADMIN
