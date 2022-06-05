@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\NotifikasiAdmin;
 use App\PesertaAcademy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,9 +18,13 @@ class PendaftaranPesertaController extends Controller
     public function index()
     {
         $title = 'Pendaftaran Peserta Kelas';
-        $peserta_academy = PesertaAcademy::where('bukti_transfer', '!=', null)->where('status', 'waiting')->get();
+        NotifikasiAdmin::where('url', 'admin/peserta')->update(['status' => '1']);
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
+        $peserta_academy = PesertaAcademy::where('bukti_transfer', '!=', null)->where('status', 'waiting')->orderBy('id', 'desc')->get();
         return view('admin.peserta-academy.index', compact(
             'title',
+            'data_notifikasi',
             'peserta_academy'
         ));
     }
@@ -49,5 +54,4 @@ class PendaftaranPesertaController extends Controller
             return back()->with('toast_success', 'Berhasil disimpan.');
         }
     }
-    
 }

@@ -6,6 +6,18 @@
     padding: 2px;
 }
 
+.notiv-avatar {
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border-radius: 0.75rem;
+    height: 40px;
+    width: 40px;
+    transition: all .2s ease-in-out;
+}
+
 a.disabled {
     color: gray;
     pointer-events: none;
@@ -135,4 +147,18 @@ a.disabled {
     100% {
         opacity: 1;
     }
+}
+
+.total-count {
+    position: absolute;
+    top: -7px;
+    right: +75px;
+    background: #f6931d;
+    width: 17px;
+    height: 17px;
+    line-height: 17px;
+    text-align: center;
+    color: #fff;
+    border-radius: 100%;
+    font-size: 10px;
 }

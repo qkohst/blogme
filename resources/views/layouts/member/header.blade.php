@@ -27,6 +27,45 @@
                 <li class="{{ Route::is('partnership') ? 'active' : '' }}"><a href="{{ route('partnership') }}">Partnership</a></li>
 
                 @if (Auth::check())
+
+                <li class="drop-down"><a href=""><span class="total-count d-none d-lg-block">3</span><i class="icofont-alarm"></i> Notifikasi</a>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <div class="d-flex py-1">
+                                    <div class="my-auto">
+                                        <img src="../admin-assets/img/team-2.jpg" class="notiv-avatar avatar-sm  mr-3 ">
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="text-sm font-weight-normal mb-1">
+                                            <span class="font-weight-bold">New message</span> from Laur
+                                        </h6>
+                                        <p class="text-xs text-secondary mb-0">
+                                            <i class="fa fa-clock me-1"></i>
+                                            13 minutes ago
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="d-flex py-1">
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="text-sm font-weight-normal mb-1">
+                                            <span class="font-weight-bold">New message</span> from Qkoh st
+                                        </h6>
+                                        <p class="text-xs text-secondary mb-0">
+                                            <i class="fa fa-clock me-1"></i>
+                                            13 minutes ago
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="drop-down"><a href=""><i class="icofont-user"></i> {{Auth::user()->username}}</a>
                     <ul>
                         <li>
@@ -53,6 +92,7 @@
                         <li><a href="{{ route('logout') }}" class="text-danger"><i class="icofont-logout"></i> Keluar</a></li>
                     </ul>
                 </li>
+
                 @else
                 <li><a href="{{ route('login') }}">Masuk</a></li>
                 @endif

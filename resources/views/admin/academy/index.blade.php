@@ -112,7 +112,7 @@
                                                         </h6>
                                                         <p class="text-xs text-secondary mb-0">Level : {{$academy->level}}
                                                             | Jenis Kelas : {{$academy->jenis_kelas}}
-                                                            | 150 siswa
+                                                            | {{$academy->peserta_academies->count()}} siswa terdaftar
                                                         </p>
                                                     </div>
                                                 </div>

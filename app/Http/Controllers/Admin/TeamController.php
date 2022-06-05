@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\NotifikasiAdmin;
 use App\Team;
 use Faker\Core\File;
 use Illuminate\Http\Request;
@@ -17,9 +18,12 @@ class TeamController extends Controller
     public function index()
     {
         $title = 'Tim Kami';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $teams = Team::all();
         return view('admin.team.index', compact(
             'title',
+            'data_notifikasi',
             'teams'
         ));
     }
@@ -33,9 +37,12 @@ class TeamController extends Controller
     {
         $title = 'Tambah Tim';
         $title2 = 'Tim Kami';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         return view('admin.team.create', compact(
             'title',
-            'title2'
+            'title2',
+            'data_notifikasi'
         ));
     }
 
@@ -81,16 +88,6 @@ class TeamController extends Controller
         return redirect('admin/team')->with('toast_success', 'Berhasil disimpan.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -102,10 +99,13 @@ class TeamController extends Controller
     {
         $title = 'Edit Identitas Tim';
         $title2 = 'Tim Kami';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $team = Team::findorfail($id);
         return view('admin.team.edit', compact(
             'title',
             'title2',
+            'data_notifikasi',
             'team'
         ));
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Academy;
 use App\Http\Controllers\Controller;
 use App\MateriSilabus;
+use App\NotifikasiAdmin;
 use App\SilabusAcademy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -21,11 +22,14 @@ class SilabusAcademyController extends Controller
         $title = 'Tambah Silabus';
         $title2 = 'Detail';
         $title3 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $academy = Academy::findorfail($id);
         return view('admin.academy.silabus.create', compact(
             'title',
             'title2',
             'title3',
+            'data_notifikasi',
             'academy',
         ));
     }
@@ -69,11 +73,14 @@ class SilabusAcademyController extends Controller
         $title = 'Materi';
         $title2 = 'Detail Kelas';
         $title3 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $silabus = SilabusAcademy::findorfail($silabu);
         return view('admin.academy.silabus.show', compact(
             'title',
             'title2',
             'title3',
+            'data_notifikasi',
             'silabus',
         ));
     }
@@ -89,11 +96,14 @@ class SilabusAcademyController extends Controller
         $title = 'Edit Silabus';
         $title2 = 'Detail';
         $title3 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $silabus = SilabusAcademy::findorfail($silabu);
         return view('admin.academy.silabus.edit', compact(
             'title',
             'title2',
             'title3',
+            'data_notifikasi',
             'silabus',
         ));
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\NotifikasiAdmin;
 use App\RekeningBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,9 +19,12 @@ class RekeningBankController extends Controller
     public function index()
     {
         $title = 'Rekening Bank';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $rekening_bank = RekeningBank::all();
         return view('admin.bank.index', compact(
             'title',
+            'data_notifikasi',
             'rekening_bank'
         ));
     }

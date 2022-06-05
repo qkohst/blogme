@@ -7,6 +7,7 @@ use App\Fasilitas;
 use App\FasilitasAcademy;
 use App\Http\Controllers\Controller;
 use App\Kategory;
+use App\NotifikasiAdmin;
 use App\Technology;
 use App\TechnologyAcademy;
 use App\Tools;
@@ -24,6 +25,8 @@ class AcademyController extends Controller
     public function index()
     {
         $title = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $academies = Academy::orderBy('created_at', 'desc')->get();
         $data_kategory = Kategory::all();
         $data_fasilitas = Fasilitas::all();
@@ -31,6 +34,7 @@ class AcademyController extends Controller
         $technologies = Technology::all();
         return view('admin.academy.index', compact(
             'title',
+            'data_notifikasi',
             'academies',
             'data_kategory',
             'data_fasilitas',
@@ -48,6 +52,8 @@ class AcademyController extends Controller
     {
         $title = 'Tambah Kelas';
         $title2 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $kategories = Kategory::where('status', 'on')->get();
         $data_fasilitas = Fasilitas::all();
         $tools = Tools::all();
@@ -55,6 +61,7 @@ class AcademyController extends Controller
         return view('admin.academy.create', compact(
             'title',
             'title2',
+            'data_notifikasi',
             'kategories',
             'data_fasilitas',
             'tools',
@@ -161,10 +168,13 @@ class AcademyController extends Controller
     {
         $title = 'Detail Kelas';
         $title2 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $academy = Academy::findorfail($id);
         return view('admin.academy.show', compact(
             'title',
             'title2',
+            'data_notifikasi',
             'academy',
         ));
     }
@@ -180,6 +190,8 @@ class AcademyController extends Controller
         $title = 'Edit Kelas';
         $title2 = 'Detail';
         $title3 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $academy = Academy::findorfail($id);
         $fasilitas_academies = FasilitasAcademy::where('academy_id', $academy->id)->get();
         $tools_academies = ToolsAcademy::where('academy_id', $academy->id)->get();
@@ -190,6 +202,7 @@ class AcademyController extends Controller
             'title',
             'title2',
             'title3',
+            'data_notifikasi',
             'academy',
             'fasilitas_academies',
             'kategories',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\NotifikasiAdmin;
 use App\PesertaAcademy;
 use App\RekeningBank;
 use Illuminate\Http\Request;
@@ -58,49 +59,6 @@ class PesananController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -128,10 +86,18 @@ class PesananController extends Controller
                 unlink(public_path() . '/bukti_transfer/' . $peserta->bukti_transfer);
             }
             $peserta->update($data);
+
+            // Add Notifikasi Admin 
+            $notifikasi = new NotifikasiAdmin([
+                'user_id' => Auth::user()->id,
+                'judul' => 'Pendaftaran Peserta Baru',
+                'url' => 'admin/peserta',
+                'status' => '0',
+            ]);
+            $notifikasi->save();
+
             return redirect('/member/orders?pages=process')->with('toast_success', 'Berhasil diupload.');
         }
-
-        // ADD NOTIFIKASI TO ADMIN
     }
 
     /**

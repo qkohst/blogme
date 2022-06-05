@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Faq;
 use App\Http\Controllers\Controller;
+use App\NotifikasiAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,21 +18,14 @@ class FaqController extends Controller
     public function index()
     {
         $title = 'FAQ';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $faqs = Faq::all();
         return view('admin.faq.index', compact(
             'title',
+            'data_notifikasi',
             'faqs'
         ));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //    
     }
 
     /**
@@ -56,28 +50,6 @@ class FaqController extends Controller
             $faq->save();
             return redirect('admin/faq')->with('toast_success', 'Berhasil disimpan.');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //   
     }
 
     /**

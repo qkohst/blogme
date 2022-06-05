@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\MateriSilabus;
+use App\NotifikasiAdmin;
 use App\SubmissionMateri;
 use Illuminate\Http\Request;
 
@@ -54,12 +55,15 @@ class SubmissionMateriController extends Controller
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $materi = MateriSilabus::findorfail($submission);
         return view('admin.academy.materi.show_submission', compact(
             'title',
             'title2',
             'title3',
             'title4',
+            'data_notifikasi',
             'materi',
         ));
     }
@@ -76,12 +80,15 @@ class SubmissionMateriController extends Controller
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $materi = MateriSilabus::findorfail($submission);
         return view('admin.academy.materi.edit_submission', compact(
             'title',
             'title2',
             'title3',
             'title4',
+            'data_notifikasi',
             'materi',
         ));
     }

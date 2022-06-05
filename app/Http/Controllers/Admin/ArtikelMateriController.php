@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\ArtikelMateri;
 use App\Http\Controllers\Controller;
 use App\MateriSilabus;
+use App\NotifikasiAdmin;
 use Illuminate\Http\Request;
 
 class ArtikelMateriController extends Controller
@@ -54,12 +55,15 @@ class ArtikelMateriController extends Controller
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $materi = MateriSilabus::findorfail($artikel);
         return view('admin.academy.materi.show_artikel', compact(
             'title',
             'title2',
             'title3',
             'title4',
+            'data_notifikasi',
             'materi',
         ));
     }
@@ -76,12 +80,15 @@ class ArtikelMateriController extends Controller
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $materi = MateriSilabus::findorfail($artikel);
         return view('admin.academy.materi.edit_artikel', compact(
             'title',
             'title2',
             'title3',
             'title4',
+            'data_notifikasi',
             'materi',
         ));
     }
@@ -116,5 +123,4 @@ class ArtikelMateriController extends Controller
 
         return redirect('admin/academy/' . $materi->silabus_academies->academies->id . '/silabus/' . $materi->silabus_academies->id)->with('toast_success', 'Berhasil disimpan.');
     }
-
 }

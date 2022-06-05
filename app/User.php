@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\PesertaAcademy');
     }
+
+    public function notifikasi_admins()
+    {
+        return $this->hasMany('App\NotifikasiAdmin');
+    }
 }

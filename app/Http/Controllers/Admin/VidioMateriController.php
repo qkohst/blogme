@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\MateriSilabus;
+use App\NotifikasiAdmin;
 use App\VidioMateri;
 use Illuminate\Http\Request;
 
@@ -56,12 +57,15 @@ class VidioMateriController extends Controller
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $materi = MateriSilabus::findorfail($vidio);
         return view('admin.academy.materi.show_vidio', compact(
             'title',
             'title2',
             'title3',
             'title4',
+            'data_notifikasi',
             'materi',
         ));
     }
@@ -78,12 +82,15 @@ class VidioMateriController extends Controller
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $materi = MateriSilabus::findorfail($vidio);
         return view('admin.academy.materi.edit_vidio', compact(
             'title',
             'title2',
             'title3',
             'title4',
+            'data_notifikasi',
             'materi',
         ));
     }

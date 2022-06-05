@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\KuisMateri;
 use App\MateriSilabus;
+use App\NotifikasiAdmin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -74,12 +75,15 @@ class KuisMateriController extends Controller
         $title2 = 'Materi';
         $title3 = 'Detail Kelas';
         $title4 = 'Academy';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
         $materi = MateriSilabus::findorfail($kui);
         return view('admin.academy.materi.show_kuis', compact(
             'title',
             'title2',
             'title3',
             'title4',
+            'data_notifikasi',
             'materi',
         ));
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contact;
 use App\Http\Controllers\Controller;
+use App\NotifikasiAdmin;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -16,54 +17,14 @@ class ContactController extends Controller
     public function index()
     {
         $title = 'Contact';
+        $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
         $contact = Contact::first();
+
         return view('admin.contact.index', compact(
             'title',
+            'data_notifikasi',
             'contact',
         ));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -102,14 +63,4 @@ class ContactController extends Controller
         return redirect('admin/contact')->with('toast_success', 'Berhasil diedit.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

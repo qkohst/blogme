@@ -187,30 +187,29 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-
+                            @if($academy->peserta_academies->count() == 0)
                             <hr class="horizontal dark">
                             <div class="text-center mb-2">Belum terdapat siswa pada kelas ini</div>
-
-                            <!-- <div class="table-responsive p-0">
+                            @else
+                            <div class="table-responsive p-0">
                                 <table class="table align-items-center justify-content-center mb-0">
                                     <thead>
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Siswa</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Progres Pengerjaan</th>
-                                            <th></th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Progres Belajar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        @foreach($academy->peserta_academies as $peserta)
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center px-2">
                                                     <div>
-                                                        <img src="/admin-assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                                                        <img src="/avatar/{{$peserta->users->avatar}}" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
                                                     </div>
                                                     <div class="my-auto">
-                                                        <h6 class="mb-0 text-sm">Spotify</h6>
-                                                        <p class="text-xs mb-0">kukohsantoso013@gmail.com</p>
+                                                        <h6 class="mb-0 text-sm">{{$peserta->users->profil_users->nama_lengkap}}</h6>
+                                                        <p class="text-xs mb-0">{{$peserta->users->email}}</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -224,17 +223,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="align-middle">
-                                                <button class="btn btn-link text-secondary mb-0">
-                                                    <i class="fa fa-ellipsis-v text-xs"></i>
-                                                </button>
-                                            </td>
                                         </tr>
-
+                                        @endforeach
                                     </tbody>
                                 </table>
-                            </div> -->
-
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
