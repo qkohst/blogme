@@ -23,4 +23,9 @@ class PesertaAcademy extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function jawaban_kuis_pesertas()
+    {
+        return $this->hasMany('App\JawabanKuisPeserta');
+    }
 }

@@ -29,6 +29,7 @@
                 <!-- Left Nav  -->
                 <div class="col-lg-3">
                     <a href="" class="btn btn-dark btn-block d-none d-lg-block"><i class="icofont-comment"></i> Diskusikan Materi</a>
+                    <!-- LANJUT DISINI -->
                     <a href="" class="btn btn-outline-dark btn-block d-none d-lg-block"><i class="icofont-warning-alt"></i> Laporkan Materi</a>
 
                     <div class="text-lg my-3">
@@ -58,21 +59,7 @@
                 </div>
 
                 <div class="col-lg-9 col-md-12">
-                    <div class="card">
-                        <div class="card-body p-4">
-                            @yield('materi')
-                        </div>
-                        <div class="card-footer">
-                            @if($previous != null)
-                            <a href="{{ route('modul.index', $academy->id) }}?materi={{$previous}}" class="btn btn-outline-dark"><i class="icofont-simple-left"></i> Sebelumnya</a>
-                            @endif
-                            @if($next != null)
-                            <a href="{{ route('modul.index', $academy->id) }}?materi={{$next}}&from={{$materi->id}}" class="btn btn-dark float-right">Selanjutnya <i class="icofont-simple-right"></i></a>
-                            @else
-                            <a href="{{ route('courses.show', $academy->id) }}" class="btn btn-dark float-right"><i class="icofont-home"></i> Kembali Ke Beranda Kelas</a>
-                            @endif
-                        </div>
-                    </div>
+                    @yield('materi')
                 </div>
 
             </div>
@@ -82,3 +69,8 @@
 </main><!-- End #main -->
 @endsection
 
+@section('scripts')
+
+@yield('page_scripts')
+
+@endsection

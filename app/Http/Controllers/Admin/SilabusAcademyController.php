@@ -162,12 +162,15 @@ class SilabusAcademyController extends Controller
             $title = 'Tambah Materi';
             $title2 = 'Detail';
             $title3 = 'Academy';
+            $data_notifikasi = NotifikasiAdmin::where('status', '0')->orderBy('id', 'desc')->get();
+
             $silabus = SilabusAcademy::findorfail($silabu);
             if ($request->jenis_materi == 'Artikel') {
                 return view('admin.academy.materi.create_artikel', compact(
                     'title',
                     'title2',
                     'title3',
+                    'data_notifikasi',
                     'silabus',
                 ));
             } elseif ($request->jenis_materi == 'Vidio Interaktif') {
@@ -175,6 +178,7 @@ class SilabusAcademyController extends Controller
                     'title',
                     'title2',
                     'title3',
+                    'data_notifikasi',
                     'silabus',
                 ));
             } elseif ($request->jenis_materi == 'Kuis') {
@@ -182,6 +186,7 @@ class SilabusAcademyController extends Controller
                     'title',
                     'title2',
                     'title3',
+                    'data_notifikasi',
                     'silabus',
                 ));
             } elseif ($request->jenis_materi == 'Submission') {
@@ -189,6 +194,7 @@ class SilabusAcademyController extends Controller
                     'title',
                     'title2',
                     'title3',
+                    'data_notifikasi',
                     'silabus',
                 ));
             }

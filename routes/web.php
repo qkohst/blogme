@@ -101,7 +101,7 @@ Route::group(['middleware' => ['auth']], function () {
                 'uses' => ['store', 'show', 'edit', 'update']
             ]);
             Route::post('kuis', 'Admin\KuisMateriController@store_kuis')->name('store.kuis');
-            
+
             Route::resource('silabus/{id}/submission', 'Admin\SubmissionMateriController',  [
                 'names' => 'submission.materi',
                 'uses' => ['store', 'show', 'edit', 'update']
@@ -132,11 +132,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('academy/class/{id}/register', 'AcademyController@register')->name('register.academy');
             Route::post('academy/class/{id}/register', 'AcademyController@store_register')->name('store_register.academy');
 
+            Route::post('kirimjawaban', 'Member\ModulAcademyController@kirim_jawaban')->name('modul.kirim_jawaban');
+           
             Route::group(['middleware' => 'checkJenisKelas', 'checkTipePembaca'], function () {
-                Route::resource('academy/class/{id}/', 'Member\ModulAcademyController',  [
-                    'names' => 'modul',
-                    'uses' => ['index']
-                ]);
+                Route::get('academy/class/{id}', 'Member\ModulAcademyController@index')->name('modul.index');
             });
         });
     });

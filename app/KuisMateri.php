@@ -21,4 +21,9 @@ class KuisMateri extends Model
     {
         return $this->belongsTo('App\MateriSilabus', 'materi_silabus_id');
     }
+
+    public function jawaban_kuis_pesertas()
+    {
+        return $this->hasMany('App\JawabanKuisPeserta');
+    }
 }

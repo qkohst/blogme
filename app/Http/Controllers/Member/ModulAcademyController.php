@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Member;
 use App\Academy;
 use App\ArtikelMateri;
 use App\Http\Controllers\Controller;
+use App\JawabanKuisPeserta;
 use App\KuisMateri;
 use App\MateriSilabus;
 use App\NotifikasiMember;
+use App\PesertaAcademy;
 use App\RiwayatBelajar;
 use App\SilabusAcademy;
 use App\SubmissionMateri;
 use App\VidioMateri;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +27,6 @@ class ModulAcademyController extends Controller
      */
     public function index($id)
     {
-
         $academy = Academy::findorfail($id);
         $materi = MateriSilabus::findorfail(request('materi'));
         $title = $materi->judul_materi;
@@ -133,7 +135,12 @@ class ModulAcademyController extends Controller
         } elseif ($materi->tipe_materi == 3) {
             $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
 
+            $peserta = PesertaAcademy::where('academy_id', $id)->where('user_id', Auth::user()->id)->first();
             $data_kuis = KuisMateri::where('materi_silabus_id', $materi->id)->get();
+            foreach ($data_kuis as $kuis) {
+                $kuis->jawaban = JawabanKuisPeserta::where('peserta_academy_id', $peserta->id)->where('kuis_materi_id', $kuis->id)->first();
+            }
+            $jumlah_jawab = JawabanKuisPeserta::where('peserta_academy_id', $peserta->id)->count();
             return view('academy.materi.kuis', compact(
                 'title',
                 'title2',
@@ -142,6 +149,8 @@ class ModulAcademyController extends Controller
                 'silabus_academies',
                 'materi',
                 'data_kuis',
+                'jumlah_jawab',
+                'peserta',
                 'previous',
                 'next'
             ));
@@ -161,6 +170,29 @@ class ModulAcademyController extends Controller
                 'next'
             ));
         }
+    }
+
+    public function kirim_jawaban(Request $request)
+    {
+        for ($count = 0; $count < count($request->kuis_materi_id); $count++) {
+            $kuis = KuisMateri::findorfail($request->kuis_materi_id[$count]);
+            if ($kuis->kunci_jawaban == $request->jawaban[$request->kuis_materi_id[$count]]) {
+                $poin = $kuis->poin;
+            } else {
+                $poin = 0;
+            }
+            $data = array(
+                'peserta_academy_id'  => $request->peserta_academy_id,
+                'kuis_materi_id'  => $request->kuis_materi_id[$count],
+                'jawaban'  => $request->jawaban[$request->kuis_materi_id[$count]],
+                'poin' => $poin,
+                'created_at'  => Carbon::now(),
+                'updated_at'  => Carbon::now(),
+            );
+            $store_data[] = $data;
+        }
+        JawabanKuisPeserta::insert($store_data);
+        return back()->with('toast_success', 'Jawaban berhasil dikirim.');
     }
 
     /**

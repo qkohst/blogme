@@ -74,11 +74,11 @@
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Tipe Pembaca</label> <br>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tipe_pembaca" id="inlineRadio1" value="Semua Orang" {{ $materi->tipe_pembaca == "Semua Orang" ? "checked" : "" }}>
+                                        <input class="form-check-input" type="radio" name="tipe_pembaca" id="inlineRadio1" value="Semua Orang" disabled>
                                         <label class="form-check-label" for="inlineRadio1">Semua Orang</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tipe_pembaca" id="inlineRadio2" value="Member" {{ $materi->tipe_pembaca == "Member" ? "checked" : "" }}>
+                                        <input class="form-check-input" type="radio" name="tipe_pembaca" id="inlineRadio2" value="Member" checked>
                                         <label class="form-check-label" for="inlineRadio2">Member</label>
                                     </div>
                                     @error('tipe_pembaca')
