@@ -6,8 +6,10 @@ use App\Academy;
 use App\ArtikelMateri;
 use App\Http\Controllers\Controller;
 use App\JawabanKuisPeserta;
+use App\JawabanSubmissionPeserta;
 use App\KuisMateri;
 use App\MateriSilabus;
+use App\NotifikasiAdmin;
 use App\NotifikasiMember;
 use App\PesertaAcademy;
 use App\RiwayatBelajar;
@@ -17,6 +19,8 @@ use App\VidioMateri;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class ModulAcademyController extends Controller
 {
@@ -102,6 +106,9 @@ class ModulAcademyController extends Controller
             }
         }
 
+        $peserta = PesertaAcademy::where('academy_id', $id)->where('user_id', Auth::user()->id)->first();
+
+
         if ($materi->tipe_materi == 1) {
             $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
 
@@ -135,7 +142,6 @@ class ModulAcademyController extends Controller
         } elseif ($materi->tipe_materi == 3) {
             $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
 
-            $peserta = PesertaAcademy::where('academy_id', $id)->where('user_id', Auth::user()->id)->first();
             $data_kuis = KuisMateri::where('materi_silabus_id', $materi->id)->get();
             foreach ($data_kuis as $kuis) {
                 $kuis->jawaban = JawabanKuisPeserta::where('peserta_academy_id', $peserta->id)->where('kuis_materi_id', $kuis->id)->first();
@@ -155,9 +161,18 @@ class ModulAcademyController extends Controller
                 'next'
             ));
         } elseif ($materi->tipe_materi == 4) {
+            // Update Notifikasi
+            $notifikasi = NotifikasiMember::where('url', '/member/academy/class/' . $materi->silabus_academies->academy_id . '?materi=' . $materi->id)->where('status', '0')->orderBy('id', 'desc')->first();
+
+            if (!is_null($notifikasi)) {
+                $notifikasi->update([
+                    'status' => '1',
+                ]);
+            }
             $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
 
             $submission = SubmissionMateri::where('materi_silabus_id', $materi->id)->first();
+            $jawab_submission = JawabanSubmissionPeserta::where('peserta_academy_id', $peserta->id)->where('submission_materi_id', $submission->id)->first();
             return view('academy.materi.submission', compact(
                 'title',
                 'title2',
@@ -166,6 +181,8 @@ class ModulAcademyController extends Controller
                 'silabus_academies',
                 'materi',
                 'submission',
+                'jawab_submission',
+                'peserta',
                 'previous',
                 'next'
             ));
@@ -193,6 +210,67 @@ class ModulAcademyController extends Controller
         }
         JawabanKuisPeserta::insert($store_data);
         return back()->with('toast_success', 'Jawaban berhasil dikirim.');
+    }
+
+    public function kirim_submission(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'peserta_academy_id' => 'required',
+            'submission_materi_id' => 'required',
+            'link_jawaban' => 'required|max:255|unique:jawaban_submission_pesertas',
+        ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        } else {
+            $submission = new JawabanSubmissionPeserta([
+                'peserta_academy_id' => $request->peserta_academy_id,
+                'submission_materi_id' => $request->submission_materi_id,
+                'link_jawaban' => $request->link_jawaban,
+                'deskripsi' => $request->deskripsi,
+                'status' => 'waiting'
+            ]);
+            $submission->save();
+
+            $notifikasi = new NotifikasiAdmin([
+                'user_id' => Auth::user()->id,
+                'judul' => 'Submission Kelas Baru',
+                'url' => '/admin/submission',
+                'status' => '0',
+            ]);
+            $notifikasi->save();
+
+            return back()->with('toast_success', 'Berhasil dikirim.');
+        }
+    }
+
+    public function kirim_ulang_submission(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'link_jawaban' => 'required|max:255',
+        ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        } else {
+            $submission = JawabanSubmissionPeserta::findorfail($request->id);
+
+            $data = [
+                'link_jawaban' => $request->link_jawaban,
+                'deskripsi' => $request->deskripsi,
+                'status' => 'waiting'
+            ];
+            $submission->update($data);
+
+            $notifikasi = new NotifikasiAdmin([
+                'user_id' => Auth::user()->id,
+                'judul' => 'Submission Kelas Baru',
+                'url' => '/admin/submission',
+                'status' => '0',
+            ]);
+            $notifikasi->save();
+
+            return back()->with('toast_success', 'Berhasil dikirim.');
+        }
     }
 
     /**

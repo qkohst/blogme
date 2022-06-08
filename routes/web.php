@@ -111,6 +111,11 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'peserta',
                 'uses' => ['index', 'update']
             ]);
+
+            Route::resource('submission', 'Admin\JawabanSubmissionPesertaController',  [
+                'names' => 'submission',
+                'uses' => ['index', 'update']
+            ]);
         });
     });
 
@@ -133,7 +138,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('academy/class/{id}/register', 'AcademyController@store_register')->name('store_register.academy');
 
             Route::post('kirimjawaban', 'Member\ModulAcademyController@kirim_jawaban')->name('modul.kirim_jawaban');
-           
+            Route::post('kirimsubmission', 'Member\ModulAcademyController@kirim_submission')->name('modul.kirim_submission');
+            Route::post('kirimulangsubmission', 'Member\ModulAcademyController@kirim_ulang_submission')->name('modul.kirim_ulang_submission');
+
             Route::group(['middleware' => 'checkJenisKelas', 'checkTipePembaca'], function () {
                 Route::get('academy/class/{id}', 'Member\ModulAcademyController@index')->name('modul.index');
             });

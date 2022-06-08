@@ -15,4 +15,9 @@ class SubmissionMateri extends Model
     {
         return $this->belongsTo('App\MateriSilabus', 'materi_silabus_id');
     }
+
+    public function jawaban_submission_pesertas()
+    {
+        return $this->hasMany('App\JawabanSubmissionPeserta');
+    }
 }
