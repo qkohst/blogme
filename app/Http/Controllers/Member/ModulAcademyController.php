@@ -13,8 +13,10 @@ use App\NotifikasiAdmin;
 use App\NotifikasiMember;
 use App\PesertaAcademy;
 use App\RiwayatBelajar;
+use App\SertifikatPesertaAcademy;
 use App\SilabusAcademy;
 use App\SubmissionMateri;
+use App\TestimoniAcademy;
 use App\VidioMateri;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -121,6 +123,7 @@ class ModulAcademyController extends Controller
                 'silabus_academies',
                 'materi',
                 'artikel',
+                'peserta',
                 'previous',
                 'next'
             ));
@@ -136,6 +139,7 @@ class ModulAcademyController extends Controller
                 'silabus_academies',
                 'materi',
                 'vidio',
+                'peserta',
                 'previous',
                 'next'
             ));
@@ -273,69 +277,42 @@ class ModulAcademyController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function selesai_kelas(Request $request)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'academy_id' => 'required',
+            'testimoni' => 'required|min:50',
+        ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        } else {
+            $peserta_academy = PesertaAcademy::where('academy_id', $request->academy_id)->where('user_id', Auth::user()->id)->first();
+            $peserta_academy->update([
+                'status' => 'finish',
+            ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            $testimoni = new TestimoniAcademy([
+                'academy_id' => $request->academy_id,
+                'peserta_academy_id' => $peserta_academy->id,
+                'testimoni' => $request->testimoni,
+            ]);
+            $testimoni->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+            $pengajuan_sertifikat = new SertifikatPesertaAcademy([
+                'peserta_academy_id' => $peserta_academy->id,
+                'status' => 'waiting'
+            ]);
+            $pengajuan_sertifikat->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+            $notifikasi = new NotifikasiAdmin([
+                'user_id' => Auth::user()->id,
+                'judul' => 'Submission Kelas Baru',
+                'url' => '/admin/pengajuan-sertifikat',
+                'status' => '0',
+            ]);
+            $notifikasi->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            return back()->with('toast_success', 'Berhasil dikirim.');
+        }
     }
 }

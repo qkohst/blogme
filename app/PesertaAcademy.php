@@ -33,4 +33,14 @@ class PesertaAcademy extends Model
     {
         return $this->hasMany('App\JawabanSubmissionPeserta');
     }
+
+    public function sertifikat_peserta_academies()
+    {
+        return $this->hasOne('App\SertifikatPesertaAcademy');
+    }
+
+    public function testimoni_academies()
+    {
+        return $this->hasOne('App\TestimoniAcademy');
+    }
 }

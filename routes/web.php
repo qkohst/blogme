@@ -140,6 +140,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('kirimjawaban', 'Member\ModulAcademyController@kirim_jawaban')->name('modul.kirim_jawaban');
             Route::post('kirimsubmission', 'Member\ModulAcademyController@kirim_submission')->name('modul.kirim_submission');
             Route::post('kirimulangsubmission', 'Member\ModulAcademyController@kirim_ulang_submission')->name('modul.kirim_ulang_submission');
+            Route::post('selesaikelas', 'Member\ModulAcademyController@selesai_kelas')->name('modul.selesai_kelas');
 
             Route::group(['middleware' => 'checkJenisKelas', 'checkTipePembaca'], function () {
                 Route::get('academy/class/{id}', 'Member\ModulAcademyController@index')->name('modul.index');

@@ -58,7 +58,7 @@ class PesananController extends Controller
             NotifikasiMember::where('to_user_id', Auth::user()->id)->where('url', '/member/orders?pages=approved')->update(['status' => '1']);
             $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
 
-            $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->where('status', 'approved')->orderBy('id', 'desc')->get();
+            $pesanan_kelas = PesertaAcademy::where('user_id', Auth::user()->id)->whereIn('status', ['approved', 'finish'])->orderBy('id', 'desc')->get();
             return view('member.orders.approved', compact(
                 'title',
                 'data_notifikasi',

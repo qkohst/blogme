@@ -25,7 +25,7 @@ class CheckTipePembaca
             $peserta = PesertaAcademy::where('academy_id', $materi->silabus_academies->academy_id)->where('user_id', Auth::user()->id)->first();
             if (is_null($peserta)) {
                 return redirect('member/academy/class/' . $materi->silabus_academies->academy_id . '/register')->with('toast_warning', 'Anda belum terdaftar pada kelas ini.');
-            } elseif ($peserta->status == 'approved') {
+            } elseif ($peserta->status == 'approved' || $peserta->status == 'finish') {
                 return $next($request);
             } else {
                 return redirect('member/orders?pages=waiting')->with('toast_warning', 'Selesaikan pembayaran untuk melanjutkan.');

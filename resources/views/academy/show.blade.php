@@ -226,5 +226,35 @@
         </div>
     </section><!-- End Silabus Section -->
 
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials section-bg">
+        <div class="container">
+
+            <div class="section-title">
+                <span>Testimonials</span>
+                <h2>Testimonials</h2>
+                <p>Pendapat mereka yang telah menyelesaikan kelas ini.</p>
+            </div>
+
+            <div class="owl-carousel testimonials-carousel">
+
+                @foreach($academy->testimoni_academies as $testimoni)
+                <div class="testimonial-item">
+                    <p class="px-4 py-4 mb-4">
+                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        {{$testimoni->testimoni}}
+                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    </p>
+                    <img src="/avatar/{{$testimoni->peserta_academies->users->avatar}}" class="testimonial-img" alt="User Image">
+                    <h3>{{$testimoni->peserta_academies->users->profil_users->nama_lengkap}}</h3>
+                    <h4>{{$testimoni->peserta_academies->users->profil_users->headline}}</h4>
+                </div>
+                @endforeach
+
+            </div>
+
+        </div>
+    </section><!-- End Testimonials Section -->
+
 </main><!-- End #main -->
 @endsection

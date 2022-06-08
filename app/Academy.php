@@ -82,4 +82,9 @@ class Academy extends Model
     {
         return $this->hasMany('App\PesertaAcademy');
     }
+
+    public function testimoni_academies()
+    {
+        return $this->hasMany('App\TestimoniAcademy');
+    }
 }

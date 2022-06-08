@@ -31,7 +31,8 @@ class AcademyController extends Controller
             $data_notifikasi = null;
         }
         $kategories = Kategory::where('status', 'on')->get();
-        $academies = Academy::where('status', 'on')->filter(request(['kategories', 'jenis_kelas', 'level', 'search']))->orderBy('created_at', 'desc')->paginate(6);
+        $data_id_kategori = Kategory::where('status', 'on')->get('id');
+        $academies = Academy::where('status', 'on')->whereIn('kategory_id', $data_id_kategori)->filter(request(['kategories', 'jenis_kelas', 'level', 'search']))->orderBy('created_at', 'desc')->paginate(6);
 
         if (request('kategories')) {
             $kategori = Kategory::findorfail(request('kategories'));
@@ -143,7 +144,7 @@ class AcademyController extends Controller
         $id_silabus = SilabusAcademy::where('academy_id', $academy->id)->get('id');
         $id_materi = MateriSilabus::whereIn('silabus_academy_id', $id_silabus)->get('id');
         if (Auth::check()) {
-            $check_peserta = PesertaAcademy::where('academy_id', $academy->id)->where('user_id', Auth::user()->id)->where('status', 'approved')->first();
+            $check_peserta = PesertaAcademy::where('academy_id', $academy->id)->where('user_id', Auth::user()->id)->whereIn('status', ['approved','finish'])->first();
             $riwayat_belajar_terakhir = RiwayatBelajar::whereIn('materi_silabus_id', $id_materi)->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
         } else {
             $riwayat_belajar_terakhir = null;

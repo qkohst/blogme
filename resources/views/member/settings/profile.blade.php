@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="nama_lengkap">Nama Lengkap</label>
+                <label for="nama_lengkap">Nama Lengkap</label> <small>(akan digunakan pada nama sertifikat)</small>
                 <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" name="nama_lengkap" id="nama_lengkap" value="{{!empty($profile) ? $profile->nama_lengkap:''}}" />
                 @error('nama_lengkap')
                 <small class="form-text text-danger">{{ $message }}</small>

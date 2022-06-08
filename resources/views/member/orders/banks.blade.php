@@ -37,7 +37,3 @@
 </div>
 
 @endsection
-
-<!-- 
-PERBAIKI ACADEMY CONTROLLER INDEX 
-& LANJUT DI ORDER  -->

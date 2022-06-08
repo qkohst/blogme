@@ -28,10 +28,13 @@
 
                 <!-- Left Nav  -->
                 <div class="col-lg-3">
+                    @if($peserta->status == 'finish')
+                    <a href="" class="btn btn-dark btn-block d-none d-lg-block"><i class="icofont-license"></i> Lihat Sertifikat Kelas</a>
+                    @else
                     <a href="" class="btn btn-dark btn-block d-none d-lg-block"><i class="icofont-comment"></i> Diskusikan Materi</a>
                     <!-- LANJUT DISINI -->
                     <a href="" class="btn btn-outline-dark btn-block d-none d-lg-block"><i class="icofont-warning-alt"></i> Laporkan Materi</a>
-
+                    @endif
                     <div class="text-lg my-3">
                         Daftar Modul
                     </div>
