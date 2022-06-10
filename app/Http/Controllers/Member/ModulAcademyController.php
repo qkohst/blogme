@@ -306,7 +306,7 @@ class ModulAcademyController extends Controller
 
             $notifikasi = new NotifikasiAdmin([
                 'user_id' => Auth::user()->id,
-                'judul' => 'Submission Kelas Baru',
+                'judul' => 'Pengajuan Sertifikat Kelas',
                 'url' => '/admin/pengajuan-sertifikat',
                 'status' => '0',
             ]);

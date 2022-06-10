@@ -37,6 +37,8 @@ Route::post('login', 'AuthController@login_post')->name('login');
 Route::get('register', 'AuthController@register_page')->name('register');
 Route::post('register', 'AuthController@register_post')->name('register');
 
+Route::get('sertifikat/generate/{id}', 'SertifikatAcademyController@show')->name('sertifikat.show');
+
 Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('logout', 'AuthController@logout')->name('logout');
@@ -115,6 +117,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::resource('submission', 'Admin\JawabanSubmissionPesertaController',  [
                 'names' => 'submission',
                 'uses' => ['index', 'update']
+            ]);
+
+            Route::resource('pengajuan-sertifikat', 'Admin\PengajuanSertifikatController',  [
+                'names' => 'pengajuan-sertifikat',
+                'uses' => ['index', 'show', 'update']
             ]);
         });
     });

@@ -29,7 +29,12 @@
                 <!-- Left Nav  -->
                 <div class="col-lg-3">
                     @if($peserta->status == 'finish')
-                    <a href="" class="btn btn-dark btn-block d-none d-lg-block"><i class="icofont-license"></i> Lihat Sertifikat Kelas</a>
+                    <div class="card bg-gradient-info">
+                        <div class="card-body">
+                            <p class="my-0 text-center">Anda telah menyelesaikan kelas ini.</p>
+                        </div>
+                    </div>
+                    <a href="{{ route('sertifikat.show', $peserta->id) }}" target="_black" class="btn btn-dark btn-block d-none d-lg-block"><i class="icofont-license"></i> Lihat Sertifikat</a>
                     @else
                     <a href="" class="btn btn-dark btn-block d-none d-lg-block"><i class="icofont-comment"></i> Diskusikan Materi</a>
                     <!-- LANJUT DISINI -->

@@ -78,6 +78,12 @@
                 </div>
                 <span class="nav-link-text ms-1">Submission Kelas</span>
             </a>
+            <a class="nav-link {{ Route::is('pengajuan-sertifikat.*') ? 'active' : '' }}" href="{{ route('pengajuan-sertifikat.index') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-license text-warning text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Pengajuan Sertifikat</span>
+            </a>
         </li>
 
         <li class="nav-item mt-3">
