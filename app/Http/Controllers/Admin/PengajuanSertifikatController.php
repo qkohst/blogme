@@ -8,6 +8,7 @@ use App\JawabanSubmissionPeserta;
 use App\KuisMateri;
 use App\MateriSilabus;
 use App\NotifikasiAdmin;
+use App\NotifikasiMember;
 use App\RiwayatBelajar;
 use App\SertifikatPesertaAcademy;
 use App\SilabusAcademy;
@@ -92,29 +93,55 @@ class PengajuanSertifikatController extends Controller
         $pengajuan_sertifikat = SertifikatPesertaAcademy::findorfail($id);
         $validator = Validator::make($request->all(), [
             'status' => 'required',
-            'catatan_verifikasi' => 'required',
         ]);
+
+        if ($request->status == 'approved') {
+            $validator = Validator::make($request->all(), [
+                'file_sertifikat' => "required|mimes:pdf|max:10000"
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'catatan_verifikasi' => 'required|max:255',
+            ]);
+        }
 
         if ($validator->fails()) {
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         } else {
 
             if ($request->status == 'approved') {
+
+                $file_sertifikat = $request->file('file_sertifikat');
+                $nama_file = time() . '.' . $file_sertifikat->getClientOriginalExtension();
+                $file_sertifikat->move('file-sertifikat/', $nama_file);
+
                 $data = [
                     'status' => $request->status,
+                    'file_sertifikat' => $request->nama_file,
                     'catatan_verifikasi' => $request->catatan_verifikasi,
                 ];
                 $pengajuan_sertifikat->update($data);
 
-                // Add Notifikasi
+                $notifikasi = new NotifikasiMember([
+                    'to_user_id' => $pengajuan_sertifikat->peserta_academies->user_id,
+                    'judul' => 'Pengajuan sertifikat disetujui',
+                    'url' => '/file-sertifikat/' . $pengajuan_sertifikat->peserta_academy_id,
+                    'status' => '0',
+                ]);
+                $notifikasi->save();
             } else {
-                // Generate Sertifikat
                 $data = [
                     'status' => $request->status,
                     'catatan_verifikasi' => $request->catatan_verifikasi,
                 ];
                 $pengajuan_sertifikat->update($data);
-                // Add Notifikasi
+                $notifikasi = new NotifikasiMember([
+                    'to_user_id' => $pengajuan_sertifikat->peserta_academies->user_id,
+                    'judul' => 'Pengajuan sertifikat ditolak',
+                    'url' => '/file-sertifikat/' . $pengajuan_sertifikat->peserta_academy_id,
+                    'status' => '0',
+                ]);
+                $notifikasi->save();
             }
 
             return back()->with('toast_success', 'Berhasil disimpan.');

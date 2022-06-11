@@ -37,7 +37,7 @@ Route::post('login', 'AuthController@login_post')->name('login');
 Route::get('register', 'AuthController@register_page')->name('register');
 Route::post('register', 'AuthController@register_post')->name('register');
 
-Route::get('sertifikat/generate/{id}', 'SertifikatAcademyController@show')->name('sertifikat.show');
+Route::get('file-sertifikat/{id}', 'SertifikatAcademyController@show')->name('sertifikat.show');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');

@@ -83,7 +83,7 @@
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Verifikasi {{$title}}</h5>
                                         </div>
-                                        <form id="formVerifikasi{{$pengajuan_sertifikat->id}}" action="{{ route('pengajuan-sertifikat.update', $pengajuan_sertifikat->id) }}" method="post">
+                                        <form id="formVerifikasi{{$pengajuan_sertifikat->id}}" action="{{ route('pengajuan-sertifikat.update', $pengajuan_sertifikat->id) }}" method="post" enctype="multipart/form-data">
                                             {{ method_field('PATCH') }}
                                             @csrf
                                             <div class="modal-body">
@@ -109,20 +109,24 @@
                                                 </div>
                                                 <hr class="horizontal dark">
                                                 <div class="row">
-                                                    <div class="col-lg-12 form-group">
+                                                    <div class="col-lg-6 form-group">
                                                         <label for="example-text-input" class="form-control-label">Status Verifikasi</label> <br>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="status" id="inlineRadio1" value="approved" {{ old('status') == "approved" ? "checked" : "" }}>
-                                                            <label class="form-check-label" for="inlineRadio1">Lulus</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" name="status" id="inlineRadio2" value="rejected" {{ old('status') == "rejected" ? "checked" : "" }}>
-                                                            <label class="form-check-label" for="inlineRadio2">Tidak Lulus</label>
+                                                        <select class="form-select" aria-label="Default select example" name="status" onchange="enableForm(this);">
+                                                            <option value="" selected>-- Pilih Status Verifikasi --</option>
+                                                            <option value="approved">Lulus</option>
+                                                            <option value="rejected">Tidak Lulus</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="example-text-input" class="form-control-label">File Sertifikat <small class="text-warning"><i>* .pdf</i></small></label>
+                                                            <input class="form-control" id="sertifikatDisable" type="file" disabled>
+                                                            <input class="form-control" id="sertifikatEnable" type="file" name="file_sertifikat" accept="application/pdf" style="display: none;">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 form-group">
                                                         <label for="example-text-input" class="form-control-label">Catatan</label>
-                                                        <textarea class="form-control" name="catatan_verifikasi" rows="4">{{old('catatan_verifikasi')}}</textarea>
+                                                        <textarea class="form-control" name="catatan_verifikasi" rows="4"></textarea>
                                                     </div>
                                                 </div>
 
@@ -195,5 +199,15 @@
     jQuery(document).ready(function() {
         SweetAlert2Demo.init();
     });
+
+    function enableForm(that) {
+        if (that.value == "approved") {
+            document.getElementById("sertifikatEnable").style.display = "block";
+            document.getElementById("sertifikatDisable").style.display = "none";
+        } else {
+            document.getElementById("sertifikatEnable").style.display = "none";
+            document.getElementById("sertifikatDisable").style.display = "block";
+        }
+    }
 </script>
 @endsection
