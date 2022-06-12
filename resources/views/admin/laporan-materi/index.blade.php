@@ -70,7 +70,7 @@
                                     @endif
                                 </td>
                                 <td class="align-middle ms-auto text-center">
-                                    <a class="btn btn-link text-primary px-2 mb-0" href="{{ route('laporan-materi.show',$laporan->id) }}" target="_black"><i class="icofont-eye-alt text-primary me-2"></i>Detail</a>
+                                    <a class="btn btn-link text-primary px-2 mb-0" href="{{ route('laporan-materi.show',$laporan->id) }}"><i class="icofont-eye-alt text-primary me-2"></i>Detail</a>
                                 </td>
                             </tr>
                             @endforeach

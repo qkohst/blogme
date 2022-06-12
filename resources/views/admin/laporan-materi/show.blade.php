@@ -59,7 +59,7 @@
             </div>
 
             <div class="card-footer pt-0 pb-2">
-                <a href="{{ route('laporan-materi.edit',$laporan->id) }}" class="btn btn-primary btn-sm ms-auto">Detail Materi</a>
+                <a href="{{ route('laporan-materi.edit',$laporan->id) }}" target="_black" class="btn btn-primary btn-sm ms-auto">Detail Materi</a>
             </div>
         </div>
     </div>

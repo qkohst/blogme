@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <ol>
                     <li><a href="{{ route('home') }}">Home</a></li>
-                    <li><a href="{{ route('profile.index') }}">Member</a></li>
+                    <li><a href="{{ route('profile.index') }}?pages=tentang-saya">Member</a></li>
                     <li><a href="{{ route('orders.index') }}?pages=waiting">Pesanan Saya</a></li>
                     <li>{{$title}}</li>
                 </ol>

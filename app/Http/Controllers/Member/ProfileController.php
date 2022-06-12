@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Member;
 
-use App\DataPribadiUser;
 use App\Http\Controllers\Controller;
 use App\NotifikasiMember;
+use App\PesertaAcademy;
 use App\User;
-use App\ProfilUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,19 +18,28 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $title = 'Profil Saya';
+        $pages = request('pages');
         $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
-
         $user = User::findorfail(Auth::user()->id);
-        $data_pribadi = DataPribadiUser::where('user_id', $user->id)->first();
-        $profil = ProfilUser::where('user_id', $user->id)->first();
-        return view('member.profile.index', compact(
-            'title',
-            'data_notifikasi',
-            'user',
-            'data_pribadi',
-            'profil',
-        ));
+
+        $data_peserta = PesertaAcademy::where('user_id', Auth::user()->id)->whereIn('status', ['approved', 'finish'])->get();
+        if ($pages == 'tentang-saya') {
+            $title = 'Tentang Saya';
+            return view('member.profile.tentang-saya', compact(
+                'title',
+                'data_notifikasi',
+                'user',
+                'data_peserta',
+            ));
+        } elseif ($pages == 'academy') {
+            $title = 'Kelas Saya';
+            return view('member.profile.academy', compact(
+                'title',
+                'data_notifikasi',
+                'user',
+                'data_peserta',
+            ));
+        }
     }
 
     /**

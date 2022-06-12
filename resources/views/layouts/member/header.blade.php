@@ -73,7 +73,7 @@
                         </li>
 
                         <hr class="mt-1 mb-0">
-                        <li><a href="{{ route('profile.index') }}"><i class="icofont-user"></i> Profil Saya</a></li>
+                        <li><a href="{{ route('profile.index') }}?pages=tentang-saya"><i class="icofont-user"></i> Profil Saya</a></li>
                         <li class="drop-down"><a href="#"><i class="icofont-external"></i> Program Saya</a>
                             <ul>
                                 <li><a href="#"><i class="icofont-learn"></i> Academy</a></li>
