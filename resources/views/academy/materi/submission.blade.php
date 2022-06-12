@@ -231,8 +231,3 @@
 </div>
 
 @endsection
-
-@section('page_scripts')
-<!-- bootstrap -->
-<script src="/admin-assets/js/core/bootstrap.min.js"></script>
-@endsection

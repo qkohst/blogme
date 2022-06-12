@@ -1,5 +1,10 @@
 @extends('layouts.member.master')
 
+@section('style')
+<!-- summernote -->
+<link rel="stylesheet" href="/admin-assets/plugins/summernote/summernote-bs4.css">
+@endsection
+
 @section('content')
 
 <main id="main">
@@ -28,7 +33,7 @@
 
                 <!-- Left Nav  -->
                 <div class="col-lg-3">
-                    @if($peserta->status == 'finish')
+                    @if(!is_null($peserta) && $peserta->status == 'finish')
                     <div class="card bg-gradient-info">
                         <div class="card-body">
                             <p class="my-0 text-center">Anda telah menyelesaikan kelas ini.</p>
@@ -37,8 +42,49 @@
                     <a href="{{ route('sertifikat.show', $peserta->id) }}" target="_black" class="btn btn-dark btn-block d-none d-lg-block"><i class="icofont-license"></i> Lihat Sertifikat</a>
                     @else
                     <a href="" class="btn btn-dark btn-block d-none d-lg-block"><i class="icofont-comment"></i> Diskusikan Materi</a>
-                    <!-- LANJUT DISINI -->
-                    <a href="" class="btn btn-outline-dark btn-block d-none d-lg-block"><i class="icofont-warning-alt"></i> Laporkan Materi</a>
+
+                    <a href="#" class="btn btn-outline-dark btn-block d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#modalLapor"><i class="icofont-warning-alt"></i> Laporkan Materi</a>
+
+                    <!-- Modal Lapor -->
+                    <div class="modal fade" id="modalLapor" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Laporkan Materi
+                                </div>
+                                <form action="{{ route('lapor.materi') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="materi_silabus_id" value="{{$materi->id}}">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="tipe">Tipe</label> <br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="inlineFormCheck1" name="tipe" value="1" required>
+                                                <label class="form-check-label" for="inlineFormCheck1">
+                                                    Masalah Teknis
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="inlineFormCheck2" name="tipe" value="2">
+                                                <label class="form-check-label" for="inlineFormCheck2">
+                                                    Perbaikan Konten
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="deskripsi">Deskripsi</label>
+                                            <textarea class="form-control summernote" name="deskripsi" id="deskripsi"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-dark">Kirim Laporan</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     @endif
                     <div class="text-lg my-3">
                         Daftar Modul
@@ -78,6 +124,17 @@
 @endsection
 
 @section('scripts')
+
+<script src="/admin-assets/js/core/bootstrap.min.js"></script>
+
+<!-- Summernote -->
+<script src="/admin-assets/plugins/summernote/summernote-bs4.min.js"></script>
+<script>
+    $(function() {
+        // Summernote
+        $('.summernote').summernote()
+    })
+</script>
 
 @yield('page_scripts')
 

@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\NotifikasiMember');
     }
+
+    public function laporan_materis()
+    {
+        return $this->hasMany('App\LaporanMateri');
+    }
 }

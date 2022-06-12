@@ -123,6 +123,10 @@ Route::group(['middleware' => ['auth']], function () {
                 'names' => 'pengajuan-sertifikat',
                 'uses' => ['index', 'show', 'update']
             ]);
+            Route::resource('laporan-materi', 'Admin\LaporanMateriController',  [
+                'names' => 'laporan-materi',
+                'uses' => ['index', 'show', 'edit']
+            ]);
         });
     });
 
@@ -148,10 +152,9 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('kirimsubmission', 'Member\ModulAcademyController@kirim_submission')->name('modul.kirim_submission');
             Route::post('kirimulangsubmission', 'Member\ModulAcademyController@kirim_ulang_submission')->name('modul.kirim_ulang_submission');
             Route::post('selesaikelas', 'Member\ModulAcademyController@selesai_kelas')->name('modul.selesai_kelas');
+            Route::get('academy/class/{id}', 'Member\ModulAcademyController@index')->name('modul.index')->middleware('checkJenisKelas');
 
-            Route::group(['middleware' => 'checkJenisKelas', 'checkTipePembaca'], function () {
-                Route::get('academy/class/{id}', 'Member\ModulAcademyController@index')->name('modul.index');
-            });
+            Route::post('lapor-materi', 'Member\LaporanMateriController@store')->name('lapor.materi');
         });
     });
 });

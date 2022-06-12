@@ -47,7 +47,12 @@
                             </div>
                         </div>
                     </td>
-                    <td data-title="Price"><span>Rp.{{$pesanan->academies->biaya}} </span>
+                    <td data-title="Price">
+                        @if($pesanan->academies->jenis_kelas == 'Gratis')
+                        <span>Rp. 0 </span>
+                        @else
+                        <span>Rp.{{$pesanan->academies->biaya}} </span>
+                        @endif
                     </td>
                 </tr>
                 @endforeach

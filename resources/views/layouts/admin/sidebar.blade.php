@@ -84,6 +84,13 @@
                 </div>
                 <span class="nav-link-text ms-1">Pengajuan Sertifikat</span>
             </a>
+
+            <a class="nav-link {{ Route::is('laporan-materi.*') ? 'active' : '' }}" href="{{ route('laporan-materi.index') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 mb-1 d-flex align-items-center justify-content-center">
+                    <i class="icofont-warning text-danger text-lg opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Laporan Materi</span>
+            </a>
         </li>
 
         <li class="nav-item mt-3">

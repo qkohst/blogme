@@ -42,4 +42,9 @@ class MateriSilabus extends Model
     {
         return $this->hasMany('App\RiwayatBelajar');
     }
+
+    public function laporan_materis()
+    {
+        return $this->hasMany('App\LaporanMateri');
+    }
 }

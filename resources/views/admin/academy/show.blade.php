@@ -196,7 +196,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Siswa</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Progres Belajar</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Status Belajar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -213,15 +213,16 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="align-middle text-center">
-                                                <div class="d-flex align-items-center justify-content-center">
-                                                    <span class="me-2 text-xs font-weight-bold">60%</span>
-                                                    <div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <td class="align-middle text-center text-sm">
+                                                @if($peserta->status == 'waiting')
+                                                <span class="badge badge-sm bg-gradient-warning">Pengajuan</span>
+                                                @elseif($peserta->status == 'rejected')
+                                                <span class="badge badge-sm bg-gradient-danger">Ditolak</span>
+                                                @elseif($peserta->status == 'approved')
+                                                <span class="badge badge-sm bg-gradient-info">Proses</span>
+                                                @elseif($peserta->status == 'finish')
+                                                <span class="badge badge-sm bg-gradient-success">Selesai</span>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach
