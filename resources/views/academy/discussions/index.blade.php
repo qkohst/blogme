@@ -31,7 +31,7 @@
                     <div class="text-lg">
                         Diskusi Kelas
                     </div>
-                    <p class="my-3 text-secondary">Fitur diskusi ini bertujuan untuk mempermudah siswa dalam memahami materi akademi. <br> Kamu dapat bertanya dan menjawab hal teknis terkait materi Kelas ini.</p>
+                    <p class="my-3 text-secondary text-sm">Fitur diskusi ini bertujuan untuk mempermudah siswa dalam memahami materi akademi. <br> Kamu dapat bertanya dan menjawab hal teknis terkait materi Kelas ini.</p>
 
                     <a href="{{ route('discussions.create', $academy->id) }}" class="btn btn-dark btn-block mb-3"><i class="icofont-plus"></i> Buat Diskusi Baru</a>
 
@@ -62,8 +62,9 @@
                     </div>
 
                     <div class="d-none d-lg-block">
-                        <a href=""><span class="btn btn-light badge">#laravel</span></a>
-                        <a href=""><span class="btn btn-light badge">#php</span></a>
+                        @foreach($keywords_populer as $keyword)
+                        <a href=""><span class="btn btn-light badge">#{{$keyword->key}}</span></a>
+                        @endforeach
                     </div>
                 </div>
 
@@ -75,6 +76,10 @@
                         </form>
                     </div>
                     <!-- End Seach Form  -->
+
+                    @if($data_diskusi->count() == 0)
+                    <div class="text-center mb-2">Belum ada diskusi</div>
+                    @else
 
                     <!-- Filter  -->
                     <form action="{{ route('courses.index') }}">
@@ -106,24 +111,31 @@
                         </div>
                     </form>
 
+                    @foreach($data_diskusi as $diskusi)
                     <a href="" role="button">
                         <div class="card">
                             <div class="post px-3 py-3">
                                 <div class="user-block">
-                                    <img class="img-circle img-bordered-sm" src="/member-assets/img/testimonials/testimonials-1.jpg" alt="user image">
+                                    <img class="img-circle img-bordered-sm" src="/avatar/{{$diskusi->users->avatar}}" alt="user image">
                                     <span class="pl-2">
-                                        Cara Mengatasi Error Di Laravel
+                                        {{$diskusi->pertanyaan}}
                                     </span>
-                                    <span class="description">Oleh : Jonathan Burke Jr. | 7:30 PM today</span>
+                                    <span class="description">Oleh : {{$diskusi->users->username}} | {{$diskusi->created_at->diffForHumans()}}
+                                        @if($diskusi->status == 0)
+                                        | <span class="badge badge-info">Selesai</span>
+                                        @endif
+                                    </span>
                                 </div>
-                                <!-- /.user-block -->
 
                                 <p class="text-dark">
-                                    Saya sedang membuat tugas untuk membauat web sederhana menggunakan laravel tetapi ketika di akses mengalamai error serperti ini.
+                                    {!! substr(strip_tags($diskusi->uraian_pertanyaan), 0, 150) !!}...
                                 </p>
 
-                                <span class="badge bg-light">#laravel</span>
-                                <span class="badge bg-light">#php</span>
+                                <p class="text-dark text-sm mb-0">Keywords:</p>
+
+                                @foreach($diskusi->kata_kunci_diskusis as $key)
+                                <a href=""><span class="btn btn-light badge">#{{$key->kata_kuncis->key}}</span></a>
+                                @endforeach
 
                                 <p class="my-2">
                                     <a href="#" class="link-black text-sm mr-2">
@@ -136,43 +148,16 @@
                             </div>
                         </div>
                     </a>
+                    @endforeach
 
-                    <a href="" role="button">
-                        <div class="card">
-                            <div class="post px-3 py-3">
-                                <div class="user-block">
-                                    <img class="img-circle img-bordered-sm" src="/member-assets/img/testimonials/testimonials-1.jpg" alt="user image">
-                                    <span class="pl-2">
-                                        Cara Mengatasi Error Di Laravel <span class="badge badge-info">Selesai</span>
-                                    </span>
-                                    <span class="description">Oleh : Jonathan Burke Jr. | 7:30 PM today</span>
-                                </div>
-                                <!-- /.user-block -->
-
-                                <p class="text-dark">
-                                    Saya sedang membuat tugas untuk membauat web sederhana menggunakan laravel tetapi ketika di akses mengalamai error serperti ini.
-                                </p>
-
-                                <span class="badge bg-light">#laravel</span>
-                                <span class="badge bg-light">#php</span>
-
-                                <p class="my-2">
-                                    <a href="#" class="link-black text-sm mr-2">
-                                        <i class="icofont-book-alt"></i> Submission
-                                    </a>
-                                    <a href="#" class="link-black text-sm mr-2">
-                                        <i class="icofont-comment mr-1"></i> 5 Pembahasan
-                                    </a>
-                                </p>
-                            </div>
+                    <!-- Pagination  -->
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center pt-4">
+                            {{$data_diskusi->links()}}
                         </div>
-                    </a>
-
-
-
-                    <div class="text-center">
-                        <a href="#">Read More <i class="icofont-rounded-down"></i></a>
                     </div>
+                    @endif
+
                 </div>
 
             </div>

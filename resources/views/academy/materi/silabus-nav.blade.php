@@ -39,9 +39,9 @@
                             <p class="my-0 text-center">Anda telah menyelesaikan kelas ini.</p>
                         </div>
                     </div>
-                    <a href="{{ route('sertifikat.show', $peserta->id) }}" target="_black" class="btn btn-outline-secondary bg-light btn-block d-none d-lg-block"><i class="icofont-license"></i> Lihat Sertifikat</a>
+                    <a href="{{ route('sertifikat.show', $peserta->id) }}" target="_blank" class="btn btn-outline-secondary bg-light btn-block d-none d-lg-block"><i class="icofont-license"></i> Lihat Sertifikat</a>
                     @else
-                    <a href="{{ route('discussions.index', $academy->id) }}?materi={{$materi->id}}" target="_black" class="btn btn-outline-secondary bg-light btn-block d-none d-lg-block"><i class="icofont-comment"></i> Diskusikan Materi</a>
+                    <a href="{{ route('discussions.index', $academy->id) }}?materi={{$materi->id}}" target="_blank" class="btn btn-outline-secondary bg-light btn-block d-none d-lg-block"><i class="icofont-comment"></i> Diskusikan Materi</a>
 
                     <a href="#" class="btn btn-outline-secondary bg-light btn-block d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#modalLapor"><i class="icofont-warning-alt"></i> Laporkan Materi</a>
 
