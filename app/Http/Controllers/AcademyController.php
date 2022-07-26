@@ -24,6 +24,7 @@ class AcademyController extends Controller
      */
     public function index()
     {
+        dd(request(['level']));
         $title = 'Kelas';
         if (Auth::check()) {
             $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();

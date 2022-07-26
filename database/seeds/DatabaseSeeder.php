@@ -1,6 +1,7 @@
 <?php
 
 use App\Contact;
+use App\Fasilitas;
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -33,6 +34,18 @@ class DatabaseSeeder extends Seeder
             'link_facebook'    => 'https://web.facebook.com/qkohst',
             'link_instagram'    => 'https://www.instagram.com/qkoh_st',
             'link_youtube'    => 'https://www.youtube.com/channel/UCHO5t3O1satYKfGnlxGDVsg/videos',
+        ]);
+
+        // Add fasilitas table seeder 
+        Fasilitas::create([
+            'nama_fasilitas'    => 'Forum Diskusi',
+            'icon'    => '<i class="icofont-ui-text-chat"></i>',
+            'deskripsi'    => 'Diskusikan materi belajar dengan siswa lainnya.'
+        ]);
+        Fasilitas::create([
+            'nama_fasilitas'    => 'Sertifikat',
+            'icon'    => '<i class="icofont-license"></i>',
+            'deskripsi'    => 'Dapatkan sertifikat kompetensi setelah menyelesaikan kelas ini.'
         ]);
     }
 }

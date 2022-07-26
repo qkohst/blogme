@@ -94,8 +94,6 @@
             textbox.text(filesCount + ' files selected');
         }
 
-
-
         if (typeof(FileReader) != "undefined") {
             var dvPreview = $("#divImageMediaPreview");
             dvPreview.html("");

@@ -155,6 +155,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('academy/class/{id}', 'Member\ModulAcademyController@index')->name('modul.index')->middleware('checkJenisKelas');
 
             Route::post('lapor-materi', 'Member\LaporanMateriController@store')->name('lapor.materi');
+
+            Route::get('academy/class/{id}/discussions', 'Member\DiskusiMateriController@index')->name('discussions.index');
+            Route::get('academy/class/{id}/discussions/create', 'Member\DiskusiMateriController@create')->name('discussions.create');
+            Route::post('academy/class/{id}/discussions/store', 'Member\DiskusiMateriController@store')->name('discussions.store');
         });
     });
 });

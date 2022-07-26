@@ -2,44 +2,45 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\Academy;
 use App\Http\Controllers\Controller;
+use App\MateriSilabus;
 use App\NotifikasiMember;
 use App\PesertaAcademy;
-use App\User;
+use App\SilabusAcademy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+class DiskusiMateriController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $pages = request('pages');
-        $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
-        $user = User::findorfail(Auth::user()->id);
+        $academy = Academy::findorfail($id);
+        
+        $title = 'Diskusi Kelas';
+        $title2 = $academy->nama_kelas;
 
-        $data_peserta = PesertaAcademy::where('user_id', Auth::user()->id)->whereIn('status', ['approved', 'finish'])->orderBy('status', 'asc')->get();
-        if ($pages == 'tentang-saya') {
-            $title = 'Tentang Saya';
-            return view('member.profile.tentang-saya', compact(
-                'title',
-                'data_notifikasi',
-                'user',
-                'data_peserta',
-            ));
-        } elseif ($pages == 'academy') {
-            $title = 'Kelas Saya';
-            return view('member.profile.academy', compact(
-                'title',
-                'data_notifikasi',
-                'user',
-                'data_peserta',
-            ));
+        $peserta = PesertaAcademy::where('academy_id', $id)->where('user_id', Auth::user()->id)->first();
+        $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
+        $silabus_academies = SilabusAcademy::where('academy_id', $id)->get();
+        foreach ($silabus_academies as $silabus) {
+            $silabus->materi_silabuses = MateriSilabus::where('silabus_academy_id', $silabus->id)->get();
         }
+
+        return view('academy.discussions.index', compact(
+            'title',
+            'title2',
+            'data_notifikasi',
+            'academy',
+            'silabus_academies',
+            'peserta'
+        ));
     }
 
     /**
@@ -47,9 +48,25 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $academy = Academy::findorfail($id);
+        $title = 'Buat Diskusi Baru';
+        $title2 = 'Diskusi Kelas';
+        $title3 = $academy->nama_kelas;
+        $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
+        $silabus_academy_id = SilabusAcademy::where('academy_id', $id)->get('id');
+        $materi_silabuses = MateriSilabus::whereIn('silabus_academy_id', $silabus_academy_id)->get();
+
+        return view('academy.discussions.create', compact(
+            'title',
+            'title2',
+            'title3',
+            'data_notifikasi',
+            'academy',
+            'materi_silabuses',
+        ));
     }
 
     /**
@@ -60,7 +77,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
