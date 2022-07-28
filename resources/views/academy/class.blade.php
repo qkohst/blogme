@@ -29,7 +29,7 @@
                 </ul>
             </div>
         </nav>
-
+        
         <!-- Search -->
         <div class="search form-control-sm justify-content-center mx-2 mb-3">
             <form action="{{ route('courses.index') }}">

@@ -57,59 +57,102 @@
                         </ul>
                     </div>
 
-                    <div class="text-lg my-3 d-none d-lg-block">
-                        Keyword Populer
+                    <div class="text-lg mt-3 d-none d-lg-block">
+                        Keyword Terpopuler
                     </div>
+                    <p class="d-none d-lg-block text-sm">Pada semua kelas</p>
 
                     <div class="d-none d-lg-block">
-                        @foreach($keywords_populer as $keyword)
-                        <a href=""><span class="btn btn-light badge">#{{$keyword->key}}</span></a>
-                        @endforeach
+                        <form action="{{ route('discussions.index', $academy->id)}}" method="get">
+                            @if(request('materi'))
+                            <input type="hidden" name="materi" value="{{request('materi')}}">
+                            @endif
+                            @if(request('search'))
+                            <input type="hidden" name="search" value="{{request('search')}}">
+                            @endif
+
+                            @foreach($keywords_populer as $keyword)
+                            <button name="keyword" value="{{$keyword->key}}" type="submit" class="btn btn-light badge">#{{$keyword->key}}</button>
+                            @endforeach
+                        </form>
                     </div>
                 </div>
 
                 <div class="col-lg-9 col-md-12">
                     <!-- Seach Form  -->
                     <div class="search justify-content-center mb-3">
-                        <form action="" method="post">
-                            <input type="text" name="search" placeholder="Cari judul diskusi"><input type="submit" value="Telusuri">
+                        <form action="{{ route('discussions.index', $academy->id)}}" method="get">
+                            @if(request('materi'))
+                            <input type="hidden" name="materi" value="{{request('materi')}}">
+                            @endif
+                            @if(request('keyword'))
+                            <input type="hidden" name="keyword" value="{{request('keyword')}}">
+                            @endif
+
+                            <input type="text" name="search" value="{{request('search')}}" placeholder="Cari judul diskusi"><input type="submit" value="Telusuri">
                         </form>
                     </div>
                     <!-- End Seach Form  -->
-
-                    @if($data_diskusi->count() == 0)
-                    <div class="text-center mb-2">Belum ada diskusi</div>
-                    @else
-
                     <!-- Filter  -->
-                    <form action="{{ route('courses.index') }}">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <small class="text-sm">Filter berdasarkan : </small><br>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <small class="text-sm">Filter berdasarkan : </small><br>
 
-                                    <!-- <span class="badge badge-dark">Keyword</span>
-                                    <span class="badge badge-dark">Keyword</span> -->
+                                @if(request('materi') != null || request('search') != null || request('keyword') != null )
 
-                                    <small class="text-dark">Tampilkan semua</small>
+                                @if(request('materi'))
+                                <span class="badge badge-dark">materi</span>
+                                @endif
+                                @if(request('search'))
+                                <span class="badge badge-dark">judul</span>
+                                @endif
+                                @if(request('keyword'))
+                                <span class="badge badge-dark">keyword</span>
+                                @endif
 
-                                </div>
+                                @else
+                                <small class="text-dark">Semua diskusi di kelas ini</small>
+                                @endif
+
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
+                        </div>
+                        <div class="col-md-4">
+                            <form action="{{ route('discussions.index', $academy->id)}}" method="get">
+                                @if(request('materi'))
+                                <input type="hidden" name="materi" value="{{request('materi')}}">
+                                @endif
+                                @if(request('search'))
+                                <input type="hidden" name="search" value="{{request('search')}}">
+                                @endif
+                                @if(request('keyword'))
+                                <input type="hidden" name="keyword" value="{{request('keyword')}}">
+                                @endif
 
+                                <div class="form-group">
                                     <small class="text-sm">Urutkan berdasarkan : </small>
                                     <select class="form-control form-control-sm" name="orderBy" id="orderBy" onchange="this.form.submit()">
                                         <option value="Terbaru" {{request('orderBy')=='' ? "selected" : "" }}>Terbaru</option>
                                         <option value="Terlama" {{ request('orderBy') =='Terlama' ? "selected" : "" }}>Terlama</option>
                                         <option value="Selesai" {{ request('orderBy') =='Selesai' ? "selected" : "" }}>Selesai terlebih dahulu</option>
                                         <option value="Belum Selesai" {{ request('orderBy') =='Belum Selesai' ? "selected" : "" }}>Belum Selesai terlebih dahulu</option>
-
                                     </select>
                                 </div>
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <small class="text-sm">Hapus Semua Filter : </small>
+                                <a href="{{ route('discussions.index', $academy->id) }}" class="btn btn-sm btn-dark btn-block">Hapus Filter</a>
                             </div>
                         </div>
-                    </form>
+                    </div>
+
+                    @if($data_diskusi->count() == 0)
+                    <div class="alert bg-gradient-info text-center" role="alert">
+                        Tidak ada diskusi yang dapat ditampilkan. Ayo <a href="{{ route('discussions.create', $academy->id) }}" class="alert-link">buat diskusi</a> sekarang!
+                    </div>
+                    @else
 
                     @foreach($data_diskusi as $diskusi)
                     <a href="" role="button">
@@ -117,7 +160,7 @@
                             <div class="post px-3 py-3">
                                 <div class="user-block">
                                     <img class="img-circle img-bordered-sm" src="/avatar/{{$diskusi->users->avatar}}" alt="user image">
-                                    <span class="pl-2">
+                                    <span class="pl-sm-2">
                                         {{$diskusi->pertanyaan}}
                                     </span>
                                     <span class="description">Oleh : {{$diskusi->users->username}} | {{$diskusi->created_at->diffForHumans()}}
@@ -128,18 +171,34 @@
                                 </div>
 
                                 <p class="text-dark">
-                                    {!! substr(strip_tags($diskusi->uraian_pertanyaan), 0, 150) !!}...
+                                    @if(strip_tags($diskusi->uraian_pertanyaan) > 150)
+                                    {!! substr(strip_tags($diskusi->uraian_pertanyaan), 0, 150) !!} ...
+                                    @else
+                                    {!! strip_tags($diskusi->uraian_pertanyaan) !!}
+                                    @endif
                                 </p>
 
                                 <p class="text-dark text-sm mb-0">Keywords:</p>
 
-                                @foreach($diskusi->kata_kunci_diskusis as $key)
-                                <a href=""><span class="btn btn-light badge">#{{$key->kata_kuncis->key}}</span></a>
-                                @endforeach
+                                <form action="{{ route('discussions.index', $academy->id)}}" method="get">
+                                    @if(request('materi'))
+                                    <input type="hidden" name="materi" value="{{request('materi')}}">
+                                    @endif
+                                    @if(request('search'))
+                                    <input type="hidden" name="search" value="{{request('search')}}">
+                                    @endif
+
+                                    @foreach($diskusi->kata_kunci_diskusis as $key)
+                                    <button name="keyword" value="{{$key->kata_kuncis->key}}" type="submit" class="btn btn-light badge">#{{$key->kata_kuncis->key}}</button>
+                                    @endforeach
+                                </form>
 
                                 <p class="my-2">
-                                    <a href="#" class="link-black text-sm mr-2">
-                                        <i class="icofont-book-alt"></i> Submission
+                                    <a href="{{ route('discussions.index', $diskusi->materi_silabuses->silabus_academies->academy_id) }}" class="link-black text-sm mr-2">
+                                        <i class="icofont-group-students"></i> {{ substr($diskusi->materi_silabuses->silabus_academies->academies->nama_kelas, 0, 15) }} ...
+                                    </a>
+                                    <a href="{{ route('discussions.index', $academy->id) }}?materi={{$diskusi->materi_silabus_id}}" class="link-black text-sm mr-2">
+                                        <i class="icofont-book-alt"></i> {{ substr($diskusi->materi_silabuses->judul_materi, 0, 15) }} ...
                                     </a>
                                     <a href="#" class="link-black text-sm mr-2">
                                         <i class="icofont-comment mr-1"></i> 5 Pembahasan
@@ -153,7 +212,7 @@
                     <!-- Pagination  -->
                     <div class="row">
                         <div class="col-12 d-flex justify-content-center pt-4">
-                            {{$data_diskusi->links()}}
+                            {{$data_diskusi->appends(request()->query())->links()}}
                         </div>
                     </div>
                     @endif

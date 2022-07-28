@@ -37,11 +37,6 @@ class Academy extends Model
             return $query->whereIn('level', $level);
         });
 
-        $query->when($filters['level'] ?? false, function ($query, $level) {
-            return $query->whereIn('level', $level);
-        });
-
-
         $query->when($filters['search'] ?? false, function ($query, $search) {
             return $query->where('nama_kelas', 'like', '%' . $search . '%')
                 ->orWhere('deskripsi', 'like', '%' . $search . '%');

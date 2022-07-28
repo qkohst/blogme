@@ -36,10 +36,9 @@ class DiskusiMateriController extends Controller
             $silabus->materi_silabuses = MateriSilabus::where('silabus_academy_id', $silabus->id)->get();
         }
 
-        $data_diskusi = DiskusiMateri::filter(request(['materi']))->orderBy('created_at', 'desc')->paginate(10);
-        
-        $keywords_populer = KataKunci::orderBy('jumlah_digunakan', 'DESC')->limit(10)->get();
+        $data_diskusi = DiskusiMateri::filter(request(['materi', 'search', 'orderBy', 'keyword']))->orderBy('created_at', 'DESC')->paginate(5);
 
+        $keywords_populer = KataKunci::orderBy('jumlah_digunakan', 'DESC')->limit(10)->get();
         return view('academy.discussions.index', compact(
             'title',
             'title2',
@@ -47,7 +46,7 @@ class DiskusiMateriController extends Controller
             'academy',
             'silabus_academies',
             'data_diskusi',
-            'keywords_populer'
+            'keywords_populer',
         ));
     }
 
