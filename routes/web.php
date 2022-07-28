@@ -159,6 +159,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('academy/class/{id}/discussions', 'Member\DiskusiMateriController@index')->name('discussions.index');
             Route::get('academy/class/{id}/discussions/create', 'Member\DiskusiMateriController@create')->name('discussions.create');
             Route::post('academy/class/{id}/discussions/store', 'Member\DiskusiMateriController@store')->name('discussions.store');
+            Route::get('academy/class/{id}/discussions/{discussion}', 'Member\DiskusiMateriController@show')->name('discussions.show');
         });
     });
 });

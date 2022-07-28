@@ -98,7 +98,6 @@
                             <small class="text-secondary">Contoh: <b>android, intents, material design</b></small>
                         </div>
 
-                        <!-- <a href="#" class="btn btn-dark text-white btn-save">Buat Diskusi</a> -->
                         <button type="submit" class="btn btn-dark text-white btn-save">Buat Diskusi</button>
 
                         <a href="{{ route('discussions.index', $academy->id) }}" class="btn btn-secondary text-white">Batal</a>
@@ -116,8 +115,6 @@
 @endsection
 
 @section('scripts')
-<!-- Bootstrap 4 -->
-<!-- <script src="/admin-assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <!-- jQuery -->
 <script src="/admin-assets/js/core/bootstrap.min.js"></script>
 <!-- Summernote -->

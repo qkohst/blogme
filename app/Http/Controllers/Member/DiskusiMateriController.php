@@ -147,9 +147,25 @@ class DiskusiMateriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $discussion)
     {
-        //
+        $academy = Academy::findorfail($id);
+
+        $title = 'Detail Diskusi';
+        $title2 = 'Diskusi Kelas';
+        $title3 = $academy->nama_kelas;
+
+        $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
+
+        return view('academy.discussions.show', compact(
+            'title',
+            'title2',
+            'title3',
+            'academy',
+            'data_notifikasi'
+        ));
+
+        // LANJUTKAN TAMPILKAN DATA 
     }
 
     /**

@@ -155,7 +155,7 @@
                     @else
 
                     @foreach($data_diskusi as $diskusi)
-                    <a href="" role="button">
+                    <a href="/member/academy/class/{{$academy->id}}/discussions/{{$diskusi->id}}" role="button">
                         <div class="card">
                             <div class="post px-3 py-3">
                                 <div class="user-block">
@@ -163,7 +163,7 @@
                                     <span class="pl-sm-2">
                                         {{$diskusi->pertanyaan}}
                                     </span>
-                                    <span class="description">Oleh : {{$diskusi->users->username}} | {{$diskusi->created_at->diffForHumans()}}
+                                    <span class="description">Oleh : {{$diskusi->users->profil_users->nama_lengkap}} | {{$diskusi->created_at->diffForHumans()}}
                                         @if($diskusi->status == 0)
                                         | <span class="badge badge-info">Selesai</span>
                                         @endif
@@ -200,7 +200,7 @@
                                     <a href="{{ route('discussions.index', $academy->id) }}?materi={{$diskusi->materi_silabus_id}}" class="link-black text-sm mr-2">
                                         <i class="icofont-book-alt"></i> {{ substr($diskusi->materi_silabuses->judul_materi, 0, 15) }} ...
                                     </a>
-                                    <a href="#" class="link-black text-sm mr-2">
+                                    <a href="/member/academy/class/{{$academy->id}}/discussions/{{$diskusi->id}}" class="link-black text-sm mr-2">
                                         <i class="icofont-comment mr-1"></i> 5 Pembahasan
                                     </a>
                                 </p>
