@@ -160,6 +160,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('academy/class/{id}/discussions/create', 'Member\DiskusiMateriController@create')->name('discussions.create');
             Route::post('academy/class/{id}/discussions/store', 'Member\DiskusiMateriController@store')->name('discussions.store');
             Route::get('academy/class/{id}/discussions/{discussion}', 'Member\DiskusiMateriController@show')->name('discussions.show');
+
+            Route::post('replaydiscussions/store', 'Member\BalasDiskusiMateriController@store')->name('replaydiscussions.store');
         });
     });
 });

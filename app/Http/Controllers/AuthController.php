@@ -55,6 +55,7 @@ class AuthController extends Controller
             'avatar' => 'default.png'
         ]);
         $user->save();
+
         return redirect('login')->with('toast_success', 'Registrasi berhasil, silahkan Login !');
     }
 

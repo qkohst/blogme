@@ -40,15 +40,19 @@
                         <a href="#">
                             <div class="user-block">
                                 <img class="img-circle img-bordered-sm" src="/member-assets/img/testimonials/testimonials-1.jpg" alt="user image">
-                                <span class="pl-2">
+                                <span class="pl-4 ml-4 d-none d-sm-block">
                                     {{$diskusi->pertanyaan}}
                                 </span>
+                                <span class="pl-4 ml-4 d-block d-sm-none">
+                                    {{ substr($diskusi->pertanyaan, 0, 35) }} ...
+                                </span>
+
                                 <p class="description">
 
                                     <a href="#" class="link-black text-sm mr-2">
-                                        {{$diskusi->users->profil_users->nama_lengkap}} | {{$diskusi->created_at->diffForHumans()}}|
+                                        {{$diskusi->users->profil_users->nama_lengkap}} | {{$diskusi->created_at->diffForHumans()}} |
                                     </a>
-                                    <a href="{{ route('discussions.index', $academy->id) }}?materi={{$diskusi->materi_silabus_id}}" class="link-black text-sm mr-2">
+                                    <a href="{{ route('discussions.index', $academy->id) }}?materi={{$diskusi->materi_silabus_id}}" class="link-black text-sm">
                                         <i class="icofont-book-alt"></i> {{ substr($diskusi->materi_silabuses->judul_materi, 0, 20) }} ...
                                     </a>
                                 </p>
@@ -72,7 +76,7 @@
                         <b>Diskusi</b>
                     </div>
                     <div class="mb-2">
-                        <i class="icofont-speech-comments"></i> 2 Pembahasan
+                        <i class="icofont-speech-comments"></i> {{$diskusi->balas_diskusi_materis->count()}} Pembahasan
                     </div>
 
                     @if($diskusi->status == 0)
@@ -123,93 +127,67 @@
 
                 <div class="col-12">
                     <ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="nav-link active" href="#pembahasan" data-toggle="tab"><i class="icofont-speech-comments"></i> 2 Pembahasan</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="#pembahasan" data-toggle="tab"><i class="icofont-speech-comments"></i> {{$diskusi->balas_diskusi_materis->count()}} Pembahasan</a></li>
                     </ul>
 
                     <div class="tab-content pt-4">
                         <!-- Pembahasan -->
                         <div class="active tab-pane" id="pembahasan">
 
-                            <form action="#" method="post" class="mb-4">
+                            <form action="{{ route('replaydiscussions.store') }}" method="post" class="mb-4">
+                                @csrf
                                 <div class="mb-3">
                                     <img src="/avatar/{{Auth::user()->avatar}}" alt="avatar" class="user-avatar"> {{Auth::user()->profil_users->nama_lengkap}}
                                 </div>
-                                <textarea class="form-control summernote" name="uraian_pertanyaan" id="uraian_pertanyaan"></textarea>
-
+                                <input type="hidden" name="diskusi_id" value="{{$diskusi->id}}">
+                                <textarea class="form-control summernote" name="komentar" id="komentar"></textarea>
+                                @error('komentar')
+                                <small class="form-text text-danger mb-3">{{ $message }}</small>
+                                @enderror
                                 <button type="submit" class="btn btn-sm btn-dark ">Kirim Komentar</button>
 
                             </form>
 
                             <hr class="my-4">
+                            @foreach($diskusi->balas_diskusi_materis->sortByDesc('created_at') as $komentar)
                             <div class="card">
                                 <div class="post px-3 py-3">
                                     <a href="#">
                                         <div class="user-block">
                                             <div class="row">
                                                 <div class="col-10">
-                                                    <img class="img-circle img-bordered-sm" src="/member-assets/img/testimonials/testimonials-1.jpg" alt="user image">
+                                                    <img class="img-circle img-bordered-sm" src="/avatar/{{$komentar->users->avatar}}" alt="user image">
                                                     <span class="pl-3">
-                                                        Jonathan Burke Jr.
+                                                        {{$komentar->users->profil_users->nama_lengkap}}
                                                     </span>
                                                     <span class="description pl-1">
-                                                        <i class="icofont-clock-time"></i> 7:30 PM today
+                                                        <i class="icofont-clock-time"></i> {{$komentar->created_at->diffForHumans()}}
                                                     </span>
                                                 </div>
+                                                @if($komentar->status == 1)
                                                 <div class="col-2">
                                                     <span class="badge badge-info float-right"><i class="icofont-check-circled"></i> Jawaban Terilih</span>
                                                 </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </a>
                                     <!-- /.user-block -->
 
                                     <p class="text-dark">
-                                        Saya sedang membuat tugas untuk membauat web sederhana menggunakan laravel tetapi ketika di akses mengalamai error serperti ini.
+                                        {!! $komentar->komentar !!}
                                     </p>
 
                                     <p class="mb-2">
                                         <a href="#" class="link-black text-sm mr-2"><i class="icofont-like"></i> 0 Suka</a>
+                                        @if($komentar->status == 0)
                                         <a href="#" class="link-black text-sm"><i class="icofont-check-circled"></i> Tandai Sebagai Jawaban Terpilih</a>
+                                        @endif
                                     </p>
                                 </div>
                             </div>
+                            @endforeach
 
-                            <div class="card">
-                                <div class="post px-3 py-3">
-                                    <a href="#">
-                                        <div class="user-block">
-                                            <div class="row">
-                                                <div class="col-10">
-                                                    <img class="img-circle img-bordered-sm" src="/member-assets/img/testimonials/testimonials-1.jpg" alt="user image">
-                                                    <span class="pl-3">
-                                                        Jonathan Burke Jr.
-                                                    </span>
-                                                    <span class="description pl-1">
-                                                        <i class="icofont-clock-time"></i> 7:30 PM today
-                                                    </span>
-                                                </div>
-                                                <div class="col-2">
-                                                    <span class="badge badge-info float-right"><i class="icofont-check-circled"></i> Jawaban Terilih</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <!-- /.user-block -->
-
-                                    <p class="text-dark">
-                                        Saya sedang membuat tugas untuk membauat web sederhana menggunakan laravel tetapi ketika di akses mengalamai error serperti ini.
-                                    </p>
-
-                                    <p class="mb-2">
-                                        <a href="#" class="link-black text-sm mr-2"><i class="icofont-like"></i> 0 Suka</a>
-                                        <a href="#" class="link-black text-sm"><i class="icofont-check-circled"></i> Tandai Sebagai Jawaban Terpilih</a>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="text-center">
-                                <a href="#">Read More <i class="icofont-rounded-down"></i></a>
-                            </div>
                         </div>
                         <!-- End Pembahasan -->
                     </div>

@@ -165,7 +165,7 @@ class DiskusiMateriController extends Controller
             'data_notifikasi',
             'diskusi',
         ));
-
+       
         // LANJUTKAN TAMPILKAN DATA 
     }
 
