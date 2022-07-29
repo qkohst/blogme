@@ -36,38 +36,32 @@
 
                 <!-- Questiont List  -->
                 <div class="col-lg-9 col-md-12">
-                    <div class="post px-3 py-2">
+                    <div class="post py-2">
                         <a href="#">
                             <div class="user-block">
                                 <img class="img-circle img-bordered-sm" src="/member-assets/img/testimonials/testimonials-1.jpg" alt="user image">
                                 <span class="pl-2">
-                                    Cara Mengatasi Error Di Laravel
+                                    {{$diskusi->pertanyaan}}
                                 </span>
                                 <p class="description">
 
                                     <a href="#" class="link-black text-sm mr-2">
-                                        Jonathan Burke Jr. | 7:30 PM today |
+                                        {{$diskusi->users->profil_users->nama_lengkap}} | {{$diskusi->created_at->diffForHumans()}}|
                                     </a>
-                                    <a href="#" class="link-black text-sm mr-2">
-                                        <i class="icofont-book-alt"></i> Nama Materi
+                                    <a href="{{ route('discussions.index', $academy->id) }}?materi={{$diskusi->materi_silabus_id}}" class="link-black text-sm mr-2">
+                                        <i class="icofont-book-alt"></i> {{ substr($diskusi->materi_silabuses->judul_materi, 0, 20) }} ...
                                     </a>
                                 </p>
-                                <!-- <span class="description">
-                                    <a href="#" class="link-black text-sm mr-2">
-                                        <i class="icofont-book-alt"></i> Materi
-                                    </a>
-                                </span> -->
                             </div>
                         </a>
                         <!-- /.user-block -->
 
                         <p class="text-dark">
-                            Saya sedang membuat tugas untuk membauat web sederhana menggunakan laravel tetapi ketika di akses mengalamai error serperti ini.
+                            {!! $diskusi->uraian_pertanyaan !!}
                         </p>
                     </div>
-                    <hr>
                     <div>
-                        <a href="#" class="btn btn-sm btn-outline-secondary bg-light"><i class="icofont-undo"></i> Kembali</a>
+                        <a href="{{ route('discussions.index', $academy->id) }}?materi={{$diskusi->materi_silabus_id}}" class="btn btn-sm btn-outline-secondary bg-light"><i class="icofont-undo"></i> Kembali</a>
                     </div>
                 </div>
 
@@ -80,32 +74,37 @@
                     <div class="mb-2">
                         <i class="icofont-speech-comments"></i> 2 Pembahasan
                     </div>
+
+                    @if($diskusi->status == 0)
                     <div class="text-primary">
                         <i class="icofont-check-circled"></i> Selesai
                     </div>
+                    @endif
 
                     <!-- Keyword  -->
                     <div class="my-2">
                         <b>Keyword</b>
                     </div>
+
+                    @foreach($diskusi->kata_kunci_diskusis as $key)
                     <button type="button" class="btn btn-sm btn-secondary badge">
-                        #laravel
+                        #{{$key->kata_kuncis->key}}
                     </button>
-                    <button type="button" class="btn btn-sm btn-secondary badge">
-                        #php
-                    </button>
+                    @endforeach
 
                     <!-- Action -->
                     <div class="my-2">
                         <b>Action</b>
                     </div>
 
+                    @if($diskusi->status == 1 && Auth::user()->id == $diskusi->user_id)
                     <a href="#" class="btn btn-outline-dark bg-secondary btn-block"><i class="icofont-check-circled"></i> Tandai Dikkusi Selesai</a>
+                    @endif
 
-                    <a href="#" class="btn btn-outline-secondary bg-light btn-block"><i class="icofont-speech-comments"></i> Replay</a>
-                    <a href="#" class="btn btn-outline-secondary bg-light btn-block"><i class="icofont-share"></i> Share</a>
-                    <a href="#" class="btn btn-outline-secondary bg-light btn-block"><i class="icofont-undo"></i> Kembali</a>
-
+                    <a href="#comment" class="btn btn-outline-secondary bg-light btn-block"><i class="icofont-speech-comments"></i> Replay</a>
+                    <button class="btn btn-outline-secondary bg-light btn-block" onclick="copyLink()"><i class="icofont-share"></i> Share</button>
+                    <a href="{{ route('discussions.index', $academy->id) }}?materi={{$diskusi->materi_silabus_id}}" class="btn btn-outline-secondary bg-light btn-block"><i class="icofont-undo"></i> Kembali</a>
+                    <input type="hidden" id="urlCopy" value="{{ Request::url() }}">
                 </div>
 
             </div>
@@ -113,7 +112,7 @@
             <!-- Pembahasan -->
             <div class="row">
 
-                <div class="col-12 mt-4">
+                <div class="col-12 mt-4" id="comment">
                     <div class="alert alert-light" role="alert">
                         <h6 class="alert-heading">Aturan Membuat dan Menjawab Pertanyaan di Forum Diskusi Kelas</h6>
                         <p class="text-sm">Mohon untuk menggunakan bahasa yang sopan & mudah dipahami serta berikan komentar yang konstruktif. Pastikan juga untuk menyertakan informasi detail seperti:
@@ -232,6 +231,16 @@
         // Summernote
         $('.summernote').summernote()
     })
+
+    function copyLink() {
+        /* Save value of myText to input variable */
+        var input = document.getElementById("urlCopy").value;
+
+        /* Copy the text inside the text field */
+        navigator.clipboard.writeText(input);
+
+        alert("URL telah disalin !! ");
+    }
 </script>
 
 @yield('page_scripts')

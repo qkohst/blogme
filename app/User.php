@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\DiskusiMateri');
     }
+
+    public function balas_diskusi_materis()
+    {
+        return $this->hasMany('App\BalasDiskusiMateri');
+    }
 }

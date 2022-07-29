@@ -156,13 +156,14 @@ class DiskusiMateriController extends Controller
         $title3 = $academy->nama_kelas;
 
         $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
-
+        $diskusi = DiskusiMateri::findorfail($discussion);
         return view('academy.discussions.show', compact(
             'title',
             'title2',
             'title3',
             'academy',
-            'data_notifikasi'
+            'data_notifikasi',
+            'diskusi',
         ));
 
         // LANJUTKAN TAMPILKAN DATA 

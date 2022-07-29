@@ -14,8 +14,6 @@ class DiskusiMateri extends Model
         'status',
     ];
 
-    // LANJUT KE FILTER URUTKAN & KEYWORD
-
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['materi'] ?? false, function ($query, $materi) {
@@ -58,5 +56,10 @@ class DiskusiMateri extends Model
     public function kata_kunci_diskusis()
     {
         return $this->hasMany('App\KataKunciDiskusi');
+    }
+
+    public function balas_diskusi_materis()
+    {
+        return $this->hasMany('App\BalasDiskusiMateri');
     }
 }
