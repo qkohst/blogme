@@ -144,7 +144,7 @@ class AcademyController extends Controller
         $id_silabus = SilabusAcademy::where('academy_id', $academy->id)->get('id');
         $id_materi = MateriSilabus::whereIn('silabus_academy_id', $id_silabus)->get('id');
         if (Auth::check()) {
-            $check_peserta = PesertaAcademy::where('academy_id', $academy->id)->where('user_id', Auth::user()->id)->whereIn('status', ['approved','finish'])->first();
+            $check_peserta = PesertaAcademy::whereIn('status', ['approved', 'finish'])->where('academy_id', $academy->id)->where('user_id', Auth::user()->id)->first();
             $riwayat_belajar_terakhir = RiwayatBelajar::whereIn('materi_silabus_id', $id_materi)->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
         } else {
             $riwayat_belajar_terakhir = null;

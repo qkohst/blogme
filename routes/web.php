@@ -132,36 +132,39 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Route Member
     Route::group(['middleware' => 'checkRole:2'], function () {
-        Route::group(['prefix' => 'member'], function () {
-            Route::resource('profile', 'Member\ProfileController',  [
-                'names' => 'profile',
-                'uses' => ['index', 'show']
-            ]);
-            Route::get('settings', 'Member\SettingsProfileController@index')->name('settings.index');
-            Route::post('settings/profile', 'Member\SettingsProfileController@profile')->name('settings.profile');
-            Route::post('settings/personal', 'Member\SettingsProfileController@personal')->name('settings.personal');
-            Route::resource('orders', 'Member\PesananController',  [
-                'names' => 'orders',
-                'uses' => ['index', 'show', 'destroy', 'update']
-            ]);
+        Route::get('settings', 'Member\SettingsProfileController@index')->name('settings.index');
+        Route::post('settings/profile', 'Member\SettingsProfileController@profile')->name('settings.profile');
+        Route::post('settings/personal', 'Member\SettingsProfileController@personal')->name('settings.personal');
 
-            Route::get('academy/class/{id}/register', 'AcademyController@register')->name('register.academy');
-            Route::post('academy/class/{id}/register', 'AcademyController@store_register')->name('store_register.academy');
+        Route::group(['middleware' => 'checkIdentitasMember'], function () {
+            Route::group(['prefix' => 'member'], function () {
+                Route::resource('profile', 'Member\ProfileController',  [
+                    'names' => 'profile',
+                    'uses' => ['index', 'show']
+                ]);
+                Route::resource('orders', 'Member\PesananController',  [
+                    'names' => 'orders',
+                    'uses' => ['index', 'show', 'destroy', 'update']
+                ]);
 
-            Route::post('kirimjawaban', 'Member\ModulAcademyController@kirim_jawaban')->name('modul.kirim_jawaban');
-            Route::post('kirimsubmission', 'Member\ModulAcademyController@kirim_submission')->name('modul.kirim_submission');
-            Route::post('kirimulangsubmission', 'Member\ModulAcademyController@kirim_ulang_submission')->name('modul.kirim_ulang_submission');
-            Route::post('selesaikelas', 'Member\ModulAcademyController@selesai_kelas')->name('modul.selesai_kelas');
-            Route::get('academy/class/{id}', 'Member\ModulAcademyController@index')->name('modul.index')->middleware('checkJenisKelas');
+                Route::get('academy/class/{id}/register', 'AcademyController@register')->name('register.academy');
+                Route::post('academy/class/{id}/register', 'AcademyController@store_register')->name('store_register.academy');
 
-            Route::post('lapor-materi', 'Member\LaporanMateriController@store')->name('lapor.materi');
+                Route::post('kirimjawaban', 'Member\ModulAcademyController@kirim_jawaban')->name('modul.kirim_jawaban');
+                Route::post('kirimsubmission', 'Member\ModulAcademyController@kirim_submission')->name('modul.kirim_submission');
+                Route::post('kirimulangsubmission', 'Member\ModulAcademyController@kirim_ulang_submission')->name('modul.kirim_ulang_submission');
+                Route::post('selesaikelas', 'Member\ModulAcademyController@selesai_kelas')->name('modul.selesai_kelas');
+                Route::get('academy/class/{id}', 'Member\ModulAcademyController@index')->name('modul.index')->middleware('checkJenisKelas');
 
-            Route::get('academy/class/{id}/discussions', 'Member\DiskusiMateriController@index')->name('discussions.index');
-            Route::get('academy/class/{id}/discussions/create', 'Member\DiskusiMateriController@create')->name('discussions.create');
-            Route::post('academy/class/{id}/discussions/store', 'Member\DiskusiMateriController@store')->name('discussions.store');
-            Route::get('academy/class/{id}/discussions/{discussion}', 'Member\DiskusiMateriController@show')->name('discussions.show');
+                Route::post('lapor-materi', 'Member\LaporanMateriController@store')->name('lapor.materi');
 
-            Route::post('replaydiscussions/store', 'Member\BalasDiskusiMateriController@store')->name('replaydiscussions.store');
+                Route::get('academy/class/{id}/discussions', 'Member\DiskusiMateriController@index')->name('discussions.index');
+                Route::get('academy/class/{id}/discussions/create', 'Member\DiskusiMateriController@create')->name('discussions.create');
+                Route::post('academy/class/{id}/discussions/store', 'Member\DiskusiMateriController@store')->name('discussions.store');
+                Route::get('academy/class/{id}/discussions/{discussion}', 'Member\DiskusiMateriController@show')->name('discussions.show');
+
+                Route::post('replaydiscussions/store', 'Member\BalasDiskusiMateriController@store')->name('replaydiscussions.store');
+            });
         });
     });
 });

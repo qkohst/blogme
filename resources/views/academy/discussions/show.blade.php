@@ -180,7 +180,7 @@
 
                                     <p class="mb-2">
                                         <a href="#" class="link-black text-sm mr-2"><i class="icofont-like"></i> 0 Suka</a>
-                                        @if($komentar->status == 0)
+                                        @if($komentar->status == 0 && Auth::user()->id == $diskusi->user_id)
                                         <a href="#" class="link-black text-sm"><i class="icofont-check-circled"></i> Tandai Sebagai Jawaban Terpilih</a>
                                         @endif
                                     </p>

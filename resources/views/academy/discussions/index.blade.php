@@ -201,7 +201,7 @@
                                         <i class="icofont-book-alt"></i> {{ substr($diskusi->materi_silabuses->judul_materi, 0, 15) }} ...
                                     </a>
                                     <a href="/member/academy/class/{{$academy->id}}/discussions/{{$diskusi->id}}" class="link-black text-sm mr-2">
-                                        <i class="icofont-comment mr-1"></i> 5 Pembahasan
+                                        <i class="icofont-comment mr-1"></i> {{$diskusi->balas_diskusi_materis->count()}} Pembahasan
                                     </a>
                                 </p>
                             </div>
