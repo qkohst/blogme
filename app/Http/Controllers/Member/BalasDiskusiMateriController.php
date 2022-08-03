@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use App\BalasDiskusiMateri;
 use App\Http\Controllers\Controller;
+use App\NotifikasiMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,9 +30,21 @@ class BalasDiskusiMateriController extends Controller
             'status' => '0'
         ]);
         $balas_diskusi->save();
+
+        // Notifikasi Ke User
+        if (Auth::user()->id != $balas_diskusi->diskusi_materis->users->id) {
+            $notifikasi = new NotifikasiMember([
+                'from_user_id' => Auth::user()->id,
+                'to_user_id' => $balas_diskusi->diskusi_materis->users->id,
+                'judul' => 'Komentar baru pada diskusi anda',
+                'url' => '/member/academy/class/' . $balas_diskusi->diskusi_materis->materi_silabuses->silabus_academies->academy_id . '/discussions/' . $balas_diskusi->diskusi_materis->id,
+                'status' => '0'
+            ]);
+            $notifikasi->save();
+        }
         return back()->with('toast_success', 'Berhasil disimpan.');
 
-        // BUAT MIDDLEWARE CHECK KELENGKAPAN IDENTITAS UNTUK MEMBER
+        // LANJUT KE LIKE BALAS KOMENTAR WITH AJAX
     }
 
     /**

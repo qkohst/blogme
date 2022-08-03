@@ -154,9 +154,15 @@ class DiskusiMateriController extends Controller
         $title = 'Detail Diskusi';
         $title2 = 'Diskusi Kelas';
         $title3 = $academy->nama_kelas;
+        $diskusi = DiskusiMateri::findorfail($discussion);
+        foreach ($diskusi->balas_diskusi_materis as $komentar) {
+            $komentar->jumlah_like = null;
+            $komentar->is_liked = null;
+        }
+
+        NotifikasiMember::where('to_user_id', Auth::user()->id)->where('url', '/member/academy/class/' . $diskusi->materi_silabuses->silabus_academies->academy_id . '/discussions/' . $diskusi->id)->update(['status' => '1']);
 
         $data_notifikasi = NotifikasiMember::where('to_user_id', Auth::user()->id)->where('status', '0')->orderBy('id', 'desc')->get();
-        $diskusi = DiskusiMateri::findorfail($discussion);
         return view('academy.discussions.show', compact(
             'title',
             'title2',
@@ -165,19 +171,6 @@ class DiskusiMateriController extends Controller
             'data_notifikasi',
             'diskusi',
         ));
-       
-        // LANJUTKAN TAMPILKAN DATA 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

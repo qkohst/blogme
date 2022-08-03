@@ -134,7 +134,7 @@
                         <!-- Pembahasan -->
                         <div class="active tab-pane" id="pembahasan">
 
-                            <form action="{{ route('replaydiscussions.store') }}" method="post" class="mb-4">
+                            <form class="my-form" action="{{ route('replaydiscussions.store') }}" method="post" class="mb-4">
                                 @csrf
                                 <div class="mb-3">
                                     <img src="/avatar/{{Auth::user()->avatar}}" alt="avatar" class="user-avatar"> {{Auth::user()->profil_users->nama_lengkap}}
@@ -144,7 +144,7 @@
                                 @error('komentar')
                                 <small class="form-text text-danger mb-3">{{ $message }}</small>
                                 @enderror
-                                <button type="submit" class="btn btn-sm btn-dark ">Kirim Komentar</button>
+                                <a href="#" class="btn btn-sm btn-dark btn-save">Kirim Komentar</a>
 
                             </form>
 
@@ -200,6 +200,52 @@
 @endsection
 
 @section('scripts')
+<!-- Sweet Alert -->
+<script src="/admin-assets/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script>
+    var SweetAlert2Demo = function() {
+        //== Demos
+        var initDemos = function() {
+
+            $('.btn-save').click(function(e) {
+                id = e.target.dataset.id;
+                swal({
+                    title: 'Apakah anda yakin ?',
+                    text: "Kirim komentar !",
+                    type: 'warning',
+                    buttons: {
+                        confirm: {
+                            text: 'Simpan',
+                            className: 'btn btn-dark'
+                        },
+                        cancel: {
+                            visible: true,
+                            text: 'Batal',
+                            className: 'btn btn-outline-dark'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        $('.my-form').submit();
+                    } else {
+                        swal.close();
+                    }
+                });
+            });
+        };
+        return {
+            //== Init
+            init: function() {
+                initDemos();
+            },
+        };
+    }();
+    //== Class Initialization
+    jQuery(document).ready(function() {
+        SweetAlert2Demo.init();
+    });
+</script>
+
 <!-- jQuery -->
 <script src="/admin-assets/js/core/bootstrap.min.js"></script>
 <!-- Summernote -->

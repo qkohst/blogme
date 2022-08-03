@@ -98,7 +98,7 @@
                             <small class="text-secondary">Contoh: <b>android, intents, material design</b></small>
                         </div>
 
-                        <button type="submit" class="btn btn-dark text-white btn-save">Buat Diskusi</button>
+                        <a href="#" class="btn btn-dark text-white btn-save">Buat Diskusi</a>
 
                         <a href="{{ route('discussions.index', $academy->id) }}" class="btn btn-secondary text-white">Batal</a>
 
@@ -115,6 +115,52 @@
 @endsection
 
 @section('scripts')
+<!-- Sweet Alert -->
+<script src="/admin-assets/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script>
+    var SweetAlert2Demo = function() {
+        //== Demos
+        var initDemos = function() {
+
+            $('.btn-save').click(function(e) {
+                id = e.target.dataset.id;
+                swal({
+                    title: 'Apakah anda yakin ?',
+                    text: "Simpan diskusi !",
+                    type: 'warning',
+                    buttons: {
+                        confirm: {
+                            text: 'Simpan',
+                            className: 'btn btn-dark'
+                        },
+                        cancel: {
+                            visible: true,
+                            text: 'Batal',
+                            className: 'btn btn-outline-dark'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        $('.my-form').submit();
+                    } else {
+                        swal.close();
+                    }
+                });
+            });
+        };
+        return {
+            //== Init
+            init: function() {
+                initDemos();
+            },
+        };
+    }();
+    //== Class Initialization
+    jQuery(document).ready(function() {
+        SweetAlert2Demo.init();
+    });
+</script>
+
 <!-- jQuery -->
 <script src="/admin-assets/js/core/bootstrap.min.js"></script>
 <!-- Summernote -->

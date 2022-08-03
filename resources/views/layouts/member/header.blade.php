@@ -45,12 +45,12 @@
                                     </div>
                                     @endif
                                     <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
+                                        <h6 class="text-sm font-weight-normal mb-0">
                                             <span class="font-weight-bold">{{$notifikasi->judul}}</span>
-                                            @if(!is_null($notifikasi->from_user_id))
-                                            dari {{$notifikasi->from_users->username}}
-                                            @endif
                                         </h6>
+                                        @if(!is_null($notifikasi->from_user_id))
+                                        <p class="text-sm text-secondary mb-0">Dari {{$notifikasi->from_users->username}}</p>
+                                        @endif
                                         <p class="text-xs text-secondary mb-0">
                                             <i class="icofont-clock-time me-1"></i>
                                             {{$notifikasi->created_at->diffForHumans()}}
